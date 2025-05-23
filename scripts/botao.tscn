@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhvnfelcycl01"]
+
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="1_okffs"]
+[ext_resource type="Script" path="res://game_assets/main_menu/botao.gd" id="2_vxy4p"]
+
+[node name="Botao" type="Label"]
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 13
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = ExtResource("1_okffs")
+theme_override_font_sizes/font_size = 30
+text = "NOVO BOTÃO"
+horizontal_alignment = 1
+script = ExtResource("2_vxy4p")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

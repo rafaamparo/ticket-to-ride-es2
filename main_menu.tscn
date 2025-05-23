@@ -1,0 +1,142 @@
+[gd_scene load_steps=6 format=3 uid="uid://duawtiq8erv7i"]
+
+[ext_resource type="Texture2D" uid="uid://bf80viq1m04u6" path="res://game_assets/main_menu/background.jpg" id="1_yc68r"]
+[ext_resource type="Texture2D" uid="uid://ix0m1t83ahoc" path="res://game_assets/main_menu/logo.png" id="2_pyf7l"]
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="3_0jiio"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="4_maeqn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlu8w"]
+texture = ExtResource("1_yc68r")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rlu8w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_pyf7l")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 13
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = ExtResource("3_0jiio")
+theme_override_font_sizes/font_size = 30
+text = "NOVO JOGO"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 13
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = ExtResource("3_0jiio")
+theme_override_font_sizes/font_size = 30
+text = "Configurações"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 13
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = ExtResource("3_0jiio")
+theme_override_font_sizes/font_size = 30
+text = "Conquistas"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 13
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = ExtResource("3_0jiio")
+theme_override_font_sizes/font_size = 30
+text = "Sair do jogo"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/bold_font = ExtResource("3_0jiio")
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Versão 0.1.0[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/normal_font = ExtResource("4_maeqn")
+theme_override_font_sizes/normal_font_size = 19
+theme_override_font_sizes/bold_font_size = 22
+bbcode_enabled = true
+text = "© 2025 GRUPO BCJJRT"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://caqp8j6nugdg3"]
+
+[ext_resource type="Texture2D" uid="uid://btapowgjshw15" path="res://game_assets/game_scene/card_spreadsheet.png" id="1_eenfb"]
+[ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/game_card.gd" id="1_nypqo"]
+
+[node name="GameCard" type="Node2D"]
+script = ExtResource("1_nypqo")
+
+[node name="CardSprite" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("1_eenfb")
+hframes = 2
+vframes = 4

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://0xgcunk0e4i5"]
+
+[ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
+[ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
+
+[node name="GameScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1073.0
+offset_bottom = 1577.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" parent="." instance=ExtResource("1_gpu2n")]
+anchor_mode = 0
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_othft")
+expand_mode = 1
+stretch_mode = 4

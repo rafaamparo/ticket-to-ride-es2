@@ -24,9 +24,16 @@ func _ready() -> void:
 	current_zoom_scalar = clamp(1.0, min_zoom_scalar, max_zoom_scalar) # Start at 1.0x zoom if possible
 	self.zoom = Vector2(current_zoom_scalar, current_zoom_scalar)
 	
-	# Optional: Center camera on the map initially
-	self.global_position = MAP_SIZE / 2.0
-	
+	# Set initial camera position so its top-left view is at map origin (0,0)
+	# This assumes global_position is the center of the camera's view.
+	if current_zoom_scalar > 0.00001: # Ensure zoom is valid
+		var initial_view_half_size_world = (viewport_size / current_zoom_scalar) / 2.0
+		self.global_position = initial_view_half_size_world
+	else:
+		# Fallback if zoom is invalid, though it should be clamped correctly above.
+		# This case should ideally not be reached if min_zoom_scalar is positive.
+		self.global_position = MAP_SIZE / 2.0 
+
 	# Ensure this camera is the active one
 	make_current()
 	# Call _process once to immediately apply clamping with initial values

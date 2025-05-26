@@ -1,6 +1,10 @@
 extends Camera2D
 
 const MAP_SIZE := Vector2(2225.0, 2225.0)
+# SYSTEM_OFFSET is the observed error in the view when zoom is 1.0.
+# For example, if view is shifted left by 576 and up by 325, error is (-576, -325).
+# The correction applied will be -SYSTEM_OFFSET / current_zoom_scalar.
+const SYSTEM_OFFSET := Vector2(576.0, 325.0) 
 
 # Zoom parameters
 var current_zoom_scalar := 1.0
@@ -28,11 +32,15 @@ func _ready() -> void:
 	# This assumes global_position is the center of the camera's view.
 	if current_zoom_scalar > 0.00001: # Ensure zoom is valid
 		var initial_view_half_size_world = (viewport_size / current_zoom_scalar) / 2.0
-		self.global_position = initial_view_half_size_world
+		var true_initial_logical_center = initial_view_half_size_world
+		var initial_correction_scaled = -SYSTEM_OFFSET / current_zoom_scalar if current_zoom_scalar != 0 else Vector2.ZERO
+		self.global_position = true_initial_logical_center + initial_correction_scaled
 	else:
 		# Fallback if zoom is invalid, though it should be clamped correctly above.
-		# This case should ideally not be reached if min_zoom_scalar is positive.
-		self.global_position = MAP_SIZE / 2.0 
+		var true_initial_logical_center = MAP_SIZE / 2.0 
+		# Assuming zoom is 1.0 for fallback correction, or handle appropriately
+		var fallback_correction_scaled = -SYSTEM_OFFSET # Or -SYSTEM_OFFSET / 1.0
+		self.global_position = true_initial_logical_center + fallback_correction_scaled
 
 	# Ensure this camera is the active one
 	make_current()
@@ -62,13 +70,21 @@ func _input(event: InputEvent) -> void:
 					var old_zoom_val = current_zoom_scalar
 					var world_mouse_pos = get_global_mouse_position() # Point to zoom towards
 					
+					var old_correction_scaled = -SYSTEM_OFFSET / old_zoom_val if old_zoom_val != 0 else Vector2.ZERO
+					var old_true_logical_center = self.global_position - old_correction_scaled
+					
 					current_zoom_scalar = new_clamped_zoom_scalar
 					self.zoom = Vector2(current_zoom_scalar, current_zoom_scalar)
 					
 					# Adjust camera position to keep the point under the mouse stationary
-					# Formula: NewCamPos = WorldMousePos + (OldCamPos - WorldMousePos) * (OldZoom / NewZoom)
 					if old_zoom_val != 0 and current_zoom_scalar != 0: # Avoid division by zero
-						self.global_position = world_mouse_pos + (self.global_position - world_mouse_pos) * (old_zoom_val / current_zoom_scalar)
+						var new_true_logical_center = world_mouse_pos + (old_true_logical_center - world_mouse_pos) * (old_zoom_val / current_zoom_scalar)
+						var new_correction_scaled = -SYSTEM_OFFSET / current_zoom_scalar
+						self.global_position = new_true_logical_center + new_correction_scaled
+					else: # Should not happen if zoom is always positive
+						var new_correction_scaled = -SYSTEM_OFFSET / current_zoom_scalar if current_zoom_scalar != 0 else Vector2.ZERO
+						self.global_position = old_true_logical_center + new_correction_scaled # Fallback: re-apply correction with new zoom
+
 					# Position clamping will be handled in _process
 
 		# --- Panning Logic (Right Mouse Button) ---
@@ -102,25 +118,27 @@ func _process(_delta: float) -> void:
 	# Half of the camera's view size in world units
 	var view_half_size_world = (viewport_size / current_zoom_scalar) / 2.0
 
-	# Calculate allowed min/max camera center positions
+	# Calculate allowed min/max effective camera center positions
 	# Assumes map origin is (0,0) and extends to MAP_SIZE
-	var min_cam_pos_x = view_half_size_world.x
+	var min_cam_pos_x = view_half_size_world.x 
 	var max_cam_pos_x = MAP_SIZE.x - view_half_size_world.x
 	var min_cam_pos_y = view_half_size_world.y
 	var max_cam_pos_y = MAP_SIZE.y - view_half_size_world.y
 	
-	var new_clamped_pos = self.global_position
+	var current_correction_scaled = -SYSTEM_OFFSET / current_zoom_scalar if current_zoom_scalar != 0 else Vector2.ZERO
+	var current_true_logical_center = self.global_position - current_correction_scaled
+	var new_clamped_true_logical_center = current_true_logical_center
 
 	# If view is wider than map (due to aspect ratio and zoom limits), center it on map's X
 	if min_cam_pos_x > max_cam_pos_x:
-		new_clamped_pos.x = MAP_SIZE.x / 2.0
+		new_clamped_true_logical_center.x = MAP_SIZE.x / 2.0
 	else:
-		new_clamped_pos.x = clamp(self.global_position.x, min_cam_pos_x, max_cam_pos_x)
+		new_clamped_true_logical_center.x = clamp(current_true_logical_center.x, min_cam_pos_x, max_cam_pos_x)
 
 	# If view is taller than map, center it on map's Y
 	if min_cam_pos_y > max_cam_pos_y:
-		new_clamped_pos.y = MAP_SIZE.y / 2.0
+		new_clamped_true_logical_center.y = MAP_SIZE.y / 2.0
 	else:
-		new_clamped_pos.y = clamp(self.global_position.y, min_cam_pos_y, max_cam_pos_y)
+		new_clamped_true_logical_center.y = clamp(current_true_logical_center.y, min_cam_pos_y, max_cam_pos_y)
 		
-	self.global_position = new_clamped_pos
+	self.global_position = new_clamped_true_logical_center + current_correction_scaled

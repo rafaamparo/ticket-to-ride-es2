@@ -55,6 +55,6 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
 
 
 ## Links úteis 
-+ [:link:](https://drive.google.com/drive/folders/1cuiLI-nLHgZQftqxqwLhmsISwi6Ljx0f?usp=drive_link) Google Drive: imagens, documentos e relatórios gerados durante o desenvolvimento do jogo.
-+ [:link:](https://www.canva.com/design/DAGmO0nm1Io/6k_SZDvsDn_vYE2s3cZuHA/view?utm_content=DAGmO0nm1Io&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h14eb927491) Primeira apresentação: apresentação de slides utilizada na primeira entrega do projeto.
-+ [:link:](https://www.canva.com/design/DAGoTfS5UDs/SqobLz9NjghUm6eEAiyMbQ/view?utm_content=DAGoTfS5UDs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h291b6ab2b8) Segunda apresentação: apresentação de slides utilizada na segunda entrega do projeto
++ [:link:](https://drive.google.com/drive/folders/1cuiLI-nLHgZQftqxqwLhmsISwi6Ljx0f?usp=drive_link) Google Drive - imagens, documentos e relatórios gerados durante o desenvolvimento do jogo.
++ [:link:](https://www.canva.com/design/DAGmO0nm1Io/6k_SZDvsDn_vYE2s3cZuHA/view?utm_content=DAGmO0nm1Io&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h14eb927491) Primeira apresentação - apresentação de slides utilizada na primeira entrega do projeto.
++ [:link:](https://www.canva.com/design/DAGoTfS5UDs/SqobLz9NjghUm6eEAiyMbQ/view?utm_content=DAGoTfS5UDs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h291b6ab2b8) Segunda apresentação - apresentação de slides utilizada na segunda entrega do projeto

@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://duawtiq8erv7i"]
 
-[ext_resource type="Texture2D" uid="uid://bf80viq1m04u6" path="res://game_assets/main_menu/background.jpg" id="1_yc68r"]
-[ext_resource type="Texture2D" uid="uid://ix0m1t83ahoc" path="res://game_assets/main_menu/logo.png" id="2_pyf7l"]
-[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="3_0jiio"]
-[ext_resource type="PackedScene" uid="uid://dhvnfelcycl01" path="res://scripts/botao.tscn" id="3_x2qaa"]
-[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="4_maeqn"]
+[ext_resource type="Texture2D" uid="uid://bf80viq1m04u6" path="res://game_assets/main_menu/background.jpg" id="1_pvixp"]
+[ext_resource type="Texture2D" uid="uid://ix0m1t83ahoc" path="res://game_assets/main_menu/logo.png" id="2_bqomf"]
+[ext_resource type="PackedScene" uid="uid://dhvnfelcycl01" path="res://scripts/botao.tscn" id="3_3k0gc"]
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="4_pktd1"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="5_xblau"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlu8w"]
-texture = ExtResource("1_yc68r")
+texture = ExtResource("1_pvixp")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -51,20 +51,20 @@ theme_override_constants/separation = 16
 custom_minimum_size = Vector2(0, 210)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("2_pyf7l")
+texture = ExtResource("2_bqomf")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Novo Jogo" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_x2qaa")]
+[node name="Novo Jogo" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_3k0gc")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
 button_name = "Novo Jogo"
 
-[node name="Configurações" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_x2qaa")]
+[node name="Configurações" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_3k0gc")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -72,7 +72,7 @@ text = "Configurações"
 uppercase = true
 button_name = "Configurações"
 
-[node name="Conquistas" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_x2qaa")]
+[node name="Conquistas" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_3k0gc")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -80,7 +80,7 @@ text = "Conquistas"
 uppercase = true
 button_name = "Conquistas"
 
-[node name="Conquistas2" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_x2qaa")]
+[node name="Conquistas2" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_3k0gc")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -96,7 +96,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
-theme_override_fonts/bold_font = ExtResource("3_0jiio")
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
 theme_override_font_sizes/bold_font_size = 20
 bbcode_enabled = true
 text = "[b]Versão 0.1.0[/b]"
@@ -108,7 +108,7 @@ autowrap_mode = 0
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
-theme_override_fonts/normal_font = ExtResource("4_maeqn")
+theme_override_fonts/normal_font = ExtResource("5_xblau")
 theme_override_font_sizes/normal_font_size = 19
 theme_override_font_sizes/bold_font_size = 22
 bbcode_enabled = true

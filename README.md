@@ -1,12 +1,13 @@
 # :mortar_board::ticket: Ticket to Class :mortar_board::ticket: 
-Repositório para desenvolvimento do jogo Ticket To Ride, trabalho da disciplina de Engenharia de Software II - TCC00293. 
+O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to Ride”*** para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots. O jogo será desenvolvido a partir da engine ***Godot*** e a equipe será dividida em times de desenvolvimento e planejamento para maior eficiência e integração durante a implementação do projeto.
 
 ## :busts_in_silhouette: Equipe
-- :computer:
-- :bar_chart:
-- :clipboard:
-- :shipit:
--
+* :bar_chart: Rafael - Gestor de projeto 
+* :gear: Júlia - Gerente de planejamento
+* :gear: João Gabriel - Gerente de desenvolvimento
+* :chart_with_upwards_trend: Beatriz - Analista de projeto
+* :computer: Carina - Desenvolvedora
+* :computer: Thales - Desenvolvedor
 
 ## :calendar: Cronograma
 ### Iteração I (11/04 - 05/05)

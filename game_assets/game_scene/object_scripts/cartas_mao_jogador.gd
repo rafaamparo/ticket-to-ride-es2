@@ -2,7 +2,8 @@ class_name GerenciadorCartasJogador extends CanvasLayer
 
 var minhas_cartas: Array[GameCard] = []
 var isHoveringCard: bool = false
-var cardBeingDragged
+var cardBeingDragged: GameCard = null
+var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
 const LARGURA_CARTA: float = 125*0.85
 const QTD_CARTAS: int = 8
 const COLLISION_MASK = 1
@@ -11,12 +12,14 @@ const COLLISION_MASK = 1
 func _ready() -> void:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
+	gerenciadorDeTrilhosRef = $"../GerenciadorDeTrilhas"
 	
 	for i in range(QTD_CARTAS):
 		var carta = carta_scene.instantiate()
 		adicionarCartaNaMao(carta);
 		carta.position = Vector2(centro_tela_x, -500)
 		carta.card_index = randi_range(0, 7)
+		carta.z_index = i
 		$".".add_child(carta)
 
 func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
@@ -71,23 +74,65 @@ func hovered_off_card(carta: GameCard):
 func highlight_card(card, hovered):
 	if minhas_cartas.has(card):
 		if hovered:
-			var tween = get_tree().create_tween()
-			tween.tween_property(card, "scale", Vector2(1, 1), 0.05)
+			var tween1 = get_tree().create_tween().set_parallel(true)
+			tween1.tween_property(card, "scale", Vector2(0.9, 0.9), 0.05)
+			await tween1.finished
+			card.scale =  Vector2(0.9, 0.9)
 			card.z_index = 100
 		else:
-			var tween = get_tree().create_tween()
-			tween.tween_property(card, "scale", Vector2(0.85, 0.8), 0.05)
+			var tween2 = get_tree().create_tween().set_parallel(true)
+			tween2.tween_property(card, "scale", Vector2(0.85, 0.85), 0.05)
 			card.z_index = 1
 			
 
+func get_card_global_rect(card_node: GameCard) -> Rect2:
+	# Attempt to get bounds from CollisionShape2D within an Area2D child
+	var collision_shape = card_node.get_node_or_null("Area2D/CollisionShape2D") as CollisionShape2D
+	if is_instance_valid(collision_shape) and is_instance_valid(collision_shape.shape):
+		var shape_local_rect: Rect2 = collision_shape.shape.get_rect()
+		# The collision_shape's global_transform correctly positions and scales this local_rect.
+		return collision_shape.get_global_transform() * shape_local_rect
+	
+	# Fallback if the expected collision shape isn't found
+	printerr("Could not find valid CollisionShape2D for card: ", card_node.name, " at path Area2D/CollisionShape2D")
+	
+	# Last resort: return an empty rect at the card's global position
+	return Rect2(card_node.global_position, Vector2.ZERO)
+
 func start_drag(carta):
 	cardBeingDragged = carta
-	carta.scale = Vector2(1, 1)			
+	# Consider removing the card from 'minhas_cartas' here if it shouldn't be interactable while dragging
+	# e.g., removerCartaDaMao(carta) 
+	# For now, keeping original behavior where it's still in the list.
+	carta.scale = Vector2(0.65, 0.65)
+
 func stop_drag():
-	if (cardBeingDragged != null):
-		cardBeingDragged.scale = Vector2(1.05, 1.05)
-		cardBeingDragged = null
-		adicionarCartaNaMao(cardBeingDragged)
+	if cardBeingDragged != null:
+		var actual_card_being_dragged: GameCard = cardBeingDragged
+		var card_rect: Rect2 = get_card_global_rect(actual_card_being_dragged)
+		
+		var trilha_detectada: TrilhaVagao = null
+
+		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO: 
+			trilha_detectada = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
+			if trilha_detectada:
+				print("Carta '", actual_card_being_dragged.name, "' sobre a trilha: ", trilha_detectada.name)
+		
+		actual_card_being_dragged.scale = Vector2(0.85, 0.85)
+		cardBeingDragged = null # Clear the reference to the card being dragged
+
+		# If a track was detected, you might want to handle the card differently
+		# (e.g., remove it from hand, associate it with the track).
+		# For now, as per prompt, just printing and then adding back to hand.
+		if trilha_detectada:
+			print("Card '", actual_card_being_dragged.name, "' should be played on the track: ", trilha_detectada.name)
+			# Example: If card should be "played" on the track:
+			# removerCartaDaMao(actual_card_being_dragged)
+			# actual_card_being_dragged.queue_free() # or some other logic
+			# For now, it will be added back to hand below.
+			pass
+
+		adicionarCartaNaMao(actual_card_being_dragged) # Add the card back to hand (fixed bug here)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -155,7 +200,17 @@ func raycast_check(_collider: int): # collider parameter is no longer used
 			return highest_z_card
 	return null
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void: # Added underscore to delta
 	if cardBeingDragged:
 		var mouse_pos = get_viewport().get_mouse_position()
 		cardBeingDragged.position = mouse_pos
+		
+		# Check if the dragged card is over a trilha
+		var card_rect: Rect2 = get_card_global_rect(cardBeingDragged)
+		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO:
+			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
+			if trilha_sob_carta:
+				print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
+			# else:
+				# Optional: print something if it's not over any track, or handle highlighting removal here
+				# print("Card is not over any trilha")

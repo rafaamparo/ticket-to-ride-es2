@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://j2ecbyo8q7o7"]
+
+[ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/caminhos/vagoes.gd" id="1_apm3g"]
+[ext_resource type="Texture2D" uid="uid://b8svqg08sescc" path="res://game_assets/game_scene/vagoes_speadsheet.png" id="1_itrfr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qt8xo"]
+size = Vector2(46, 70)
+
+[node name="Vagoes" type="Node2D"]
+script = ExtResource("1_apm3g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_itrfr")
+hframes = 2
+vframes = 4
+frame = 7
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_qt8xo")

@@ -8,7 +8,6 @@ const LARGURA_CARTA: float = 125*0.85
 const QTD_CARTAS: int = 8
 const COLLISION_MASK = 1
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")

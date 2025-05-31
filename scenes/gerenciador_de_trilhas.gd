@@ -10,6 +10,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void: # Added underscore to delta
 	pass
 
+func unhighlight_all_trilhas() -> void:
+	for trilha_node in get_children():
+		if trilha_node is TrilhaVagao:
+			var trilha = trilha_node as TrilhaVagao
+			if is_instance_valid(trilha):
+				trilha.unhighlight_all_vagoes()
+
 func get_trilha_sob_retangulo(p_screen_rect: Rect2) -> TrilhaVagao:
 	for trilha_node in get_children():
 		if trilha_node is TrilhaVagao:

@@ -37,6 +37,16 @@ func _ready() -> void:
 	_update_vagoes_cor()
 	_update_vagoes_saturacao()
 
+func highlight_all_vagoes() -> void:
+	for vagao_node in vagoes_array:
+		if vagao_node and vagao_node.has_method("highlight"):
+			vagao_node.highlight()
+			
+func unhighlight_all_vagoes() -> void:
+	for vagao_node in vagoes_array:
+		if vagao_node and vagao_node.has_method("unhighlight"):
+			vagao_node.unhighlight()
+
 func _update_vagoes_cor() -> void:
 	if cores_map.has(cor_trilha):
 		var frame_index = cores_map[cor_trilha]

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
-[ext_resource type="PackedScene" uid="uid://caqp8j6nugdg3" path="res://game_assets/game_scene/object_scenes/game_card.tscn" id="3_7cgp6"]
+[ext_resource type="Script" path="res://game_assets/game_scene/object_scripts/cartas_mao_jogador.gd" id="3_ygg2m"]
 
 [node name="GameScene" type="Control"]
 layout_mode = 3
@@ -13,6 +13,7 @@ offset_right = 1073.0
 offset_bottom = 1577.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Camera2D" parent="." instance=ExtResource("1_gpu2n")]
 anchor_mode = 0
@@ -28,21 +29,5 @@ texture = ExtResource("1_othft")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
-scale = Vector2(0.8, 0.8)
-transform = Transform2D(0.8, 0, 0, 0.8, 0, 0)
-
-[node name="GameCard" parent="CanvasLayer" instance=ExtResource("3_7cgp6")]
-top_level = true
-position = Vector2(497.5, 730)
-
-[node name="GameCard2" parent="CanvasLayer" instance=ExtResource("3_7cgp6")]
-top_level = true
-position = Vector2(876.5, 738)
-card_index = 1
-
-[node name="GameCard3" parent="CanvasLayer" instance=ExtResource("3_7cgp6")]
-top_level = true
-position = Vector2(686.5, 736)
-card_index = 2
+[node name="GerenciadorCartasJogador" type="CanvasLayer" parent="."]
+script = ExtResource("3_ygg2m")

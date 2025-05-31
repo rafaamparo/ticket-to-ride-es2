@@ -128,3 +128,26 @@ scale = Vector2(0.8, 0.8)
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao4" instance=ExtResource("5_k8cfs")]
 position = Vector2(1089, 834)
 scale = Vector2(0.8, 0.8)
+
+[node name="TrilhaVagao5" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao5" instance=ExtResource("5_k8cfs")]
+position = Vector2(855, 722)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao5" instance=ExtResource("5_k8cfs")]
+position = Vector2(974, 721)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao5" instance=ExtResource("5_k8cfs")]
+position = Vector2(915, 721)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao5" instance=ExtResource("5_k8cfs")]
+position = Vector2(1036, 721)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)

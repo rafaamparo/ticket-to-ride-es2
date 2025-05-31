@@ -1,6 +1,17 @@
 # :mortar_board::ticket: Ticket to Class :mortar_board::ticket: 
 O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to Ride”*** para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots. O jogo será desenvolvido a partir da engine ***Godot*** e a equipe será dividida em times de desenvolvimento e planejamento para maior eficiência e integração durante a implementação do projeto.
 
+## Progresso
+
+#### Iteração I
+  ![](https://geps.dev/progress/100?dangerColor=800000&warningColor=ff9900&successColor=006600)
+
+#### Iteração II 
+  ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)
+
+#### Iteração III 
+  ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)
+
 ## :busts_in_silhouette: Equipe
 * :bar_chart: Rafael - Gestor de projeto 
 * :gear: Júlia - Gerente de planejamento

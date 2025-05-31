@@ -7,7 +7,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
   ![](https://geps.dev/progress/100?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração II 
-  ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)
+  ![](https://geps.dev/progress/42?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração III 
   ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)
@@ -37,14 +37,14 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
 
 ### Iteração II (05/05 - 01/06)
 - [ ] Desenvolvimento da Pipeline de Integração Contínua
-- [ ] Implementar Sistema de Mapa Interativo
-- [ ] Implementar lógica de conexão entre cidades
-- [ ] Sistema de decks de cartas
-- [ ] Desenvolvimento do sistema para reivindicação de rotas
+- [x] Implementar Sistema de Mapa Interativo
+- [x] Implementar lógica de conexão entre cidades
+- [x] Sistema de decks de cartas
+- [x] Desenvolvimento do sistema para reivindicação de rotas
 - [ ] Sistema de compra de cartas
 - [ ] Sistema de Turnos
 - [ ] Sistema de cálculo de pontos
-- [ ] Menu Principal e Configurações
+- [x] Menu Principal e Configurações
 - [ ] Validação da Demo (Entrega da Sprint)
 - [ ] Criação de Testes das funcionalidades básicas
 - [ ] Análise da Sprint

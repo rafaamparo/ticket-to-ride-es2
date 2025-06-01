@@ -18,21 +18,28 @@ func _process(_delta: float) -> void:
 func update_saturation(is_captured: bool) -> void:
 	if sprite:
 		if not is_captured:
-			sprite.modulate.v = 0.5 # 50% saturation
+			sprite.modulate.v = 1 # 50% saturation
+			sprite.modulate.r = 0.8 # 50% saturation
+			sprite.modulate.g = 0.8 # 50% saturation
+			sprite.modulate.b = 0.8 # 50% saturation
+			# reduce opacity to make it look faded
+			sprite.modulate.a = 0.9 # 50% opacity
 		else:
-			sprite.modulate.v = 1.0 # 100% saturation (full color)
+			sprite.modulate.a = 1
+			sprite.modulate.v = 1.2 # 100% saturation (full color)
+			# make it brighter by increasing the value (brightness)
+			sprite.modulate.r = 1.2
+			sprite.modulate.g = 1.2
+			sprite.modulate.b = 1.2
 
 func highlight() -> void:
-	# Highlight is for when the vagao is selected or hovered. I would like to to change scale and make it glow.
 	if sprite:
 		var tween = get_tree().create_tween()
 		tween.tween_property(sprite, "scale", initial_scale * 1.2, 0.2) # Increase size by 20%
 		tween.set_ease(Tween.EASE_IN_OUT)
-		# sprite.modulate = Color(1.0, 1.0, 0.25, 1.0) # Tint yellow, allowing some blue from the texture to show
 
 func unhighlight() -> void:
 	if sprite:
 		var tween = get_tree().create_tween()
-		tween.tween_property(sprite, "scale", initial_scale, 0.2) # Reset scale to initial size
+		tween.tween_property(sprite, "scale", initial_scale, 0.2)
 		tween.set_ease(Tween.EASE_IN_OUT)
-		# sprite.modulate = Color(1, 1, 1, 1) # Reset color to white

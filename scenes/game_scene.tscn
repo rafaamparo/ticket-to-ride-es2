@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=26 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/caminhos/trilha.gd" id="4_5jc4f"]
 [ext_resource type="Script" path="res://scenes/gerenciador_de_trilhas.gd" id="4_elrhv"]
 [ext_resource type="PackedScene" uid="uid://j2ecbyo8q7o7" path="res://game_assets/game_scene/object_scenes/caminhos/vagao.tscn" id="5_k8cfs"]
+[ext_resource type="Shader" path="res://scenes/vignette.gdshader" id="7_6l13s"]
 [ext_resource type="Texture2D" uid="uid://rpbl1vrvd025" path="res://game_assets/game_scene/object_scenes/UI/menu_jogador_vermelho.png" id="7_a2w5e"]
+[ext_resource type="Script" path="res://scenes/gui.gd" id="8_mb7hx"]
 [ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="8_nj13c"]
 [ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="9_f5qeb"]
 [ext_resource type="Texture2D" uid="uid://d2grxjg0qcypy" path="res://game_assets/game_scene/object_scenes/UI/vermelho.png" id="10_d0qty"]
@@ -16,6 +18,55 @@
 [ext_resource type="Texture2D" uid="uid://cpssv305lotst" path="res://game_assets/game_scene/object_scenes/UI/azul.png" id="14_sbpnt"]
 [ext_resource type="Texture2D" uid="uid://ddhgfprj2od0o" path="res://game_assets/game_scene/object_scenes/UI/menu_amarelo.png" id="15_d3bbw"]
 [ext_resource type="Texture2D" uid="uid://b25qxp8q8nif7" path="res://game_assets/game_scene/object_scenes/UI/amarelo.png" id="16_18u0u"]
+[ext_resource type="FontFile" uid="uid://wecse3ya2md0" path="res://game_assets/fonts/pixelifysans/PixelifySans-Regular.ttf" id="18_k5e63"]
+
+[sub_resource type="Environment" id="Environment_cns0p"]
+background_mode = 3
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vqnq2"]
+shader = ExtResource("7_6l13s")
+shader_parameter/vignette_intensity = 0.3
+shader_parameter/vignette_opacity = 0.05
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewgjx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svajh"]
+bg_color = Color(0.399489, 0.378342, 0.389853, 0.760784)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 14
+expand_margin_left = 10.0
+expand_margin_top = 4.0
+expand_margin_right = 10.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s772"]
+bg_color = Color(0.403922, 0.384314, 0.392157, 0.85098)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 14
+expand_margin_left = 8.0
+expand_margin_top = 2.0
+expand_margin_right = 8.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm1ti"]
+bg_color = Color(0.147776, 0.137486, 0.143095, 0.760784)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 14
+expand_margin_left = 10.0
+expand_margin_top = 4.0
+expand_margin_right = 10.0
+expand_margin_bottom = 4.0
 
 [node name="GameScene" type="Control"]
 layout_mode = 3
@@ -28,6 +79,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 metadata/_edit_lock_ = true
+
+[node name="Ajustes de Cor" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cns0p")
 
 [node name="Camera2D" parent="." instance=ExtResource("1_gpu2n")]
 anchor_mode = 0
@@ -47,8 +101,18 @@ metadata/_edit_lock_ = true
 [node name="GerenciadorCartasJogador" type="CanvasLayer" parent="."]
 script = ExtResource("3_ygg2m")
 
+[node name="Vinheta" type="ColorRect" parent="GerenciadorCartasJogador"]
+modulate = Color(1, 1, 1, 0.494118)
+z_index = -1
+material = SubResource("ShaderMaterial_vqnq2")
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="GerenciadorDeTrilhas" type="Node2D" parent="."]
 script = ExtResource("4_elrhv")
+metadata/_edit_lock_ = true
 
 [node name="TrilhaVagao" type="Node2D" parent="GerenciadorDeTrilhas"]
 script = ExtResource("4_5jc4f")
@@ -924,8 +988,10 @@ position = Vector2(1216, 1504)
 rotation = 1.5708
 
 [node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("8_mb7hx")
 
 [node name="Jogador Principal" type="Control" parent="GUI"]
+z_index = 200
 layout_mode = 3
 anchors_preset = 0
 offset_top = 473.0
@@ -1007,6 +1073,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="Control" type="Control" parent="GUI"]
+z_index = 200
 layout_mode = 3
 anchors_preset = 0
 offset_top = -30.0
@@ -1066,6 +1133,7 @@ text = "45
 "
 
 [node name="Control2" type="Control" parent="GUI"]
+z_index = 200
 layout_mode = 3
 anchors_preset = 0
 offset_top = 85.0
@@ -1125,6 +1193,7 @@ text = "45
 "
 
 [node name="Control3" type="Control" parent="GUI"]
+z_index = 200
 layout_mode = 3
 anchors_preset = 0
 offset_top = 202.0
@@ -1181,3 +1250,17 @@ theme_override_fonts/font = ExtResource("9_f5qeb")
 theme_override_font_sizes/font_size = 20
 text = "45
 "
+
+[node name="Button" type="Button" parent="GUI"]
+offset_left = 977.0
+offset_top = 12.0
+offset_right = 1134.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource("18_k5e63")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewgjx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_svajh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1s772")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jm1ti")
+text = "Debug: Pegar Carta"
+
+[connection signal="pressed" from="GUI/Button" to="GUI" method="_on_button_pressed"]

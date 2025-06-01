@@ -24,6 +24,18 @@ func _ready() -> void:
 		carta.card_index = randi_range(0,7)
 		carta.z_index = i
 		$".".add_child(carta)
+		
+func gerarCartaAleatoria() -> void:
+	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+	var centro_tela_x = get_viewport().size.x / 2
+	var carta = carta_scene.instantiate()
+	adicionarCartaNaMao(carta);
+	carta.position = Vector2(centro_tela_x, -500)
+	var rotacao_graus = 0
+	carta.rotation = deg_to_rad(rotacao_graus)
+	carta.card_index = randi_range(0,7)
+	carta.z_index = minhas_cartas.size()
+	$".".add_child(carta)
 
 func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
 	if cartaParaAdicionar not in minhas_cartas and cartaParaAdicionar != null:

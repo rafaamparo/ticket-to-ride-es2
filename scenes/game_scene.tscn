@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=17 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -6,19 +6,28 @@
 [ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/caminhos/trilha.gd" id="4_5jc4f"]
 [ext_resource type="Script" path="res://scenes/gerenciador_de_trilhas.gd" id="4_elrhv"]
 [ext_resource type="PackedScene" uid="uid://j2ecbyo8q7o7" path="res://game_assets/game_scene/object_scenes/caminhos/vagao.tscn" id="5_k8cfs"]
+[ext_resource type="Texture2D" uid="uid://rpbl1vrvd025" path="res://game_assets/game_scene/object_scenes/UI/menu_jogador_vermelho.png" id="7_a2w5e"]
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="8_nj13c"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="9_f5qeb"]
+[ext_resource type="Texture2D" uid="uid://d2grxjg0qcypy" path="res://game_assets/game_scene/object_scenes/UI/vermelho.png" id="10_d0qty"]
+[ext_resource type="Texture2D" uid="uid://rbxtga8bcgu" path="res://game_assets/game_scene/object_scenes/UI/menu_verde.png" id="11_uje4q"]
+[ext_resource type="Texture2D" uid="uid://b0aabpoemhme0" path="res://game_assets/game_scene/object_scenes/UI/verde.png" id="12_lecj0"]
+[ext_resource type="Texture2D" uid="uid://chxsw34405r4r" path="res://game_assets/game_scene/object_scenes/UI/menu_azul2.png" id="13_jpit7"]
+[ext_resource type="Texture2D" uid="uid://cpssv305lotst" path="res://game_assets/game_scene/object_scenes/UI/azul.png" id="14_sbpnt"]
+[ext_resource type="Texture2D" uid="uid://ddhgfprj2od0o" path="res://game_assets/game_scene/object_scenes/UI/menu_amarelo.png" id="15_d3bbw"]
+[ext_resource type="Texture2D" uid="uid://b25qxp8q8nif7" path="res://game_assets/game_scene/object_scenes/UI/amarelo.png" id="16_18u0u"]
 
 [node name="GameScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 35.0
-offset_top = -3.0
-offset_right = 1108.0
-offset_bottom = 1574.0
+offset_right = 1073.0
+offset_bottom = 1577.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" parent="." instance=ExtResource("1_gpu2n")]
 anchor_mode = 0
@@ -913,3 +922,262 @@ rotation = -0.712094
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao50" instance=ExtResource("5_k8cfs")]
 position = Vector2(1216, 1504)
 rotation = 1.5708
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Jogador Principal" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 473.0
+offset_right = 40.0
+offset_bottom = 513.0
+
+[node name="Rafael" type="TextureRect" parent="GUI/Jogador Principal"]
+offset_top = 19.0
+offset_right = 252.0
+offset_bottom = 175.0
+texture = ExtResource("7_a2w5e")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Nome" type="Label" parent="GUI/Jogador Principal"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 134.0
+offset_right = 189.0
+offset_bottom = 164.0
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 25
+text = "RAFAEL A."
+
+[node name="bilhetes_relacao" type="Label" parent="GUI/Jogador Principal"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 45.0
+offset_right = 90.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 34
+text = "0/6"
+
+[node name="bilhetes_relacao2" type="Label" parent="GUI/Jogador Principal"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 78.0
+offset_right = 125.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 18
+text = "Bilhetes Feitos"
+
+[node name="bilhetes" type="Label" parent="GUI/Jogador Principal"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 116.0
+offset_right = 50.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 48
+text = "0
+"
+
+[node name="pontos" type="Label" parent="GUI/Jogador Principal"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 47.0
+offset_right = 222.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 30
+text = "45
+"
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Jogador Principal"]
+clip_contents = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = -46.0
+offset_right = 160.0
+offset_bottom = 117.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("10_d0qty")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Control" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 10.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Control"]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 151.173
+texture = ExtResource("11_uje4q")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="GUI/Control"]
+clip_contents = true
+offset_left = 43.0
+offset_top = 60.0
+offset_right = 163.0
+offset_bottom = 229.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_lecj0")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Nome" type="Label" parent="GUI/Control"]
+offset_left = 4.0
+offset_top = 122.0
+offset_right = 119.0
+offset_bottom = 145.0
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 15
+text = "BEATRIZ
+"
+
+[node name="bilhetes" type="Label" parent="GUI/Control"]
+offset_left = 3.0
+offset_top = 76.0
+offset_right = 24.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="pontos" type="Label" parent="GUI/Control"]
+offset_left = 131.0
+offset_top = 64.0
+offset_right = 157.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 20
+text = "45
+"
+
+[node name="Control2" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 85.0
+offset_right = 40.0
+offset_bottom = 125.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Control2"]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 151.173
+texture = ExtResource("13_jpit7")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="GUI/Control2"]
+clip_contents = true
+offset_left = 43.0
+offset_top = 60.0
+offset_right = 163.0
+offset_bottom = 229.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_sbpnt")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Nome" type="Label" parent="GUI/Control2"]
+offset_left = 4.0
+offset_top = 122.0
+offset_right = 132.0
+offset_bottom = 145.0
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 15
+text = "CARINA
+"
+
+[node name="bilhetes" type="Label" parent="GUI/Control2"]
+offset_left = 3.0
+offset_top = 76.0
+offset_right = 24.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="pontos" type="Label" parent="GUI/Control2"]
+offset_left = 131.0
+offset_top = 64.0
+offset_right = 157.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 20
+text = "45
+"
+
+[node name="Control3" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 202.0
+offset_right = 40.0
+offset_bottom = 242.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Control3"]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 151.173
+texture = ExtResource("15_d3bbw")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="GUI/Control3"]
+clip_contents = true
+offset_left = 43.0
+offset_top = 60.0
+offset_right = 163.0
+offset_bottom = 229.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("16_18u0u")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Nome" type="Label" parent="GUI/Control3"]
+offset_left = 4.0
+offset_top = 122.0
+offset_right = 132.0
+offset_bottom = 145.0
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 15
+text = "JÚLIA SPEZANI"
+
+[node name="bilhetes" type="Label" parent="GUI/Control3"]
+offset_left = 3.0
+offset_top = 76.0
+offset_right = 24.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("8_nj13c")
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="pontos" type="Label" parent="GUI/Control3"]
+offset_left = 131.0
+offset_top = 64.0
+offset_right = 157.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("9_f5qeb")
+theme_override_font_sizes/font_size = 20
+text = "45
+"

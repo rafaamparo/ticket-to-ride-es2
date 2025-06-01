@@ -4,8 +4,9 @@ var minhas_cartas: Array[GameCard] = []
 var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
 var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
+var pontos = 45
 const LARGURA_CARTA: float = 125*0.85
-const QTD_CARTAS: int = 14
+const QTD_CARTAS: int = 7
 const COLLISION_MASK = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -129,6 +130,7 @@ func stop_drag():
 					actual_card_being_dragged.isBeingAdded = true
 					var freeze_position = actual_card_being_dragged.position
 					var num_vagoes_necessarios = trilha_detectada.get_qtd_vagoes()
+					
 					var cartas_a_serem_usadas: Array[GameCard] = []
 					if actual_card_being_dragged in cartas_mesma_cor:
 						cartas_a_serem_usadas.append(actual_card_being_dragged)
@@ -177,7 +179,8 @@ func stop_drag():
 					
 					print(minhas_cartas)
 					trilha_detectada.capturar_trilha() 
-
+					pontos -= num_vagoes_necessarios
+			
 					cardBeingDragged = null
 					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
 					await unhighlight_deck_cards()
@@ -296,6 +299,7 @@ func raycast_check(_collider: int):
 	return null
 
 func _process(_delta: float) -> void: 
+	$"../GUI/Jogador Principal/pontos".text = str(pontos)
 	if cardBeingDragged:
 		var mouse_pos = get_viewport().get_mouse_position()
 		if not cardBeingDragged.isBeingAdded:

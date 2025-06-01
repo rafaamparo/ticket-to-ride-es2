@@ -36,7 +36,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
 - [X] Análise da Sprint - Monitoramento e Controle
 
 ### Iteração II (05/05 - 01/06)
-- [ ] Desenvolvimento da Pipeline de Integração Contínua
+- [x] Desenvolvimento da Pipeline de Integração Contínua
 - [x] Implementar Sistema de Mapa Interativo
 - [x] Implementar lógica de conexão entre cidades
 - [x] Sistema de decks de cartas
@@ -47,7 +47,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
 - [x] Menu Principal e Configurações
 - [ ] Validação da Demo (Entrega da Sprint)
 - [ ] Criação de Testes das funcionalidades básicas
-- [ ] Análise da Sprint
+- [x] Análise da Sprint
 
 ### Iteração III (03/06 - 28/06)
 - [ ] Implementação da jogabilidade com bots

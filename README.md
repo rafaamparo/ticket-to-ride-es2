@@ -1,5 +1,5 @@
 # :mortar_board::ticket: Ticket to Class :mortar_board::ticket: 
-O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to Ride”*** para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots. O jogo será desenvolvido a partir da engine ***Godot*** e a equipe será dividida em times de desenvolvimento e planejamento para maior eficiência e integração durante a implementação do projeto.
+O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride*** para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots. O jogo será desenvolvido a partir da engine ***Godot*** e a equipe será dividida em times de desenvolvimento e planejamento para maior eficiência e integração durante a implementação do projeto.
 
 ## Progresso
 

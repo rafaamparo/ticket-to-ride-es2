@@ -18,9 +18,14 @@ jobs:
       - name: Setup Godot - Export Templates
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: '4.3'
+          version: '4.3.0'
           include-templates: true
-
+          path: godot
+          downloads-path: downloads
+          bin-path: bin
+          use-dotnet: true
+          cache: true
+          
       - name: Criar Diretório de Build
         run: mkdir -p build/windows
 

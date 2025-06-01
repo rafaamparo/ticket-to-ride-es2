@@ -42,7 +42,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
 - [x] Sistema de decks de cartas
 - [x] Desenvolvimento do sistema para reivindicação de rotas
 - [ ] Sistema de compra de cartas
-- [ ] Sistema de Turnos
+- [ ] Sistema de turnos
 - [ ] Sistema de cálculo de pontos
 - [x] Menu Principal e Configurações
 - [ ] Validação da Demo (Entrega da Sprint)

@@ -73,7 +73,7 @@ func hovered_off_card(carta: GameCard):
 		highlight_card(carta,false)
 		var newCardHovered = raycast_check(COLLISION_MASK)
 		if newCardHovered:
-			highlight_card(newCardHovered, true)
+			highlight_card(newCardHovered)
 		else:
 			isHoveringCard = false
 		

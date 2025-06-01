@@ -1,12 +1,12 @@
 class_name GerenciadorCartasJogador extends CanvasLayer
 
-var minhas_cartas: Array[GameCard] = []
-var isHoveringCard: bool = false
-var cardBeingDragged: GameCard = null
-var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
-const LARGURA_CARTA: float = 125*0.85
-const QTD_CARTAS: int = 14
-const COLLISION_MASK = 1
+# var minhas_cartas: Array[GameCard] = []
+# var isHoveringCard: bool = false
+# var cardBeingDragged: GameCard = null
+# var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
+# const LARGURA_CARTA: float = 125*0.85
+# const QTD_CARTAS: int = 14
+# const COLLISION_MASK = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

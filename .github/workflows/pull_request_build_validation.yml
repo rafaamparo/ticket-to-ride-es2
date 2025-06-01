@@ -29,9 +29,28 @@ jobs:
       - name: Criar Diretório de Build
         run: mkdir -p build/windows
 
-      - name: Exportar Jogo (Debug Build Windows para Pull Requests)
+      - name: Export Game (Windows Debug Build for PR)
+        id: export_game
         run: |
-          godot --headless --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe"
+          echo "Tentando exportar o jogo..."
+          set +e
+          godot --headless --verbose --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe" 2>&1 | tee godot_export_log.txt
+          GODOT_EXIT_CODE=$?
+          set -e
+
+          echo "Processo finalizado com código de saída: $GODOT_EXIT_CODE"
+          echo "--- Godot Export Log ---"
+          cat godot_export_log.txt
+          echo "--- End of Godot Export Log ---"
+          
+          if grep -q -E "SCRIPT ERROR:|ERROR: Failed to load script" godot_export_log.txt; then
+            echo "::error::Script errors found during Godot export. Failing build."
+            exit 1
+          elif [ $GODOT_EXIT_CODE -ne 0 ]; then
+            echo "::error::Godot export command failed with exit code $GODOT_EXIT_CODE. Failing build."
+            exit 1
+          fi
+          echo "Godot export completed successfully without critical script errors."
 
       - name: Arquiva Windows Build Output
         shell: bash

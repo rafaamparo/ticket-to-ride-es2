@@ -156,14 +156,14 @@ func stop_drag():
 						var random_offset = Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0))
 						var target_position = freeze_position + random_offset
 						
-						gather_animation_tween.tween_property(carta_to_animate, "position", target_position, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-						gather_animation_tween.tween_property(carta_to_animate, "scale", Vector2(0,0), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						gather_animation_tween.tween_property(carta_to_animate, "position", target_position, 0.37).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						gather_animation_tween.tween_property(carta_to_animate, "scale", Vector2(0,0), 0.37).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 						
 						if is_instance_valid(actual_card_being_dragged):
 							carta_to_animate.z_index = actual_card_being_dragged.z_index - 1
 						else:
 							carta_to_animate.z_index = 90 
-					gather_animation_tween.tween_property(actual_card_being_dragged, "scale", Vector2(0,0), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+					gather_animation_tween.tween_property(actual_card_being_dragged, "scale", Vector2(0,0), 0.37).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 					animation_added = true
 
 					if animation_added:

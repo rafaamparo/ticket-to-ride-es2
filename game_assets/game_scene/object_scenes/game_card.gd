@@ -4,6 +4,7 @@ signal hovered
 signal hoveredOff
 
 var posicaoInicial
+var isBeingAdded: bool = false
 var previous_rotation
 var previous_position 
 var y_offset: int = 0

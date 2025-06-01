@@ -11,6 +11,17 @@ const cores_map = {
 	"cinza": 7,
 }
 
+const cores_map_reverse = {
+	0: "vermelho",
+	1: "amarelo",
+	2: "azul",
+	3: "roxo",
+	4: "laranja",
+	5: "preto",
+	6: "verde",
+	7: "cinza"
+}
+
 # export a dropdown to select the color of the trail
 @export var cor_trilha: String = "vermelho":
 	set(value):
@@ -28,6 +39,7 @@ const cores_map = {
 
 var vagoes_array: Array[Vagao] = []
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for child in get_children():
@@ -36,6 +48,16 @@ func _ready() -> void:
 	
 	_update_vagoes_cor()
 	_update_vagoes_saturacao()
+func get_qtd_vagoes() -> int:
+	# Returns the number of Vagao nodes in the array
+	return vagoes_array.size()
+
+
+func capturar_trilha() -> void:
+	if not capturado:
+		capturado = true
+		_update_vagoes_saturacao()
+		
 
 func highlight_all_vagoes() -> void:
 	for vagao_node in vagoes_array:

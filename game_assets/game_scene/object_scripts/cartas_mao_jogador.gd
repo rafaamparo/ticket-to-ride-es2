@@ -5,8 +5,9 @@ var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
 var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
 var pontos = 45
+var cartas_brancas = 0
 const LARGURA_CARTA: float = 125*0.85
-const QTD_CARTAS: int = 7
+const QTD_CARTAS: int = 6
 const COLLISION_MASK = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -21,7 +22,14 @@ func _ready() -> void:
 		carta.position = Vector2(centro_tela_x, -500)
 		var rotacao_graus = -1.2*(i+1)
 		carta.rotation = deg_to_rad(rotacao_graus)
-		carta.card_index = randi_range(0,7)
+		var cor_aleatoria = randi_range(0,7)
+		if cor_aleatoria== 7:
+			cartas_brancas += 1
+
+		if cartas_brancas > 2:
+			cor_aleatoria = randi_range(0,6)
+
+		carta.card_index = cor_aleatoria
 		carta.z_index = i
 		$".".add_child(carta)
 		
@@ -33,7 +41,14 @@ func gerarCartaAleatoria() -> void:
 	carta.position = Vector2(centro_tela_x, -500)
 	var rotacao_graus = 0
 	carta.rotation = deg_to_rad(rotacao_graus)
-	carta.card_index = randi_range(0,7)
+	var cor_aleatoria = randi_range(0,7)
+	if cor_aleatoria== 7:
+		cartas_brancas += 1
+
+	if cartas_brancas > 2:
+		cor_aleatoria = randi_range(0,6)
+
+	carta.card_index = cor_aleatoria
 	carta.z_index = minhas_cartas.size()
 	$".".add_child(carta)
 

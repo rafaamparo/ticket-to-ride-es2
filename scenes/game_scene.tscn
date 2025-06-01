@@ -112,6 +112,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="GerenciadorDeTrilhas" type="Node2D" parent="."]
 script = ExtResource("4_elrhv")
@@ -990,343 +991,6 @@ rotation = -0.712094
 position = Vector2(1216, 1504)
 rotation = 1.5708
 
-[node name="Control" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 495.0
-offset_top = 248.0
-offset_right = 535.0
-offset_bottom = 288.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control"]
-layout_mode = 0
-offset_left = -98.0
-offset_top = -37.0
-offset_right = 53.0
-offset_bottom = 3.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = "  Cálculo 1"
-
-[node name="Control2" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 411.0
-offset_top = 463.0
-offset_right = 517.0
-offset_bottom = 495.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control2"]
-layout_mode = 0
-offset_left = -15.0
-offset_top = 4.0
-offset_right = 62.0
-offset_bottom = 44.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = "  Física"
-
-[node name="Control3" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 577.0
-offset_top = 496.0
-offset_right = 617.0
-offset_bottom = 536.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control3"]
-layout_mode = 0
-offset_left = -79.0
-offset_top = 77.0
-offset_right = 127.0
-offset_bottom = 157.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Geometria Analítica[/center]"
-
-[node name="Control4" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 826.0
-offset_top = 495.0
-offset_right = 866.0
-offset_bottom = 535.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control4"]
-layout_mode = 0
-offset_left = -101.0
-offset_top = -4.0
-offset_right = 149.0
-offset_bottom = 36.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = " Álgebra Linear"
-
-[node name="Control5" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 783.0
-offset_top = 165.0
-offset_right = 823.0
-offset_bottom = 205.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control5"]
-layout_mode = 0
-offset_left = -132.0
-offset_top = -39.0
-offset_right = 183.0
-offset_bottom = 40.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Probabilidade e Estatística[/center]"
-
-[node name="Control6" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 990.0
-offset_top = 165.0
-offset_right = 1030.0
-offset_bottom = 205.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control6"]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 21.0
-offset_right = 252.0
-offset_bottom = 147.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Avaliação de Desempenho[/center]"
-
-[node name="Control7" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 701.0
-offset_top = 330.0
-offset_right = 741.0
-offset_bottom = 370.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control7"]
-layout_mode = 0
-offset_left = -45.0
-offset_top = 4.0
-offset_right = 102.0
-offset_bottom = 44.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = "Cálculo 2"
-
-[node name="Control8" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1154.0
-offset_top = 496.0
-offset_right = 1194.0
-offset_bottom = 536.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control8"]
-layout_mode = 0
-offset_left = -83.0
-offset_top = -42.0
-offset_right = 117.0
-offset_bottom = 40.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Métodos Numéricos[/center]"
-
-[node name="Control9" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1442.0
-offset_top = 288.0
-offset_right = 1482.0
-offset_bottom = 328.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control9"]
-layout_mode = 0
-offset_left = -112.0
-offset_top = -37.0
-offset_right = 172.0
-offset_bottom = 49.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Linguagens de Programação[/center]"
-
-[node name="Control10" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 371.0
-offset_top = 618.0
-offset_right = 411.0
-offset_bottom = 658.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control10"]
-layout_mode = 0
-offset_left = -85.0
-offset_top = -38.0
-offset_right = 136.0
-offset_bottom = 45.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Física Experimental[/center]"
-
-[node name="Control11" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 783.0
-offset_top = 660.0
-offset_right = 823.0
-offset_bottom = 700.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control11"]
-layout_mode = 0
-offset_left = -83.0
-offset_top = -39.0
-offset_right = 133.0
-offset_bottom = 40.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Pesquisa Operacional[/center]"
-
-[node name="Control12" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1073.0
-offset_top = 660.0
-offset_right = 1113.0
-offset_bottom = 700.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control12"]
-layout_mode = 0
-offset_left = -89.0
-offset_top = -47.0
-offset_right = 138.0
-offset_bottom = 35.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Programação Científica[/center]"
-
-[node name="Control13" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1773.0
-offset_top = 454.0
-offset_right = 1813.0
-offset_bottom = 494.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control13"]
-layout_mode = 0
-offset_left = -61.0
-offset_top = -35.0
-offset_right = 101.0
-offset_bottom = 48.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Lógica para C.C.[/center]"
-
-[node name="Control14" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1690.0
-offset_top = 743.0
-offset_right = 1730.0
-offset_bottom = 783.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control14"]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 17.0
-offset_right = 257.0
-offset_bottom = 95.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Matemática Discreta[/center]"
-
-[node name="Control15" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1360.0
-offset_top = 824.0
-offset_right = 1400.0
-offset_bottom = 864.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control15"]
-layout_mode = 0
-offset_left = -83.0
-offset_top = 1.0
-offset_right = 142.0
-offset_bottom = 41.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = "Compiladores"
-
-[node name="Control16" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1072.0
-offset_top = 826.0
-offset_right = 1112.0
-offset_bottom = 866.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control16"]
-layout_mode = 0
-offset_left = -84.0
-offset_top = -40.0
-offset_right = 126.0
-offset_bottom = 45.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Algoritmos em Grafos[/center]"
-
-[node name="Control17" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 701.0
-offset_top = 824.0
-offset_right = 741.0
-offset_bottom = 864.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control17"]
-layout_mode = 0
-offset_left = -68.0
-offset_top = -77.0
-offset_right = 126.0
-offset_bottom = 44.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Análise e Projeto de Algoritmos[/center]"
-
-[node name="Control18" type="Control" parent="GerenciadorDeTrilhas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 371.0
-offset_top = 825.0
-offset_right = 411.0
-offset_bottom = 865.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GerenciadorDeTrilhas/Control18"]
-layout_mode = 0
-offset_left = -203.0
-offset_top = -6.0
-offset_right = 9.0
-offset_bottom = 113.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Láb. de Desenv. de Disp. Móveis[/center]"
-
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_mb7hx")
 
@@ -1615,5 +1279,955 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_svajh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_1s772")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm1ti")
 text = "Debug: Pegar Carta"
+
+[node name="Gerenciador de Paradas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 495.0
+offset_top = 248.0
+offset_right = 535.0
+offset_bottom = 288.0
+
+[node name="Control" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control"]
+layout_mode = 0
+offset_left = -59.0
+offset_top = -45.0
+offset_right = 96.0
+offset_bottom = 1.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Cálculo 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -84.0
+offset_top = 215.0
+offset_right = 22.0
+offset_bottom = 247.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Gerenciador de Paradas/Control2"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = 4.0
+offset_right = 62.0
+offset_bottom = 44.0
+theme_override_fonts/normal_font = ExtResource("8_8tdgh")
+theme_override_font_sizes/normal_font_size = 32
+text = "  Física"
+
+[node name="Control3" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 82.0
+offset_top = 248.0
+offset_right = 122.0
+offset_bottom = 288.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control3"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 85.0
+offset_right = 99.0
+offset_bottom = 131.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Geometria
+Analítica"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control4" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 331.0
+offset_top = 247.0
+offset_right = 371.0
+offset_bottom = 287.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control4"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -7.0
+offset_right = 99.0
+offset_bottom = 39.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Álgebra Linear"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control5" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 288.0
+offset_top = -83.0
+offset_right = 328.0
+offset_bottom = -43.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control5"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -7.0
+offset_right = 99.0
+offset_bottom = 39.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Probabilidade e 
+Estatística"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control6" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 495.0
+offset_top = -83.0
+offset_right = 535.0
+offset_bottom = -43.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control6"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 38.0
+offset_right = 203.0
+offset_bottom = 84.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Avaliação de
+Desempenho"
+vertical_alignment = 1
+
+[node name="Control7" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 206.0
+offset_top = 82.0
+offset_right = 246.0
+offset_bottom = 122.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control7"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = 1.0
+offset_right = 98.0
+offset_bottom = 47.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Cálculo 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control8" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 659.0
+offset_top = 248.0
+offset_right = 699.0
+offset_bottom = 288.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control8"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -13.0
+offset_right = 99.0
+offset_bottom = 40.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Métodos
+Numéricos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control9" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 947.0
+offset_top = 40.0
+offset_right = 987.0
+offset_bottom = 80.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control9"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -13.0
+offset_right = 99.0
+offset_bottom = 40.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Linguagens de
+Programação"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control10" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -124.0
+offset_top = 370.0
+offset_right = -84.0
+offset_bottom = 410.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control10"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -8.0
+offset_right = 99.0
+offset_bottom = 38.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Física
+Experimental"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control11" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 288.0
+offset_top = 412.0
+offset_right = 328.0
+offset_bottom = 452.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control11"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = -7.0
+offset_right = 100.0
+offset_bottom = 39.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Pesquisa
+Operacional"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control12" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 578.0
+offset_top = 412.0
+offset_right = 618.0
+offset_bottom = 452.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control12"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -10.0
+offset_right = 99.0
+offset_bottom = 36.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Programação
+Científica"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control13" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1278.0
+offset_top = 206.0
+offset_right = 1318.0
+offset_bottom = 246.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control13"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -18.0
+offset_right = 98.0
+offset_bottom = 35.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Lógica Para 
+C.C."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control14" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1195.0
+offset_top = 495.0
+offset_right = 1235.0
+offset_bottom = 535.0
+
+[node name="RichTextLabel" type="Label" parent="Gerenciador de Paradas/Control14"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 37.0
+offset_right = 180.0
+offset_bottom = 82.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Matemática
+Discreta"
+vertical_alignment = 1
+
+[node name="Control15" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 865.0
+offset_top = 576.0
+offset_right = 905.0
+offset_bottom = 616.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control15"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 8.0
+offset_right = 99.0
+offset_bottom = 35.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Compiladores"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control16" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 577.0
+offset_top = 578.0
+offset_right = 617.0
+offset_bottom = 618.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control16"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -11.0
+offset_right = 99.0
+offset_bottom = 34.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Algoritmos
+em Grafos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control17" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 206.0
+offset_top = 576.0
+offset_right = 246.0
+offset_bottom = 616.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control17"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -30.0
+offset_right = 99.0
+offset_bottom = 34.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Análise e
+Projeto de
+Algoritmos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control18" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -124.0
+offset_top = 577.0
+offset_right = -84.0
+offset_bottom = 617.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control18"]
+layout_mode = 0
+offset_left = -166.0
+offset_top = 30.0
+offset_right = -11.0
+offset_bottom = 94.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Láb de
+Desenv. de
+Disp. Móveis"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control19" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -166.0
+offset_top = 781.0
+offset_right = -126.0
+offset_bottom = 821.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control19"]
+layout_mode = 0
+offset_left = -166.0
+offset_top = 30.0
+offset_right = -11.0
+offset_bottom = 94.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Láb de
+Desenv. de
+Jogos"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control20" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control20"]
+layout_mode = 0
+offset_left = -59.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 44.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Programação I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control21" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control21"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = -3.0
+offset_right = 304.0
+offset_bottom = 42.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Prog.
+Estruturada"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control22" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control22"]
+layout_mode = 0
+offset_left = 313.0
+offset_top = -1.0
+offset_right = 470.0
+offset_bottom = 44.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Estrutura
+de Dados"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control23" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control23"]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 3.0
+offset_right = 725.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Banco de Dados I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control24" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control24"]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 3.0
+offset_right = 1016.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Banco de Dados II"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control25" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control25"]
+layout_mode = 0
+offset_left = 1189.0
+offset_top = 82.0
+offset_right = 1406.0
+offset_bottom = 127.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Interação
+Humano-Computador"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control26" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control26"]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 164.0
+offset_right = 745.0
+offset_bottom = 209.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Eng. Software I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control27" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control27"]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 164.0
+offset_right = 500.0
+offset_bottom = 209.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Prog. Orientada
+a Objetos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control28" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control28"]
+layout_mode = 0
+offset_left = 1104.0
+offset_top = -160.0
+offset_right = 1326.0
+offset_bottom = -115.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Inteligência Artificial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control29" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control29"]
+layout_mode = 0
+offset_left = 856.0
+offset_top = 250.0
+offset_right = 1078.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Proj. Software"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control30" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control30"]
+layout_mode = 0
+offset_left = 1186.0
+offset_top = 250.0
+offset_right = 1408.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Eng. Software II"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control31" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control31"]
+layout_mode = 0
+offset_left = 854.0
+offset_top = 370.0
+offset_right = 1076.0
+offset_bottom = 415.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Redes de
+Computadores I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control36" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control36"]
+layout_mode = 0
+offset_left = 1350.0
+offset_top = 370.0
+offset_right = 1572.0
+offset_bottom = 415.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Redes de
+Computadores II"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control37" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control37"]
+layout_mode = 0
+offset_left = 815.0
+offset_top = 627.0
+offset_right = 1037.0
+offset_bottom = 672.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Sistemas
+Distribuídos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control32" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control32"]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 370.0
+offset_right = 708.0
+offset_bottom = 415.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Sistemas
+Operacionais"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control33" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control33"]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 370.0
+offset_right = 461.0
+offset_bottom = 415.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Arquitetura de
+Computadores"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control34" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control34"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = 370.0
+offset_right = 214.0
+offset_bottom = 415.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Circuitos
+Digitais"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control35" type="Control" parent="Gerenciador de Paradas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -164.0
+offset_top = 942.0
+offset_right = -124.0
+offset_bottom = 982.0
+
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control35"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 204.0
+offset_right = 172.0
+offset_bottom = 249.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = "Fundamentos de Arq.
+de Computadores"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="GUI/Button" to="GUI" method="_on_button_pressed"]

@@ -284,30 +284,29 @@ script = ExtResource("4_5jc4f")
 cor_trilha = "roxo"
 
 [node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao13" instance=ExtResource("5_k8cfs")]
-position = Vector2(818, 226)
+position = Vector2(867, 227)
 rotation = 1.5708
-scale = Vector2(0.8, 0.8)
 
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao13" instance=ExtResource("5_k8cfs")]
-position = Vector2(884, 227)
+position = Vector2(944, 227)
 rotation = 1.5708
-scale = Vector2(0.8, 0.8)
-
-[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao13" instance=ExtResource("5_k8cfs")]
-position = Vector2(952, 227)
-rotation = 1.5708
-scale = Vector2(0.8, 0.8)
 
 [node name="TrilhaVagao14" type="Node2D" parent="GerenciadorDeTrilhas"]
 script = ExtResource("4_5jc4f")
-cor_trilha = "laranja"
+cor_trilha = "verde"
 
 [node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao14" instance=ExtResource("5_k8cfs")]
-position = Vector2(1010, 278)
+position = Vector2(1462, 943)
 scale = Vector2(0.8, 0.8)
 
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao14" instance=ExtResource("5_k8cfs")]
-position = Vector2(1010, 337)
+position = Vector2(1484, 1010)
+rotation = -0.631809
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao14" instance=ExtResource("5_k8cfs")]
+position = Vector2(1505, 1070)
+rotation = -0.158825
 scale = Vector2(0.8, 0.8)
 
 [node name="TrilhaVagao15" type="Node2D" parent="GerenciadorDeTrilhas"]
@@ -494,7 +493,11 @@ position = Vector2(578, 235)
 rotation = 0.869174
 
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao29" instance=ExtResource("5_k8cfs")]
-position = Vector2(675, 225)
+position = Vector2(659, 226)
+rotation = 1.5708
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao29" instance=ExtResource("5_k8cfs")]
+position = Vector2(740, 228)
 rotation = 1.5708
 
 [node name="TrilhaVagao30" type="Node2D" parent="GerenciadorDeTrilhas"]
@@ -517,15 +520,20 @@ scale = Vector2(0.8, 0.8)
 
 [node name="TrilhaVagao31" type="Node2D" parent="GerenciadorDeTrilhas"]
 script = ExtResource("4_5jc4f")
-cor_trilha = "amarelo"
 
 [node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao31" instance=ExtResource("5_k8cfs")]
-position = Vector2(762, 279)
+position = Vector2(564, 1314)
+rotation = -0.394444
 scale = Vector2(0.8, 0.8)
 
 [node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao31" instance=ExtResource("5_k8cfs")]
-position = Vector2(724, 336)
-rotation = 0.315905
+position = Vector2(609, 1369)
+rotation = -0.79587
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao31" instance=ExtResource("5_k8cfs")]
+position = Vector2(663, 1416)
+rotation = -0.947714
 scale = Vector2(0.8, 0.8)
 
 [node name="TrilhaVagao32" type="Node2D" parent="GerenciadorDeTrilhas"]
@@ -694,4 +702,214 @@ rotation = 1.5708
 
 [node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao41" instance=ExtResource("5_k8cfs")]
 position = Vector2(1548, 1504)
+rotation = 1.5708
+
+[node name="TrilhaVagao42" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "laranja"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(554, 1193)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(554, 1114)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(554, 1032)
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(566, 948)
+rotation = 0.436332
+
+[node name="Vagoes5" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(597, 865)
+
+[node name="Vagoes6" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(606, 779)
+rotation = 0.47473
+
+[node name="Vagoes7" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(665, 722)
+rotation = 1.5708
+
+[node name="Vagoes8" parent="GerenciadorDeTrilhas/TrilhaVagao42" instance=ExtResource("5_k8cfs")]
+position = Vector2(742, 723)
+rotation = 1.5708
+
+[node name="TrilhaVagao43" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao43" instance=ExtResource("5_k8cfs")]
+position = Vector2(926, 1691)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao43" instance=ExtResource("5_k8cfs")]
+position = Vector2(979, 1754)
+rotation = -1.26536
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao43" instance=ExtResource("5_k8cfs")]
+position = Vector2(1054, 1792)
+rotation = -1.3439
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao43" instance=ExtResource("5_k8cfs")]
+position = Vector2(1129, 1829)
+rotation = 1.5708
+
+[node name="Vagoes5" parent="GerenciadorDeTrilhas/TrilhaVagao43" instance=ExtResource("5_k8cfs")]
+position = Vector2(1205, 1815)
+rotation = 0.811578
+
+[node name="TrilhaVagao44" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "azul"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao44" instance=ExtResource("5_k8cfs")]
+position = Vector2(1553, 1152)
+rotation = -0.394444
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao44" instance=ExtResource("5_k8cfs")]
+position = Vector2(1586, 1216)
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao44" instance=ExtResource("5_k8cfs")]
+position = Vector2(1626, 1286)
+scale = Vector2(0.8, 0.8)
+
+[node name="TrilhaVagao45" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "azul"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1324, 1780)
+rotation = 1.10654
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1402, 1752)
+rotation = 1.5708
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1483, 1721)
+rotation = 0.947714
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1561, 1711)
+rotation = 1.5708
+
+[node name="Vagoes5" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1638, 1712)
+rotation = 1.5708
+
+[node name="Vagoes6" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1716, 1711)
+rotation = 1.5708
+
+[node name="Vagoes7" parent="GerenciadorDeTrilhas/TrilhaVagao45" instance=ExtResource("5_k8cfs")]
+position = Vector2(1786, 1686)
+rotation = 0.305433
+
+[node name="TrilhaVagao46" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "roxo"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao46" instance=ExtResource("5_k8cfs")]
+position = Vector2(1792, 567)
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao46" instance=ExtResource("5_k8cfs")]
+position = Vector2(1757, 623)
+rotation = 0.315905
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao46" instance=ExtResource("5_k8cfs")]
+position = Vector2(1750, 688)
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao46" instance=ExtResource("5_k8cfs")]
+position = Vector2(1713, 749)
+scale = Vector2(0.8, 0.8)
+
+[node name="TrilhaVagao47" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "preto"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao47" instance=ExtResource("5_k8cfs")]
+position = Vector2(1529, 348)
+rotation = 1.5708
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao47" instance=ExtResource("5_k8cfs")]
+position = Vector2(1610, 348)
+rotation = 1.5708
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao47" instance=ExtResource("5_k8cfs")]
+position = Vector2(1691, 388)
+rotation = 2.36143
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao47" instance=ExtResource("5_k8cfs")]
+position = Vector2(1751, 447)
+rotation = 2.36143
+
+[node name="TrilhaVagao48" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+cor_trilha = "roxo"
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao48" instance=ExtResource("5_k8cfs")]
+position = Vector2(1234, 522)
+rotation = 0.869174
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao48" instance=ExtResource("5_k8cfs")]
+position = Vector2(1305, 485)
+rotation = 0.869174
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao48" instance=ExtResource("5_k8cfs")]
+position = Vector2(1365, 434)
+rotation = 1.18508
+scale = Vector2(0.8, 0.8)
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao48" instance=ExtResource("5_k8cfs")]
+position = Vector2(1428, 402)
+rotation = 0.869174
+scale = Vector2(0.8, 0.8)
+
+[node name="TrilhaVagao49" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1034, 1421)
+rotation = 1.5708
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1113, 1388)
+rotation = 1.01753
+
+[node name="Vagoes3" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1194, 1380)
+rotation = 1.5708
+
+[node name="Vagoes4" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1277, 1348)
+rotation = 0.858702
+
+[node name="Vagoes5" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1361, 1339)
+rotation = 1.5708
+
+[node name="Vagoes6" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1452, 1339)
+rotation = 1.5708
+
+[node name="Vagoes7" parent="GerenciadorDeTrilhas/TrilhaVagao49" instance=ExtResource("5_k8cfs")]
+position = Vector2(1548, 1339)
+rotation = 1.5708
+
+[node name="TrilhaVagao50" type="Node2D" parent="GerenciadorDeTrilhas"]
+script = ExtResource("4_5jc4f")
+
+[node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao50" instance=ExtResource("5_k8cfs")]
+position = Vector2(1119, 1467)
+rotation = -0.712094
+
+[node name="Vagoes2" parent="GerenciadorDeTrilhas/TrilhaVagao50" instance=ExtResource("5_k8cfs")]
+position = Vector2(1216, 1504)
 rotation = 1.5708

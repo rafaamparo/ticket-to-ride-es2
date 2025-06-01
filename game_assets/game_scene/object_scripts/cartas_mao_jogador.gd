@@ -18,6 +18,8 @@ func _ready() -> void:
 		var carta = carta_scene.instantiate()
 		adicionarCartaNaMao(carta);
 		carta.position = Vector2(centro_tela_x, -500)
+		var rotacao_graus = -1.2*(i+1)
+		carta.rotation = deg_to_rad(rotacao_graus)
 		carta.card_index = randi_range(0, 7)
 		carta.z_index = i
 		$".".add_child(carta)
@@ -41,10 +43,10 @@ func calcularPosicaoDasCartas():
 		
 		var larguraTotalDasCartas = (minhas_cartas.size()-1)*LARGURA_CARTA
 		var x_novo_da_carta = centro_tela_x + i*LARGURA_CARTA - larguraTotalDasCartas/2;
-		var rotacao_graus = -1.2*(i+1)
-		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + randi_range(0, 25))
+		# var rotacao_graus = -1.2*(i+1)
+		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + minhas_cartas[i].y_offset)
 		
-		cartaParaAtualizar.rotation = deg_to_rad(rotacao_graus)
+		# cartaParaAtualizar.rotation = deg_to_rad(rotacao_graus)
 		cartaParaAtualizar.posicaoInicial = nova_posicao
 		var tween = get_tree().create_tween()
 		tween.tween_property(cartaParaAtualizar, "position", nova_posicao, 0.4)
@@ -118,7 +120,7 @@ func stop_drag():
 			if trilha_detectada:
 				print("Carta '", actual_card_being_dragged.name, "' sobre a trilha: ", trilha_detectada.name)
 		
-		actual_card_being_dragged.scale = Vector2(0.85, 0.85)
+		actual_card_being_dragged.scale = Vector2(0.7, 0.7)
 		cardBeingDragged = null # Clear the reference to the card being dragged
 
 		# If a track was detected, you might want to handle the card differently
@@ -132,6 +134,7 @@ func stop_drag():
 			# For now, it will be added back to hand below.
 			pass
 
+		gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
 		adicionarCartaNaMao(actual_card_being_dragged) # Add the card back to hand (fixed bug here)
 
 func _input(event: InputEvent) -> void:
@@ -140,6 +143,7 @@ func _input(event: InputEvent) -> void:
 			var carta = raycast_check(COLLISION_MASK)
 			print(carta)
 			if carta:
+				print(carta.card_index)
 				start_drag(carta)
 		else:
 			if cardBeingDragged:
@@ -156,6 +160,59 @@ func get_card_with_highest_z_index(cards):
 			highest_z_ind = highest_z_card.z_index
 	
 	return highest_z_card
+
+func highlight_deck_cards(color_index: int):
+	# Highlight all cards in the player's hand
+	for card in minhas_cartas:
+		if is_instance_valid(card):
+
+			if card == cardBeingDragged:
+				# Skip highlighting the card being dragged
+				continue
+
+			print("Highlighting card: ", card.name, " with index: ", card.card_index)
+			if card.card_index != color_index:
+				continue
+
+			if card.is_focused:
+				# If the card is focused, skip highlighting
+				continue
+			
+			card.is_focused = true
+			# Check if the card is not being dragged
+			# If its not being dragged, save previous rotation and rotate to 0
+			# Also, save y position and add +60 to it
+			card.previous_rotation = card.rotation
+			card.previous_position = card.position
+
+			var tween = get_tree().create_tween()
+			tween.tween_property(card, "rotation", 0, 0.2)
+			var max_y_position = get_viewport().size.y - 100
+
+			tween.tween_property(card, "position", Vector2(card.position.x, max(card.position.y - 50, max_y_position)), 0.2)
+			tween.set_ease(Tween.EASE_IN_OUT)
+
+
+func unhighlight_deck_cards():
+	# Unhighlight all cards in the player's hand
+	for card in minhas_cartas:
+		if is_instance_valid(card):
+			card.is_focused = false
+			if card.previous_rotation != null:
+				if card == cardBeingDragged:
+					# If the card is being dragged, skip unhighlighting
+					continue
+
+				var rotation_to_restore = card.previous_rotation if card.previous_rotation != null else 0
+				var position_to_restore = card.previous_position if card.previous_position != null else card.position
+
+				card.previous_rotation = null
+				card.previous_position = null
+				var tween = get_tree().create_tween()
+				tween.tween_property(card, "rotation", rotation_to_restore, 0.2)
+				tween.tween_property(card, "position", position_to_restore, 0.2)
+				tween.set_ease(Tween.EASE_IN_OUT)
+
 
 func raycast_check(_collider: int): # collider parameter is no longer used
 	var cards_under_mouse: Array[GameCard] = []
@@ -210,7 +267,13 @@ func _process(_delta: float) -> void: # Added underscore to delta
 		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO:
 			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_sob_carta:
+				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
+				if (not trilha_sob_carta.capturado):
+					trilha_sob_carta.highlight_all_vagoes() # Highlight all vagoes in the track
+					highlight_deck_cards(cardBeingDragged.card_index) # Highlight deck cards of the same color
 				print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
-			# else:
-				# Optional: print something if it's not over any track, or handle highlighting removal here
+			else:
+				#Optional: print something if it's not over any track, or handle highlighting removal here
+				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
+				unhighlight_deck_cards()
 				# print("Card is not over any trilha")

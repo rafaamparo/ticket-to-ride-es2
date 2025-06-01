@@ -4,16 +4,23 @@ signal hovered
 signal hoveredOff
 
 var posicaoInicial
+var previous_rotation
+var previous_position 
+var y_offset: int = 0
+var is_focused: bool = false
+
 @export var card_index: int = 0;
 @export var cor: int = 0
 @export var raridade:int = 10
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
 	$CardSprite.vframes = 4  # 4 rows
 	$CardSprite.hframes = 2  # 2 columns
-	
+	y_offset = randi_range(0, 25)
 	update_card_sprite()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

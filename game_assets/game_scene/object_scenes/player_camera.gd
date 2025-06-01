@@ -5,7 +5,8 @@ const MAP_SIZE := Vector2(2225.0, 2225.0)
 # For example, if view is shifted left by 576 and up by 325, error is (-576, -325).
 # The correction applied will be -SYSTEM_OFFSET / current_zoom_scalar.
 const SYSTEM_OFFSET := Vector2(576.0, 325.0) 
-
+# .
+# .
 # Zoom parameters
 var current_zoom_scalar := 1.0
 var min_zoom_scalar := 0.1 # Calculated in _ready based on map and viewport

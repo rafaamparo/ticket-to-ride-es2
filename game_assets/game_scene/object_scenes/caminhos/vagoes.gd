@@ -28,18 +28,26 @@ func update_saturation(is_captured: bool) -> void:
 			sprite.modulate.a = 1
 			sprite.modulate.v = 1.2 # 100% saturation (full color)
 			# make it brighter by increasing the value (brightness)
-			sprite.modulate.r = 1.2
-			sprite.modulate.g = 1.2
-			sprite.modulate.b = 1.2
+			sprite.modulate.r = 1.3
+			sprite.modulate.g = 1.3
+			sprite.modulate.b = 1.3
 
 func highlight() -> void:
 	if sprite:
 		var tween = get_tree().create_tween()
 		tween.tween_property(sprite, "scale", initial_scale * 1.2, 0.2) # Increase size by 20%
+		# sprite.modulate.r = 1 # 50% saturation
+		# sprite.modulate.g = 1 # 50% saturation
+		# sprite.modulate.b = 1 # 50% saturation
+		sprite.modulate.a = 1
 		tween.set_ease(Tween.EASE_IN_OUT)
 
 func unhighlight() -> void:
 	if sprite:
 		var tween = get_tree().create_tween()
 		tween.tween_property(sprite, "scale", initial_scale, 0.2)
+		# sprite.modulate	.r = 0.8 # 50% saturation
+		# sprite.modulate.g = 0.8 # 50% saturation
+		# sprite.modulate.b = 0.8 # 50% saturation
+		sprite.modulate.a = 1 # 50% opacity
 		tween.set_ease(Tween.EASE_IN_OUT)

@@ -20,7 +20,7 @@ func _ready() -> void:
 		carta.position = Vector2(centro_tela_x, -500)
 		var rotacao_graus = -1.2*(i+1)
 		carta.rotation = deg_to_rad(rotacao_graus)
-		carta.card_index = 3
+		carta.card_index = randi_range(0,7)
 		carta.z_index = i
 		$".".add_child(carta)
 
@@ -310,8 +310,9 @@ func _process(_delta: float) -> void:
 				if (not trilha_sob_carta.capturado and trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index ):
 					trilha_sob_carta.highlight_all_vagoes()
 					highlight_deck_cards(cardBeingDragged.card_index) 
-				# print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
-			else:
+				else:
+					unhighlight_deck_cards()
 
+			else:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
 				unhighlight_deck_cards()

@@ -23,11 +23,13 @@
 [sub_resource type="Environment" id="Environment_cns0p"]
 background_mode = 3
 adjustment_enabled = true
+adjustment_brightness = 1.08
+adjustment_saturation = 1.01
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vqnq2"]
 shader = ExtResource("7_6l13s")
 shader_parameter/vignette_intensity = 0.3
-shader_parameter/vignette_opacity = 0.05
+shader_parameter/vignette_opacity = 0.3
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewgjx"]

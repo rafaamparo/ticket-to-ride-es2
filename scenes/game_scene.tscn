@@ -569,7 +569,7 @@ scale = Vector2(0.8, 0.8)
 
 [node name="TrilhaVagao34" type="Node2D" parent="GerenciadorDeTrilhas"]
 script = ExtResource("4_5jc4f")
-cor_trilha = "marrom"
+cor_trilha = "cinza"
 
 [node name="Vagoes" parent="GerenciadorDeTrilhas/TrilhaVagao34" instance=ExtResource("5_k8cfs")]
 position = Vector2(786, 401)

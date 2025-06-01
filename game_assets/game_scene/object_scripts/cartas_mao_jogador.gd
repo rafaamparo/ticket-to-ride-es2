@@ -20,7 +20,7 @@ func _ready() -> void:
 		carta.position = Vector2(centro_tela_x, -500)
 		var rotacao_graus = -1.2*(i+1)
 		carta.rotation = deg_to_rad(rotacao_graus)
-		carta.card_index = 3
+		carta.card_index = randi_range(0,7)
 		carta.z_index = i
 		$".".add_child(carta)
 
@@ -100,7 +100,8 @@ func get_card_global_rect(card_node: GameCard) -> Rect2:
 
 func start_drag(carta):
 	cardBeingDragged = carta
-	carta.scale = Vector2(0.65, 0.65)
+	var tween = get_tree().create_tween()
+	tween.tween_property(carta, "scale", Vector2(0.5, 0.5), 0.1).set_ease(Tween.EASE_OUT)
 
 func stop_drag():
 	if cardBeingDragged != null:
@@ -155,19 +156,21 @@ func stop_drag():
 						var random_offset = Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0))
 						var target_position = freeze_position + random_offset
 						
-						gather_animation_tween.tween_property(carta_to_animate, "position", target_position, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-						gather_animation_tween.tween_property(carta_to_animate, "scale", Vector2(0.5, 0.5), 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						gather_animation_tween.tween_property(carta_to_animate, "position", target_position, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						gather_animation_tween.tween_property(carta_to_animate, "scale", Vector2(0,0), 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 						
 						if is_instance_valid(actual_card_being_dragged):
 							carta_to_animate.z_index = actual_card_being_dragged.z_index - 1
 						else:
 							carta_to_animate.z_index = 90 
+					gather_animation_tween.tween_property(actual_card_being_dragged, "scale", Vector2(0,0), 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+					animation_added = true
 
 					if animation_added:
 						await gather_animation_tween.finished
 
 					for carta_usada in cartas_a_serem_usadas:
-						carta_usada.scale = Vector2(0.5, 0.5) 
+						# carta_usada.scale = Vector2(0.5, 0.5) 
 						removerCartaDaMao(carta_usada, false)
 						if is_instance_valid(carta_usada):
 							carta_usada.queue_free() 
@@ -307,8 +310,9 @@ func _process(_delta: float) -> void:
 				if (not trilha_sob_carta.capturado and trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index ):
 					trilha_sob_carta.highlight_all_vagoes()
 					highlight_deck_cards(cardBeingDragged.card_index) 
-				# print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
-			else:
+				else:
+					unhighlight_deck_cards()
 
+			else:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
 				unhighlight_deck_cards()

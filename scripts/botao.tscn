@@ -16,5 +16,6 @@ text = "NOVO BOTÃO"
 horizontal_alignment = 1
 script = ExtResource("2_vxy4p")
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

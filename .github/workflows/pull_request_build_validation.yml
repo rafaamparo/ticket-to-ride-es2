@@ -1,0 +1,56 @@
+name: PR Build Validation (Windows)
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    name: Build for Windows
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot - Export Templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.3'
+          include-templates: true
+
+      - name: Criar Diretório de Build
+        run: mkdir -p build/windows
+
+      - name: Exportar Jogo (Debug Build Windows para Pull Requests)
+        run: |
+          godot --headless --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe"
+
+      - name: Arquiva Windows Build Output
+        shell: bash
+        run: |
+          cd build/windows
+          EXECUTABLE_NAME="TicketToClass_Dev.exe"
+          PCK_NAME="${EXECUTABLE_NAME%.exe}.pck"
+          ARCHIVE_NAME="TicketToClass_Dev_Windows.zip"
+
+          if [ -f "$EXECUTABLE_NAME" ] && [ -f "$PCK_NAME" ]; then
+            zip "$ARCHIVE_NAME" "$EXECUTABLE_NAME" "$PCK_NAME"
+          elif [ -f "$EXECUTABLE_NAME" ]; then
+            zip "$ARCHIVE_NAME" "$EXECUTABLE_NAME"
+          else
+            echo "Executável não encontrado para arquivar."
+            exit 1
+          fi
+          mv "$ARCHIVE_NAME" ../
+
+      - name: Upload de Artefato - Dev Build (Windows)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-build-windows
+          path: |
+            build/TicketToClass_Dev_Windows.zip
+          if-no-files-found: error
+          retention-days: 7

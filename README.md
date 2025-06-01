@@ -7,7 +7,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***“Ticket to R
   ![](https://geps.dev/progress/100?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração II 
-  ![](https://geps.dev/progress/42?dangerColor=800000&warningColor=ff9900&successColor=006600)
+  ![](https://geps.dev/progress/38?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração III 
   ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)

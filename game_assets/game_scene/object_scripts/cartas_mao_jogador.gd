@@ -5,7 +5,7 @@ var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
 var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
 const LARGURA_CARTA: float = 125*0.85
-const QTD_CARTAS: int = 8
+const QTD_CARTAS: int = 14
 const COLLISION_MASK = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ func _ready() -> void:
 		carta.position = Vector2(centro_tela_x, -500)
 		var rotacao_graus = -1.2*(i+1)
 		carta.rotation = deg_to_rad(rotacao_graus)
-		carta.card_index = randi_range(0, 7)
+		carta.card_index = 3
 		carta.z_index = i
 		$".".add_child(carta)
 
@@ -29,10 +29,11 @@ func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
 		minhas_cartas.append(cartaParaAdicionar)
 	calcularPosicaoDasCartas()
 
-func removerCartaDaMao(cartaParaRemover: GameCard):
+func removerCartaDaMao(cartaParaRemover: GameCard, should_call_calculate: bool = true):
 	if cartaParaRemover in minhas_cartas:
 		minhas_cartas.erase(cartaParaRemover)
-		calcularPosicaoDasCartas()
+		if should_call_calculate:
+			calcularPosicaoDasCartas()
 			
 func calcularPosicaoDasCartas():
 	var centro_tela_x = get_viewport().size.x / 2
@@ -43,13 +44,16 @@ func calcularPosicaoDasCartas():
 		
 		var larguraTotalDasCartas = (minhas_cartas.size()-1)*LARGURA_CARTA
 		var x_novo_da_carta = centro_tela_x + i*LARGURA_CARTA - larguraTotalDasCartas/2;
-		# var rotacao_graus = -1.2*(i+1)
+		var rotacao_graus = -1.2*(i+1)
 		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + minhas_cartas[i].y_offset)
 		
-		# cartaParaAtualizar.rotation = deg_to_rad(rotacao_graus)
+		cartaParaAtualizar.previous_rotation = deg_to_rad(rotacao_graus)
 		cartaParaAtualizar.posicaoInicial = nova_posicao
 		var tween = get_tree().create_tween()
 		tween.tween_property(cartaParaAtualizar, "position", nova_posicao, 0.4)
+		tween.tween_property(cartaParaAtualizar, "rotation", deg_to_rad(rotacao_graus), 0.4)
+		tween.set_ease(Tween.EASE_IN_OUT)
+		tween.set_trans(Tween.TRANS_BOUNCE)
 
 
 
@@ -88,24 +92,14 @@ func highlight_card(card, hovered):
 			
 
 func get_card_global_rect(card_node: GameCard) -> Rect2:
-	# Attempt to get bounds from CollisionShape2D within an Area2D child
 	var collision_shape = card_node.get_node_or_null("Area2D/CollisionShape2D") as CollisionShape2D
 	if is_instance_valid(collision_shape) and is_instance_valid(collision_shape.shape):
 		var shape_local_rect: Rect2 = collision_shape.shape.get_rect()
-		# The collision_shape's global_transform correctly positions and scales this local_rect.
 		return collision_shape.get_global_transform() * shape_local_rect
-	
-	# Fallback if the expected collision shape isn't found
-	printerr("Could not find valid CollisionShape2D for card: ", card_node.name, " at path Area2D/CollisionShape2D")
-	
-	# Last resort: return an empty rect at the card's global position
 	return Rect2(card_node.global_position, Vector2.ZERO)
 
 func start_drag(carta):
 	cardBeingDragged = carta
-	# Consider removing the card from 'minhas_cartas' here if it shouldn't be interactable while dragging
-	# e.g., removerCartaDaMao(carta) 
-	# For now, keeping original behavior where it's still in the list.
 	carta.scale = Vector2(0.65, 0.65)
 
 func stop_drag():
@@ -119,31 +113,86 @@ func stop_drag():
 			trilha_detectada = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_detectada:
 				print("Carta '", actual_card_being_dragged.name, "' sobre a trilha: ", trilha_detectada.name)
-		
-		actual_card_being_dragged.scale = Vector2(0.7, 0.7)
-		cardBeingDragged = null # Clear the reference to the card being dragged
+				var cartas_mesma_cor = minhas_cartas.filter(func(carta: GameCard) -> bool:
+					return carta.card_index == actual_card_being_dragged.card_index
+				)
+				
+				if trilha_detectada.capturado:
+					print("Trilha já capturada, não pode jogar a carta.")
+				elif trilha_detectada.cores_map[trilha_detectada.cor_trilha] != actual_card_being_dragged.card_index:
+					print("Carta de cor errada para esta trilha.")
+				elif trilha_detectada.get_qtd_vagoes() > cartas_mesma_cor.size():
+					print("Número de vagões na trilha é maior do que o número de cartas na mão.")
+				else:
+					print("Carta jogada na trilha com sucesso!")
+					actual_card_being_dragged.isBeingAdded = true
+					var freeze_position = actual_card_being_dragged.position
+					var num_vagoes_necessarios = trilha_detectada.get_qtd_vagoes()
+					var cartas_a_serem_usadas: Array[GameCard] = []
+					if actual_card_being_dragged in cartas_mesma_cor:
+						cartas_a_serem_usadas.append(actual_card_being_dragged)
 
-		# If a track was detected, you might want to handle the card differently
-		# (e.g., remove it from hand, associate it with the track).
-		# For now, as per prompt, just printing and then adding back to hand.
-		if trilha_detectada:
-			print("Card '", actual_card_being_dragged.name, "' should be played on the track: ", trilha_detectada.name)
-			# Example: If card should be "played" on the track:
-			# removerCartaDaMao(actual_card_being_dragged)
-			# actual_card_being_dragged.queue_free() # or some other logic
-			# For now, it will be added back to hand below.
-			pass
+					var idx = 0
+					while cartas_a_serem_usadas.size() < num_vagoes_necessarios and idx < cartas_mesma_cor.size():
+						var carta_candidata = cartas_mesma_cor[idx]
+						if not cartas_a_serem_usadas.has(carta_candidata):
+							cartas_a_serem_usadas.append(carta_candidata)
+						idx += 1
+					
+					var gather_animation_tween = get_tree().create_tween().set_parallel()
+					var animation_added = false
+
+					
+					for carta_to_animate in cartas_a_serem_usadas:
+						if carta_to_animate == actual_card_being_dragged:
+							continue 
+
+						if not is_instance_valid(carta_to_animate):
+							continue
+
+						animation_added = true
+						
+						var random_offset = Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0))
+						var target_position = freeze_position + random_offset
+						
+						gather_animation_tween.tween_property(carta_to_animate, "position", target_position, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						gather_animation_tween.tween_property(carta_to_animate, "scale", Vector2(0.5, 0.5), 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+						
+						if is_instance_valid(actual_card_being_dragged):
+							carta_to_animate.z_index = actual_card_being_dragged.z_index - 1
+						else:
+							carta_to_animate.z_index = 90 
+
+					if animation_added:
+						await gather_animation_tween.finished
+
+					for carta_usada in cartas_a_serem_usadas:
+						carta_usada.scale = Vector2(0.5, 0.5) 
+						removerCartaDaMao(carta_usada, false)
+						if is_instance_valid(carta_usada):
+							carta_usada.queue_free() 
+					
+					print(minhas_cartas)
+					trilha_detectada.capturar_trilha() 
+
+					cardBeingDragged = null
+					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
+					await unhighlight_deck_cards()
+					calcularPosicaoDasCartas()
+
+					return
+
+		actual_card_being_dragged.scale = Vector2(0.7, 0.7)
+		cardBeingDragged = null 
 
 		gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
-		adicionarCartaNaMao(actual_card_being_dragged) # Add the card back to hand (fixed bug here)
+		adicionarCartaNaMao(actual_card_being_dragged) #
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			var carta = raycast_check(COLLISION_MASK)
-			print(carta)
 			if carta:
-				print(carta.card_index)
 				start_drag(carta)
 		else:
 			if cardBeingDragged:
@@ -162,12 +211,10 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func highlight_deck_cards(color_index: int):
-	# Highlight all cards in the player's hand
 	for card in minhas_cartas:
 		if is_instance_valid(card):
 
 			if card == cardBeingDragged:
-				# Skip highlighting the card being dragged
 				continue
 
 			print("Highlighting card: ", card.name, " with index: ", card.card_index)
@@ -175,13 +222,9 @@ func highlight_deck_cards(color_index: int):
 				continue
 
 			if card.is_focused:
-				# If the card is focused, skip highlighting
 				continue
 			
 			card.is_focused = true
-			# Check if the card is not being dragged
-			# If its not being dragged, save previous rotation and rotate to 0
-			# Also, save y position and add +60 to it
 			card.previous_rotation = card.rotation
 			card.previous_position = card.position
 
@@ -194,13 +237,11 @@ func highlight_deck_cards(color_index: int):
 
 
 func unhighlight_deck_cards():
-	# Unhighlight all cards in the player's hand
 	for card in minhas_cartas:
 		if is_instance_valid(card):
 			card.is_focused = false
 			if card.previous_rotation != null:
 				if card == cardBeingDragged:
-					# If the card is being dragged, skip unhighlighting
 					continue
 
 				var rotation_to_restore = card.previous_rotation if card.previous_rotation != null else 0
@@ -212,9 +253,10 @@ func unhighlight_deck_cards():
 				tween.tween_property(card, "rotation", rotation_to_restore, 0.2)
 				tween.tween_property(card, "position", position_to_restore, 0.2)
 				tween.set_ease(Tween.EASE_IN_OUT)
+				# await tween.finished
 
 
-func raycast_check(_collider: int): # collider parameter is no longer used
+func raycast_check(_collider: int): 
 	var cards_under_mouse: Array[GameCard] = []
 	var mouse_pos = get_viewport().get_mouse_position()
 
@@ -224,20 +266,13 @@ func raycast_check(_collider: int): # collider parameter is no longer used
 			if not is_instance_valid(collision_shape.shape):
 				continue
 
-			# Get the extents of the collision shape
 			var shape_extents = collision_shape.shape.get_rect().size / 2.0
 			
-			# Calculate the global scale of the card
 			var card_global_scale = card.get_global_transform().get_scale()
 
-			# Apply scale to the shape extents
 			var scaled_extents = shape_extents * card_global_scale
 
-			# Calculate the card's bounding box in global coordinates
-			# The card's global_position is its center if it's a Node2D.
-			# If the CollisionShape2D is offset from the GameCard's origin, that needs to be accounted for.
-			# Assuming CollisionShape2D is centered or its position is relative to GameCard origin.
-			var card_global_center = card.global_position + collision_shape.global_position - card.global_position # Offset of collision shape
+			var card_global_center = card.global_position + collision_shape.global_position - card.global_position 
 			var top_left = card_global_center - scaled_extents
 			var bottom_right = card_global_center + scaled_extents
 			
@@ -257,23 +292,23 @@ func raycast_check(_collider: int): # collider parameter is no longer used
 			return highest_z_card
 	return null
 
-func _process(_delta: float) -> void: # Added underscore to delta
+func _process(_delta: float) -> void: 
 	if cardBeingDragged:
 		var mouse_pos = get_viewport().get_mouse_position()
-		cardBeingDragged.position = mouse_pos
+		if not cardBeingDragged.isBeingAdded:
+			cardBeingDragged.position = mouse_pos
 		
-		# Check if the dragged card is over a trilha
+
 		var card_rect: Rect2 = get_card_global_rect(cardBeingDragged)
 		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO:
 			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_sob_carta:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
-				if (not trilha_sob_carta.capturado):
-					trilha_sob_carta.highlight_all_vagoes() # Highlight all vagoes in the track
-					highlight_deck_cards(cardBeingDragged.card_index) # Highlight deck cards of the same color
-				print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
+				if (not trilha_sob_carta.capturado and trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index ):
+					trilha_sob_carta.highlight_all_vagoes()
+					highlight_deck_cards(cardBeingDragged.card_index) 
+				# print("Card '", cardBeingDragged.name, "' is currently hovering over trilha: ", trilha_sob_carta.name)
 			else:
-				#Optional: print something if it's not over any track, or handle highlighting removal here
+
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
 				unhighlight_deck_cards()
-				# print("Card is not over any trilha")

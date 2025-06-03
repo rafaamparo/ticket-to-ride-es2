@@ -7,7 +7,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
   ![](https://geps.dev/progress/100?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração II 
-  ![](https://geps.dev/progress/38?dangerColor=800000&warningColor=ff9900&successColor=006600)
+  ![](https://geps.dev/progress/66?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
 #### Iteração III 
   ![](https://geps.dev/progress/0?dangerColor=800000&warningColor=ff9900&successColor=006600)
@@ -43,9 +43,9 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
 - [x] Desenvolvimento do sistema para reivindicação de rotas
 - [ ] Sistema de compra de cartas
 - [ ] Sistema de turnos
-- [ ] Sistema de cálculo de pontos
-- [x] Menu Principal e Configurações
-- [ ] Validação da Demo (Entrega da Sprint)
+- [x] Sistema de cálculo de pontos
+- [ ] Menu Principal e Configurações
+- [x] Validação da Demo (Entrega da Sprint)
 - [ ] Criação de Testes das funcionalidades básicas
 - [x] Análise da Sprint
 

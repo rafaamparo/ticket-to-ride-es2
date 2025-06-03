@@ -30,8 +30,8 @@ adjustment_saturation = 1.01
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vqnq2"]
 shader = ExtResource("7_6l13s")
 shader_parameter/vignette_intensity = 0.3
-shader_parameter/vignette_opacity = 0.3
-shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+shader_parameter/vignette_opacity = 0.45
+shader_parameter/vignette_rgb = Color(0, 0, 0.313726, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewgjx"]
 
@@ -1319,15 +1319,21 @@ offset_top = 215.0
 offset_right = 22.0
 offset_bottom = 247.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Gerenciador de Paradas/Control2"]
-layout_mode = 0
-offset_left = -15.0
-offset_top = 4.0
-offset_right = 62.0
-offset_bottom = 44.0
-theme_override_fonts/normal_font = ExtResource("8_8tdgh")
-theme_override_font_sizes/normal_font_size = 32
-text = "  Física"
+[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control2"]
+offset_left = -56.0
+offset_top = -2.0
+offset_right = 99.0
+offset_bottom = 28.0
+theme_override_colors/font_shadow_color = Color(0.384932, 0.384932, 0.384932, 1)
+theme_override_constants/line_spacing = -7
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = -1
+theme_override_fonts/font = ExtResource("8_8tdgh")
+theme_override_font_sizes/font_size = 21
+text = " Física"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Control3" type="Control" parent="Gerenciador de Paradas"]
 layout_mode = 3

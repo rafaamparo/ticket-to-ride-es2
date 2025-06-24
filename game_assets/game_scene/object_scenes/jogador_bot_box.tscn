@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn5p701e6pisk"]
+
+[ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/jogador_bot_box.gd" id="1_i67cw"]
+[ext_resource type="Texture2D" uid="uid://rbxtga8bcgu" path="res://game_assets/game_scene/object_scenes/UI/menu_verde.png" id="2_oovw5"]
+[ext_resource type="Texture2D" uid="uid://b0aabpoemhme0" path="res://game_assets/game_scene/object_scenes/UI/verde.png" id="3_4a4vl"]
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="4_rhu3w"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="5_mxkfn"]
+
+[node name="JogadorBotBox" type="Control"]
+custom_minimum_size = Vector2(172, 106)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 172.0
+offset_bottom = 106.0
+script = ExtResource("1_i67cw")
+
+[node name="TexturaFundo" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 172.0
+offset_bottom = 106.173
+texture = ExtResource("2_oovw5")
+expand_mode = 5
+stretch_mode = 4
+metadata/_edit_group_ = true
+
+[node name="Personagem" type="TextureRect" parent="."]
+clip_contents = true
+layout_mode = 2
+offset_left = 43.0
+offset_top = 15.0
+offset_right = 163.0
+offset_bottom = 184.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_4a4vl")
+expand_mode = 1
+stretch_mode = 2
+metadata/_edit_group_ = true
+
+[node name="Nome" type="Label" parent="."]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 77.0
+offset_right = 119.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("4_rhu3w")
+theme_override_font_sizes/font_size = 15
+text = "BEATRIZ
+"
+metadata/_edit_group_ = true
+
+[node name="bilhetes" type="Label" parent="."]
+layout_mode = 2
+offset_left = 3.0
+offset_top = 31.0
+offset_right = 24.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("4_rhu3w")
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+metadata/_edit_group_ = true
+
+[node name="pontos" type="Label" parent="."]
+layout_mode = 2
+offset_left = 131.0
+offset_top = 19.0
+offset_right = 157.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_mxkfn")
+theme_override_font_sizes/font_size = 20
+text = "45
+"
+metadata/_edit_group_ = true

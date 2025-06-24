@@ -2039,12 +2039,10 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="BoxJogadoresContainer" type="VBoxContainer" parent="GUI"]
-offset_top = 9.0
 offset_right = 252.0
 offset_bottom = 647.0
 size_flags_horizontal = 0
 size_flags_vertical = 3
-theme_override_constants/separation = 12
 
 [node name="Control" type="Control" parent="GUI"]
 visible = false

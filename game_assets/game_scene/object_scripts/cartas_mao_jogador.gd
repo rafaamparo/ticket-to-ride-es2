@@ -83,10 +83,7 @@ func calcularPosicaoDasCartas():
 		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.set_trans(Tween.TRANS_BOUNCE)
 
-
-
 # Sistema de Movimentação da Carta
-
 func connect_card_signals(card):
 	card.connect("hovered", hovered_on_card)
 	card.connect("hoveredOff", hovered_off_card)
@@ -288,7 +285,6 @@ func unhighlight_deck_cards():
 				tween.set_ease(Tween.EASE_IN_OUT)
 				# await tween.finished
 
-
 func raycast_check(_collider: int): 
 	var cards_under_mouse: Array[GameCard] = []
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -331,8 +327,6 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_viewport().get_mouse_position()
 		if not cardBeingDragged.isBeingAdded:
 			cardBeingDragged.position = mouse_pos
-		
-
 		var card_rect: Rect2 = get_card_global_rect(cardBeingDragged)
 		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO:
 			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
@@ -343,7 +337,6 @@ func _process(_delta: float) -> void:
 					highlight_deck_cards(cardBeingDragged.card_index) 
 				else:
 					unhighlight_deck_cards()
-
 			else:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
 				unhighlight_deck_cards()

@@ -1,11 +1,9 @@
 class_name GerenciadorCartasJogador extends CanvasLayer
 
-var minhas_cartas: Array[GameCard] = []
+var jogador_principal: Jogador
 var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
 var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
-var pontos = 45
-var cartas_brancas = 0
 const LARGURA_CARTA: float = 125*0.85
 const QTD_CARTAS: int = 6
 const COLLISION_MASK = 1
@@ -16,20 +14,23 @@ func _ready() -> void:
 	var centro_tela_x = get_viewport().size.x / 2
 	gerenciadorDeTrilhosRef = $"../GerenciadorDeTrilhas"
 	
+	# A inicialização das cartas agora depende do jogador_principal ser definido
+	# Vamos esperar que o gerenciador de fluxo de jogo o configure.
+
+func inicializar_cartas_jogador():
+	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+	var centro_tela_x = get_viewport().size.x / 2
 	for i in range(QTD_CARTAS):
 		var carta = carta_scene.instantiate()
+		var cor_aleatoria = randi_range(0,7)
+		if cor_aleatoria == 7 and jogador_principal.cartas_brancas >= 2:
+			cor_aleatoria = randi_range(0,6)
+		
+		carta.card_index = cor_aleatoria
 		adicionarCartaNaMao(carta);
 		carta.position = Vector2(centro_tela_x, -500)
 		var rotacao_graus = -1.2*(i+1)
 		carta.rotation = deg_to_rad(rotacao_graus)
-		var cor_aleatoria = randi_range(0,7)
-		if cor_aleatoria== 7:
-			cartas_brancas += 1
-
-		if cartas_brancas > 2:
-			cor_aleatoria = randi_range(0,6)
-
-		carta.card_index = cor_aleatoria
 		carta.z_index = i
 		$".".add_child(carta)
 		
@@ -37,43 +38,42 @@ func gerarCartaAleatoria() -> void:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	var carta = carta_scene.instantiate()
-	adicionarCartaNaMao(carta);
+	var cor_aleatoria = randi_range(0,7)
+	if cor_aleatoria == 7 and jogador_principal.cartas_brancas >= 2:
+		cor_aleatoria = randi_range(0,6)
+	
+	carta.card_index = cor_aleatoria
+	adicionarCartaNaMao(carta)
+	
 	carta.position = Vector2(centro_tela_x, -500)
 	var rotacao_graus = 0
 	carta.rotation = deg_to_rad(rotacao_graus)
-	var cor_aleatoria = randi_range(0,7)
-	if cor_aleatoria== 7:
-		cartas_brancas += 1
-
-	if cartas_brancas > 2:
-		cor_aleatoria = randi_range(0,6)
-
-	carta.card_index = cor_aleatoria
-	carta.z_index = minhas_cartas.size()
+	carta.z_index = jogador_principal.cartas.size()
 	$".".add_child(carta)
 
 func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
-	if cartaParaAdicionar not in minhas_cartas and cartaParaAdicionar != null:
-		minhas_cartas.append(cartaParaAdicionar)
-	calcularPosicaoDasCartas()
+	if jogador_principal and cartaParaAdicionar != null:
+		jogador_principal.adicionarCartaNaMao(cartaParaAdicionar)
+		calcularPosicaoDasCartas()
 
 func removerCartaDaMao(cartaParaRemover: GameCard, should_call_calculate: bool = true):
-	if cartaParaRemover in minhas_cartas:
-		minhas_cartas.erase(cartaParaRemover)
+	if jogador_principal and cartaParaRemover in jogador_principal.cartas:
+		jogador_principal.removerCartaDaMao(cartaParaRemover)
 		if should_call_calculate:
 			calcularPosicaoDasCartas()
 			
 func calcularPosicaoDasCartas():
+	if not jogador_principal: return
 	var centro_tela_x = get_viewport().size.x / 2
 	var area_mao_y = get_viewport().size.y - 50
 	
-	for i in range(minhas_cartas.size()):
-		var cartaParaAtualizar = minhas_cartas[i]
+	for i in range(jogador_principal.cartas.size()):
+		var cartaParaAtualizar = jogador_principal.cartas[i]
 		
-		var larguraTotalDasCartas = (minhas_cartas.size()-1)*LARGURA_CARTA
+		var larguraTotalDasCartas = (jogador_principal.cartas.size()-1)*LARGURA_CARTA
 		var x_novo_da_carta = centro_tela_x + i*LARGURA_CARTA - larguraTotalDasCartas/2;
 		var rotacao_graus = -1.2*(i+1)
-		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + minhas_cartas[i].y_offset)
+		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + jogador_principal.cartas[i].y_offset)
 		
 		cartaParaAtualizar.previous_rotation = deg_to_rad(rotacao_graus)
 		cartaParaAtualizar.posicaoInicial = nova_posicao
@@ -103,7 +103,7 @@ func hovered_off_card(carta: GameCard):
 			isHoveringCard = false
 		
 func highlight_card(card, hovered):
-	if minhas_cartas.has(card):
+	if jogador_principal and jogador_principal.cartas.has(card):
 		if hovered:
 			var tween1 = get_tree().create_tween().set_parallel(true)
 			tween1.tween_property(card, "scale", Vector2(0.9, 0.9), 0.05)
@@ -139,7 +139,7 @@ func stop_drag():
 			trilha_detectada = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_detectada:
 				print("Carta '", actual_card_being_dragged.name, "' sobre a trilha: ", trilha_detectada.name)
-				var cartas_mesma_cor = minhas_cartas.filter(func(carta: GameCard) -> bool:
+				var cartas_mesma_cor = jogador_principal.cartas.filter(func(carta: GameCard) -> bool:
 					return carta.card_index == actual_card_being_dragged.card_index
 				)
 				
@@ -201,9 +201,9 @@ func stop_drag():
 						if is_instance_valid(carta_usada):
 							carta_usada.queue_free() 
 					
-					print(minhas_cartas)
+					print(jogador_principal.cartas)
 					trilha_detectada.capturar_trilha() 
-					pontos -= num_vagoes_necessarios
+					jogador_principal.pontos -= num_vagoes_necessarios
 			
 					cardBeingDragged = null
 					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
@@ -241,7 +241,8 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func highlight_deck_cards(color_index: int):
-	for card in minhas_cartas:
+	if not jogador_principal: return
+	for card in jogador_principal.cartas:
 		if is_instance_valid(card):
 
 			if card == cardBeingDragged:
@@ -267,7 +268,8 @@ func highlight_deck_cards(color_index: int):
 
 
 func unhighlight_deck_cards():
-	for card in minhas_cartas:
+	if not jogador_principal: return
+	for card in jogador_principal.cartas:
 		if is_instance_valid(card):
 			card.is_focused = false
 			if card.previous_rotation != null:
@@ -286,10 +288,11 @@ func unhighlight_deck_cards():
 				# await tween.finished
 
 func raycast_check(_collider: int): 
+	if not jogador_principal: return null
 	var cards_under_mouse: Array[GameCard] = []
 	var mouse_pos = get_viewport().get_mouse_position()
 
-	for card in minhas_cartas:
+	for card in jogador_principal.cartas:
 		if is_instance_valid(card) and is_instance_valid(card.get_node_or_null("Area2D/CollisionShape2D")):
 			var collision_shape = card.get_node("Area2D/CollisionShape2D") as CollisionShape2D
 			if not is_instance_valid(collision_shape.shape):
@@ -322,7 +325,8 @@ func raycast_check(_collider: int):
 	return null
 
 func _process(_delta: float) -> void: 
-	$"../GUI/Jogador Principal/pontos".text = str(pontos)
+	if not jogador_principal: return
+	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
 	if cardBeingDragged:
 		var mouse_pos = get_viewport().get_mouse_position()
 		if not cardBeingDragged.isBeingAdded:

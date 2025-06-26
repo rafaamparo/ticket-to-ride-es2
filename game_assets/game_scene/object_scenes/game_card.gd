@@ -18,7 +18,7 @@ var is_focused: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_parent().connect_card_signals(self)
+	conectarDetectoresDeMovimento()
 	$CardSprite.vframes = 4  # 4 rows
 	$CardSprite.hframes = 2  # 2 columns
 	y_offset = randi_range(0, 25)
@@ -27,6 +27,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func conectarDetectoresDeMovimento() -> void:
+	get_parent().connect_card_signals(self)
+	
+func desconectarDetectoresDeMovimento() -> void:
+	get_parent().disconnect_card_signals(self)
 
 # Updates the card sprite based on the card index
 func update_card_sprite() -> void:

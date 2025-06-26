@@ -77,16 +77,20 @@ func calcularPosicaoDasCartas():
 		
 		cartaParaAtualizar.previous_rotation = deg_to_rad(rotacao_graus)
 		cartaParaAtualizar.posicaoInicial = nova_posicao
-		var tween = get_tree().create_tween()
+		var tween = get_tree().create_tween().set_parallel(true)
+		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(cartaParaAtualizar, "position", nova_posicao, 0.4)
 		tween.tween_property(cartaParaAtualizar, "rotation", deg_to_rad(rotacao_graus), 0.4)
-		tween.set_ease(Tween.EASE_IN_OUT)
-		tween.set_trans(Tween.TRANS_BOUNCE)
+		tween.tween_property(cartaParaAtualizar, "scale", Vector2(0.85,0.85), 0.4)
 
 # Sistema de Movimentação da Carta
 func connect_card_signals(card):
 	card.connect("hovered", hovered_on_card)
 	card.connect("hoveredOff", hovered_off_card)
+
+func disconnect_card_signals(card):
+	card.disconnect("hovered", hovered_on_card)
+	card.disconnect("hoveredOff", hovered_off_card)
 	
 func hovered_on_card(carta: GameCard):
 	if !isHoveringCard:
@@ -145,7 +149,7 @@ func stop_drag():
 				
 				if trilha_detectada.capturado:
 					print("Trilha já capturada, não pode jogar a carta.")
-				elif trilha_detectada.cores_map[trilha_detectada.cor_trilha] != actual_card_being_dragged.card_index:
+				elif actual_card_being_dragged.card_index != 7 && trilha_detectada.cores_map[trilha_detectada.cor_trilha] != 7 && trilha_detectada.cores_map[trilha_detectada.cor_trilha] != actual_card_being_dragged.card_index:
 					print("Carta de cor errada para esta trilha.")
 				elif trilha_detectada.get_qtd_vagoes() > cartas_mesma_cor.size():
 					print("Número de vagões na trilha é maior do que o número de cartas na mão.")
@@ -202,6 +206,8 @@ func stop_drag():
 							carta_usada.queue_free() 
 					
 					print(jogador_principal.cartas)
+					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
+						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
 					jogador_principal.pontos -= num_vagoes_necessarios
 			
@@ -336,7 +342,8 @@ func _process(_delta: float) -> void:
 			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_sob_carta:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
-				if (not trilha_sob_carta.capturado and trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index ):
+				print(cardBeingDragged.card_index == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index)
+				if (not trilha_sob_carta.capturado and (cardBeingDragged.card_index == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index) ):
 					trilha_sob_carta.highlight_all_vagoes()
 					highlight_deck_cards(cardBeingDragged.card_index) 
 				else:

@@ -56,6 +56,7 @@ func get_qtd_vagoes() -> int:
 func capturar_trilha() -> void:
 	if not capturado:
 		capturado = true
+		_update_vagoes_cor()
 		_update_vagoes_saturacao()
 		
 

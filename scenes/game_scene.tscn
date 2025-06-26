@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=24 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -14,12 +14,8 @@
 [ext_resource type="Script" path="res://scripts/gerenciador_de_fluxo_jogo.gd" id="9_8t5w2"]
 [ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="9_f5qeb"]
 [ext_resource type="Texture2D" uid="uid://d2grxjg0qcypy" path="res://game_assets/game_scene/object_scenes/UI/vermelho.png" id="10_d0qty"]
-[ext_resource type="Texture2D" uid="uid://rbxtga8bcgu" path="res://game_assets/game_scene/object_scenes/UI/menu_verde.png" id="11_uje4q"]
-[ext_resource type="Texture2D" uid="uid://b0aabpoemhme0" path="res://game_assets/game_scene/object_scenes/UI/verde.png" id="12_lecj0"]
-[ext_resource type="Texture2D" uid="uid://chxsw34405r4r" path="res://game_assets/game_scene/object_scenes/UI/menu_azul2.png" id="13_jpit7"]
-[ext_resource type="Texture2D" uid="uid://cpssv305lotst" path="res://game_assets/game_scene/object_scenes/UI/azul.png" id="14_sbpnt"]
-[ext_resource type="Texture2D" uid="uid://ddhgfprj2od0o" path="res://game_assets/game_scene/object_scenes/UI/menu_amarelo.png" id="15_d3bbw"]
-[ext_resource type="Texture2D" uid="uid://b25qxp8q8nif7" path="res://game_assets/game_scene/object_scenes/UI/amarelo.png" id="16_18u0u"]
+[ext_resource type="Script" path="res://scripts/gerenciador_comprar_cartas.gd" id="11_s3pss"]
+[ext_resource type="Script" path="res://scripts/loja_cartas_container.gd" id="16_sihrp"]
 [ext_resource type="FontFile" uid="uid://wecse3ya2md0" path="res://game_assets/fonts/pixelifysans/PixelifySans-Regular.ttf" id="18_k5e63"]
 
 [sub_resource type="Environment" id="Environment_cns0p"]
@@ -30,9 +26,9 @@ adjustment_saturation = 1.01
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vqnq2"]
 shader = ExtResource("7_6l13s")
-shader_parameter/vignette_intensity = 0.3
-shader_parameter/vignette_opacity = 0.45
-shader_parameter/vignette_rgb = Color(0, 0, 0.313726, 1)
+shader_parameter/vignette_intensity = 0.8
+shader_parameter/vignette_opacity = 0.379
+shader_parameter/vignette_rgb = Color(0.0800258, 0.00428085, 0.110509, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewgjx"]
 
@@ -992,7 +988,7 @@ rotation = -0.712094
 position = Vector2(1216, 1504)
 rotation = 1.5708
 
-[node name="Gerenciador de Paradas" type="Control" parent="."]
+[node name="GerenciadordeParadas" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 495.0
@@ -1000,13 +996,13 @@ offset_top = 248.0
 offset_right = 535.0
 offset_bottom = 288.0
 
-[node name="Control" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control"]
 layout_mode = 0
 offset_left = -59.0
 offset_top = -45.0
@@ -1023,7 +1019,7 @@ text = "Cálculo 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control2" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control2" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -84.0
@@ -1031,7 +1027,7 @@ offset_top = 215.0
 offset_right = 22.0
 offset_bottom = 247.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control2"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control2"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -2.0
@@ -1048,7 +1044,7 @@ text = " Física"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control3" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control3" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 82.0
@@ -1056,7 +1052,7 @@ offset_top = 248.0
 offset_right = 122.0
 offset_bottom = 288.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control3"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control3"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = 85.0
@@ -1074,7 +1070,7 @@ Analítica"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control4" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control4" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 331.0
@@ -1082,7 +1078,7 @@ offset_top = 247.0
 offset_right = 371.0
 offset_bottom = 287.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control4"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control4"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -7.0
@@ -1099,7 +1095,7 @@ text = "Álgebra Linear"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control5" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control5" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 288.0
@@ -1107,7 +1103,7 @@ offset_top = -83.0
 offset_right = 328.0
 offset_bottom = -43.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control5"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control5"]
 layout_mode = 0
 offset_left = -57.0
 offset_top = -7.0
@@ -1125,7 +1121,7 @@ Estatística"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control6" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control6" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 495.0
@@ -1133,7 +1129,7 @@ offset_top = -83.0
 offset_right = 535.0
 offset_bottom = -43.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control6"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control6"]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 38.0
@@ -1150,7 +1146,7 @@ text = "Avaliação de
 Desempenho"
 vertical_alignment = 1
 
-[node name="Control7" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control7" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 206.0
@@ -1158,7 +1154,7 @@ offset_top = 82.0
 offset_right = 246.0
 offset_bottom = 122.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control7"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control7"]
 layout_mode = 0
 offset_left = -57.0
 offset_top = 1.0
@@ -1175,7 +1171,7 @@ text = "Cálculo 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control8" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control8" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 659.0
@@ -1183,7 +1179,7 @@ offset_top = 248.0
 offset_right = 699.0
 offset_bottom = 288.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control8"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control8"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -13.0
@@ -1201,7 +1197,7 @@ Numéricos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control9" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control9" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 947.0
@@ -1209,7 +1205,7 @@ offset_top = 40.0
 offset_right = 987.0
 offset_bottom = 80.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control9"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control9"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -13.0
@@ -1227,7 +1223,7 @@ Programação"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control10" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control10" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -124.0
@@ -1235,7 +1231,7 @@ offset_top = 370.0
 offset_right = -84.0
 offset_bottom = 410.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control10"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control10"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -8.0
@@ -1253,7 +1249,7 @@ Experimental"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control11" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control11" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 288.0
@@ -1261,7 +1257,7 @@ offset_top = 412.0
 offset_right = 328.0
 offset_bottom = 452.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control11"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control11"]
 layout_mode = 0
 offset_left = -55.0
 offset_top = -7.0
@@ -1279,7 +1275,7 @@ Operacional"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control12" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control12" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 578.0
@@ -1287,7 +1283,7 @@ offset_top = 412.0
 offset_right = 618.0
 offset_bottom = 452.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control12"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control12"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -10.0
@@ -1305,7 +1301,7 @@ Científica"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control13" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control13" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1278.0
@@ -1313,7 +1309,7 @@ offset_top = 206.0
 offset_right = 1318.0
 offset_bottom = 246.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control13"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control13"]
 layout_mode = 0
 offset_left = -57.0
 offset_top = -18.0
@@ -1331,7 +1327,7 @@ C.C."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control14" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control14" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1195.0
@@ -1339,7 +1335,7 @@ offset_top = 495.0
 offset_right = 1235.0
 offset_bottom = 535.0
 
-[node name="RichTextLabel" type="Label" parent="Gerenciador de Paradas/Control14"]
+[node name="RichTextLabel" type="Label" parent="GerenciadordeParadas/Control14"]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 37.0
@@ -1356,7 +1352,7 @@ text = "Matemática
 Discreta"
 vertical_alignment = 1
 
-[node name="Control15" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control15" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 865.0
@@ -1364,7 +1360,7 @@ offset_top = 576.0
 offset_right = 905.0
 offset_bottom = 616.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control15"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control15"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = 8.0
@@ -1381,7 +1377,7 @@ text = "Compiladores"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control16" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control16" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 577.0
@@ -1389,7 +1385,7 @@ offset_top = 578.0
 offset_right = 617.0
 offset_bottom = 618.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control16"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control16"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -11.0
@@ -1407,7 +1403,7 @@ em Grafos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control17" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control17" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 206.0
@@ -1415,7 +1411,7 @@ offset_top = 576.0
 offset_right = 246.0
 offset_bottom = 616.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control17"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control17"]
 layout_mode = 0
 offset_left = -56.0
 offset_top = -30.0
@@ -1434,7 +1430,7 @@ Algoritmos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control18" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control18" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -124.0
@@ -1442,7 +1438,7 @@ offset_top = 577.0
 offset_right = -84.0
 offset_bottom = 617.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control18"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control18"]
 layout_mode = 0
 offset_left = -166.0
 offset_top = 30.0
@@ -1461,7 +1457,7 @@ Disp. Móveis"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control19" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control19" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -166.0
@@ -1469,7 +1465,7 @@ offset_top = 781.0
 offset_right = -126.0
 offset_bottom = 821.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control19"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control19"]
 layout_mode = 0
 offset_left = -166.0
 offset_top = 30.0
@@ -1488,7 +1484,7 @@ Jogos"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control20" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control20" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1496,7 +1492,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control20"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control20"]
 layout_mode = 0
 offset_left = -59.0
 offset_top = 6.0
@@ -1513,7 +1509,7 @@ text = "Programação I"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control21" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control21" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1521,7 +1517,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control21"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control21"]
 layout_mode = 0
 offset_left = 147.0
 offset_top = -3.0
@@ -1539,7 +1535,7 @@ Estruturada"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control22" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control22" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1547,7 +1543,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control22"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control22"]
 layout_mode = 0
 offset_left = 313.0
 offset_top = -1.0
@@ -1565,7 +1561,7 @@ de Dados"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control23" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control23" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1573,7 +1569,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control23"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control23"]
 layout_mode = 0
 offset_left = 553.0
 offset_top = 3.0
@@ -1590,7 +1586,7 @@ text = "Banco de Dados I"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control24" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control24" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1598,7 +1594,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control24"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control24"]
 layout_mode = 0
 offset_left = 836.0
 offset_top = 3.0
@@ -1615,7 +1611,7 @@ text = "Banco de Dados II"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control25" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control25" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1623,7 +1619,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control25"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control25"]
 layout_mode = 0
 offset_left = 1189.0
 offset_top = 82.0
@@ -1641,7 +1637,7 @@ Humano-Computador"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control26" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control26" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1649,7 +1645,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control26"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control26"]
 layout_mode = 0
 offset_left = 528.0
 offset_top = 164.0
@@ -1666,7 +1662,7 @@ text = "Eng. Software I"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control27" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control27" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1674,7 +1670,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control27"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control27"]
 layout_mode = 0
 offset_left = 283.0
 offset_top = 164.0
@@ -1692,7 +1688,7 @@ a Objetos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control28" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control28" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1700,7 +1696,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control28"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control28"]
 layout_mode = 0
 offset_left = 1104.0
 offset_top = -160.0
@@ -1717,7 +1713,7 @@ text = "Inteligência Artificial"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control29" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control29" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1725,7 +1721,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control29"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control29"]
 layout_mode = 0
 offset_left = 856.0
 offset_top = 250.0
@@ -1742,7 +1738,7 @@ text = "Proj. Software"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control30" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control30" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1750,7 +1746,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control30"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control30"]
 layout_mode = 0
 offset_left = 1186.0
 offset_top = 250.0
@@ -1767,7 +1763,7 @@ text = "Eng. Software II"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control31" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control31" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1775,7 +1771,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control31"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control31"]
 layout_mode = 0
 offset_left = 854.0
 offset_top = 370.0
@@ -1793,7 +1789,7 @@ Computadores I"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control36" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control36" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1801,7 +1797,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control36"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control36"]
 layout_mode = 0
 offset_left = 1350.0
 offset_top = 370.0
@@ -1819,7 +1815,7 @@ Computadores II"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control37" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control37" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1827,7 +1823,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control37"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control37"]
 layout_mode = 0
 offset_left = 815.0
 offset_top = 627.0
@@ -1845,7 +1841,7 @@ Distribuídos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control32" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control32" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1853,7 +1849,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control32"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control32"]
 layout_mode = 0
 offset_left = 486.0
 offset_top = 370.0
@@ -1871,7 +1867,7 @@ Operacionais"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control33" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control33" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1879,7 +1875,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control33"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control33"]
 layout_mode = 0
 offset_left = 239.0
 offset_top = 370.0
@@ -1897,7 +1893,7 @@ Computadores"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control34" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control34" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1905,7 +1901,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control34"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control34"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 370.0
@@ -1923,7 +1919,7 @@ Digitais"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control35" type="Control" parent="Gerenciador de Paradas"]
+[node name="Control35" type="Control" parent="GerenciadordeParadas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -164.0
@@ -1931,7 +1927,7 @@ offset_top = 942.0
 offset_right = -124.0
 offset_bottom = 982.0
 
-[node name="RichTextLabel2" type="Label" parent="Gerenciador de Paradas/Control35"]
+[node name="RichTextLabel2" type="Label" parent="GerenciadordeParadas/Control35"]
 layout_mode = 0
 offset_left = -50.0
 offset_top = 204.0
@@ -1954,6 +1950,9 @@ script = ExtResource("9_8t5w2")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_mb7hx")
+
+[node name="GerenciadorComprarCartas" type="Node" parent="GUI"]
+script = ExtResource("11_s3pss")
 
 [node name="Jogador Principal" type="Control" parent="GUI"]
 z_index = 200
@@ -2046,201 +2045,21 @@ size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="Control" type="Control" parent="GUI"]
-visible = false
-z_index = 200
-layout_mode = 3
-anchors_preset = 0
-offset_top = -30.0
-offset_right = 40.0
-offset_bottom = 10.0
+[node name="LojaCartasContainer" type="VBoxContainer" parent="GUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_sihrp")
 
-[node name="TextureRect" type="TextureRect" parent="GUI/Control"]
-layout_mode = 0
-offset_top = 45.0
-offset_right = 172.0
-offset_bottom = 151.173
-texture = ExtResource("11_uje4q")
-expand_mode = 5
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="GUI/Control"]
-clip_contents = true
-layout_mode = 0
-offset_left = 43.0
-offset_top = 60.0
-offset_right = 163.0
-offset_bottom = 229.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("12_lecj0")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="Nome" type="Label" parent="GUI/Control"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 122.0
-offset_right = 119.0
-offset_bottom = 145.0
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 15
-text = "BEATRIZ
-"
-
-[node name="bilhetes" type="Label" parent="GUI/Control"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 76.0
-offset_right = 24.0
-offset_bottom = 115.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 30
-text = "0
-"
-
-[node name="pontos" type="Label" parent="GUI/Control"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 64.0
-offset_right = 157.0
-offset_bottom = 84.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("9_f5qeb")
-theme_override_font_sizes/font_size = 20
-text = "45
-"
-
-[node name="Control2" type="Control" parent="GUI"]
-visible = false
-z_index = 200
-layout_mode = 3
-anchors_preset = 0
-offset_top = 85.0
-offset_right = 40.0
-offset_bottom = 125.0
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Control2"]
-layout_mode = 0
-offset_top = 45.0
-offset_right = 172.0
-offset_bottom = 151.173
-texture = ExtResource("13_jpit7")
-expand_mode = 5
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="GUI/Control2"]
-clip_contents = true
-layout_mode = 0
-offset_left = 43.0
-offset_top = 60.0
-offset_right = 163.0
-offset_bottom = 229.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("14_sbpnt")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="Nome" type="Label" parent="GUI/Control2"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 122.0
-offset_right = 132.0
-offset_bottom = 145.0
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 15
-text = "CARINA
-"
-
-[node name="bilhetes" type="Label" parent="GUI/Control2"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 76.0
-offset_right = 24.0
-offset_bottom = 115.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 30
-text = "0
-"
-
-[node name="pontos" type="Label" parent="GUI/Control2"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 64.0
-offset_right = 157.0
-offset_bottom = 84.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("9_f5qeb")
-theme_override_font_sizes/font_size = 20
-text = "45
-"
-
-[node name="Control3" type="Control" parent="GUI"]
-visible = false
-z_index = 200
-layout_mode = 3
-anchors_preset = 0
-offset_top = 202.0
-offset_right = 40.0
-offset_bottom = 242.0
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Control3"]
-layout_mode = 0
-offset_top = 45.0
-offset_right = 172.0
-offset_bottom = 151.173
-texture = ExtResource("15_d3bbw")
-expand_mode = 5
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="GUI/Control3"]
-clip_contents = true
-layout_mode = 0
-offset_left = 43.0
-offset_top = 60.0
-offset_right = 163.0
-offset_bottom = 229.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("16_18u0u")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="Nome" type="Label" parent="GUI/Control3"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 122.0
-offset_right = 132.0
-offset_bottom = 145.0
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 15
-text = "JÚLIA SPEZANI"
-
-[node name="bilhetes" type="Label" parent="GUI/Control3"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 76.0
-offset_right = 24.0
-offset_bottom = 115.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("8_nj13c")
-theme_override_font_sizes/font_size = 30
-text = "0
-"
-
-[node name="pontos" type="Label" parent="GUI/Control3"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 64.0
-offset_right = 157.0
-offset_bottom = 84.0
-theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
-theme_override_fonts/font = ExtResource("9_f5qeb")
-theme_override_font_sizes/font_size = 20
-text = "45
-"
-
-[node name="Button" type="Button" parent="GUI"]
+[node name="BotaoDePegarCartas" type="Button" parent="GUI"]
 offset_left = 977.0
 offset_top = 12.0
 offset_right = 1134.0
@@ -2252,4 +2071,4 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1s772")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm1ti")
 text = "Debug: Pegar Carta"
 
-[connection signal="pressed" from="GUI/Button" to="GUI" method="_on_button_pressed"]
+[connection signal="pressed" from="GUI/BotaoDePegarCartas" to="GUI" method="_on_button_pressed"]

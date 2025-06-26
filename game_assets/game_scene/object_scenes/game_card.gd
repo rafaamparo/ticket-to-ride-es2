@@ -29,7 +29,8 @@ func _process(delta: float) -> void:
 	pass
 	
 func conectarDetectoresDeMovimento() -> void:
-	get_parent().connect_card_signals(self)
+	if (get_parent().has_method("connect_card_signals")):
+		get_parent().connect_card_signals(self)
 	
 func desconectarDetectoresDeMovimento() -> void:
 	get_parent().disconnect_card_signals(self)

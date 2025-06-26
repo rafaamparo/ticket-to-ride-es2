@@ -43,3 +43,40 @@ func obterCartasMesmaCor(corDaCartaEscolhida:int, obterCoringas: bool = false) -
 	if (obterCoringas):
 		cartas_mesma_cor.sort_custom(custom_sort_func)
 	return cartas_mesma_cor
+
+
+func capturarRotaBot(trilha_selecionada: TrilhaVagao, camera: Camera2D, gerenciadorDeFluxoRef: GerenciadorDeFluxo) -> void:
+	if (!isBot): return;
+
+	if trilha_selecionada and not trilha_selecionada.vagoes_array.is_empty():
+		var vagoes = trilha_selecionada.vagoes_array
+		var middle_vagao = vagoes[int(vagoes.size() / 2)]
+		
+		if camera and camera.has_method("tween_to"):
+			# This value is from player_camera.gd. It's not ideal to have it here,
+			# but it's needed to correctly calculate the camera's target position.
+			var system_offset := Vector2(576.0, 324.0)
+			var correction = -system_offset / camera.zoom.x
+			var target_position = middle_vagao.global_position + correction
+			
+			# The last parameter is the zoom level. 1.5 means 1.5x zoom.
+			await camera.tween_to(target_position, 1.0)
+
+			var cena_carta = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+			var carta_instance = cena_carta.instantiate()
+			carta_instance.card_index = 7
+			carta_instance.position =  Vector2(middle_vagao.global_position[0] - 450, 200) # Adjust position above the middle vagao
+			carta_instance.scale = Vector2(0.9, 0.9) # Adjust scale for visibility
+			carta_instance.z_index = 1000 # Ensure it appears above
+
+			# Add the card instance to the scene tree
+			gerenciadorDeFluxoRef.add_child(carta_instance)
+
+			# animate the card going to the middle vagao, then, after the animation, reduce the card size to 0 and remove it
+			var tween = carta_instance.create_tween()
+			tween.set_ease(Tween.EASE_IN)
+			tween.set_parallel(true)
+			tween.tween_property(carta_instance, "position", middle_vagao.global_position + Vector2(0, -20), 0.5)
+			tween.tween_property(carta_instance, "scale", Vector2(0, 0), 0.75).finished.connect(func():
+				carta_instance.queue_free()
+			)

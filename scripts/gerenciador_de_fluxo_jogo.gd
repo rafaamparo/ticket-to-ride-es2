@@ -1,4 +1,4 @@
-extends Node
+class_name GerenciadorDeFluxo extends Node
 
 const qtd_jogadores_bot: int = 3
 var lista_jogadores: Array[Jogador] = []

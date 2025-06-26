@@ -23,7 +23,7 @@ func inicializar_cartas_jogador():
 	for i in range(QTD_CARTAS):
 		var carta = carta_scene.instantiate()
 		var cor_aleatoria = randi_range(0,7)
-		if cor_aleatoria == 7 and jogador_principal.cartas_brancas >= 2:
+		if cor_aleatoria == 7 and jogador_principal.cartas_coringa >= 2:
 			cor_aleatoria = randi_range(0,6)
 		
 		carta.card_index = cor_aleatoria
@@ -142,10 +142,10 @@ func stop_drag():
 		if gerenciadorDeTrilhosRef != null and card_rect.size != Vector2.ZERO: 
 			trilha_detectada = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_detectada:
+				
+				# Esteremos obtemos todas as cartas de mesma cor juntamente com as cartas coringa
 				print("Carta '", actual_card_being_dragged.name, "' sobre a trilha: ", trilha_detectada.name)
-				var cartas_mesma_cor = jogador_principal.cartas.filter(func(carta: GameCard) -> bool:
-					return carta.card_index == actual_card_being_dragged.card_index
-				)
+				var cartas_mesma_cor = jogador_principal.obterCartasMesmaCor(actual_card_being_dragged.card_index, true)
 				
 				if trilha_detectada.capturado:
 					print("Trilha já capturada, não pode jogar a carta.")
@@ -255,7 +255,7 @@ func highlight_deck_cards(color_index: int):
 				continue
 
 			print("Highlighting card: ", card.name, " with index: ", card.card_index)
-			if card.card_index != color_index:
+			if card.card_index != 7 and card.card_index != color_index:
 				continue
 
 			if card.is_focused:

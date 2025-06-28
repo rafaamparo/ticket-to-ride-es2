@@ -1,10 +1,13 @@
 class_name GerenciadorDeTrilhas extends Node2D
 
-
+var lista_trilhas: Array[TrilhaVagao] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	for trilha_node in get_children():
+		if trilha_node is TrilhaVagao:
+			var trilha = trilha_node as TrilhaVagao
+			if is_instance_valid(trilha):
+				lista_trilhas.append(trilha)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void: # Added underscore to delta
@@ -49,3 +52,54 @@ func get_trilha_sob_retangulo(p_screen_rect: Rect2) -> TrilhaVagao:
 						if p_screen_rect.intersects(vagao_sprite_screen_rect):
 							return trilha # Found intersecting trilha
 	return null # No intersection found
+
+
+func animacaoCapturaTrilha(trilha_selecionada: TrilhaVagao, cartas_de_captura: Array[GameCard]):
+	var camera = $"../Camera2D"
+	var gerenciadorDeFluxoRef = $"../GerenciadorDeFluxoJogo"
+
+	if !trilha_selecionada or trilha_selecionada.vagoes_array.is_empty():
+		return;
+	
+	var vagoes = trilha_selecionada.vagoes_array
+	var middle_vagao = vagoes[int(vagoes.size() / 2)]
+		
+	if camera and camera.has_method("tween_to"):
+		# This value is from player_camera.gd. It's not ideal to have it here,
+		# but it's needed to correctly calculate the camera's target position.
+		var system_offset := Vector2(576.0, 324.0)
+		var correction = -system_offset / camera.zoom.x
+		var target_position = middle_vagao.global_position + correction
+		
+		# The last parameter is the zoom level. 1.5 means 1.5x zoom.
+		await camera.tween_to(target_position, 1.0)
+
+		var cena_carta = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+		var cartas_para_animar = []
+
+		for carta in cartas_de_captura:
+			if is_instance_valid(carta):
+				var carta_instance = cena_carta.instantiate()
+				carta_instance.card_index = carta.card_index
+				var random_x_offset = randi() % 100 - 50 # Random offset for x position
+				var random_y_offset = randi() % 50 - 25 # Random offset for y position
+				carta_instance.position =  Vector2(middle_vagao.global_position[0] - 450 + random_x_offset, 200 + random_y_offset) # Adjust position above the middle vagao
+				carta_instance.scale = Vector2(0.9, 0.9) # Adjust scale for visibility
+				carta_instance.z_index = 1000 # Ensure it appears above
+
+				cartas_para_animar.append(carta_instance)
+				gerenciadorDeFluxoRef.add_child(carta_instance)
+
+		# Add the card instance to the scene tree
+
+		# animate the card going to the middle vagao, then, after the animation, reduce the card size to 0 and remove it
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_IN_OUT)
+		tween.set_parallel(true)
+		for carta_a_ser_animada in cartas_para_animar:
+			var random_vector_offset = Vector2(randi() % 15, randi() % 10) # Random offset for x and y position
+			tween.tween_property(carta_a_ser_animada, "position", middle_vagao.global_position + random_vector_offset, 1.8)
+			tween.tween_property(carta_a_ser_animada, "modulate", Color(1, 1, 1, 0.75), 4.5).set_ease(Tween.EASE_IN)
+			tween.tween_property(carta_a_ser_animada, "scale", Vector2(0, 0), 2.2).set_ease(Tween.EASE_IN).finished.connect(func():
+				carta_a_ser_animada.queue_free())
+		await tween.finished

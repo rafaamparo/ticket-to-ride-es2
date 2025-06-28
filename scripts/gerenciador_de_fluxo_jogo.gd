@@ -34,7 +34,6 @@ func _ready() -> void:
 		var jogadorBox = jogadorBoxScene.instantiate()
 		jogadorBox.jogadorSelecionado = jogador
 		$"../GUI/BoxJogadoresContainer".add_child(jogadorBox)
-		
 	gerenciador_cartas.inicializar_cartas_jogador()
 
 	gerenciadorDeTurno()
@@ -54,9 +53,9 @@ func gerenciadorDeTurno() -> void:
 		await get_tree().create_timer(5.0).timeout
 	
 	await textDialog.hide_dialog()
-
 	var jogador_atual_do_turno: Jogador = lista_jogadores[jogador_do_turno]
 	if jogador_atual_do_turno.isBot:
+		var chance_de_comprar_carta = randi_range(1,10) <= 2
 		rodada_bot()
 	else:
 		rodadaJogadorPrincipal()

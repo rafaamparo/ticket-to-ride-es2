@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=25 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d2grxjg0qcypy" path="res://game_assets/game_scene/object_scenes/UI/vermelho.png" id="10_d0qty"]
 [ext_resource type="Script" path="res://scripts/gerenciador_comprar_cartas.gd" id="11_s3pss"]
 [ext_resource type="Script" path="res://scripts/loja_cartas_container.gd" id="16_sihrp"]
+[ext_resource type="PackedScene" uid="uid://cjdsv5y8v0rrs" path="res://scenes/text_dialog.tscn" id="17_mc33u"]
 [ext_resource type="FontFile" uid="uid://wecse3ya2md0" path="res://game_assets/fonts/pixelifysans/PixelifySans-Regular.ttf" id="18_k5e63"]
 
 [sub_resource type="Environment" id="Environment_cns0p"]
@@ -78,7 +79,6 @@ offset_bottom = 1577.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-metadata/_edit_lock_ = true
 
 [node name="Ajustes de Cor" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cns0p")
@@ -2058,6 +2058,13 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_sihrp")
+
+[node name="TextDialog" parent="GUI" instance=ExtResource("17_mc33u")]
+anchors_preset = 15
+offset_left = 232.0
+offset_top = 24.0
+offset_right = -280.0
+offset_bottom = -544.0
 
 [node name="BotaoDePegarCartas" type="Button" parent="GUI"]
 offset_left = 977.0

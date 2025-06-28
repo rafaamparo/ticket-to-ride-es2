@@ -1,12 +1,13 @@
 class_name Jogador extends Node2D
 
-
+const QTD_CARTAS_BOT = 6
 var nome: String = "Jogador BOT"
 var isBot: bool = false
 var trens: int = 45
 var pontos: int = 45
 var cor: int = 0
 var cartas: Array[GameCard] = []
+var caminhosCapturados: Array[TrilhaVagao] = []
 var cartas_destino = []
 var cartas_coringa: int = 0
 
@@ -14,7 +15,20 @@ var cartas_coringa: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
+
+
+func gerarCartasBot() -> void:
+	if (!isBot): return;
+	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+	for i in range(QTD_CARTAS_BOT):
+		var carta = carta_scene.instantiate()
+		var cor_aleatoria = randi_range(0,7)
+		if cor_aleatoria == 7 and self.cartas_coringa >= 2:
+			cor_aleatoria = randi_range(0,6)
+		
+		carta.card_index = cor_aleatoria
+		self.adicionarCartaNaMao(carta);
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,38 +59,38 @@ func obterCartasMesmaCor(corDaCartaEscolhida:int, obterCoringas: bool = false) -
 	return cartas_mesma_cor
 
 
-func capturarRotaBot(trilha_selecionada: TrilhaVagao, camera: Camera2D, gerenciadorDeFluxoRef: GerenciadorDeFluxo) -> void:
-	if (!isBot): return;
+func capturarRotaBot(gerenciador_trilhas_ref: GerenciadorDeTrilhas) -> bool:
+	if (!isBot): return false;
 
-	if trilha_selecionada and not trilha_selecionada.vagoes_array.is_empty():
-		var vagoes = trilha_selecionada.vagoes_array
-		var middle_vagao = vagoes[int(vagoes.size() / 2)]
+	var trilhas_nao_capturadas = gerenciador_trilhas_ref.lista_trilhas.filter(func(trilha: TrilhaVagao) -> bool:
+		return not trilha.capturado
+	)
+
+	for trilha in trilhas_nao_capturadas:
+		# percorre todas as trilhas não capturadas, para cada trilha, verifica se o jogador tem cartas da mesma cor ou coringas suficientes
+		print("Tentando capturar a trilha: ", trilha.name, " com cor: ", trilha.cor_trilha)
+		print("Número de cartas na mão: ", cartas.size())
 		
-		if camera and camera.has_method("tween_to"):
-			# This value is from player_camera.gd. It's not ideal to have it here,
-			# but it's needed to correctly calculate the camera's target position.
-			var system_offset := Vector2(576.0, 324.0)
-			var correction = -system_offset / camera.zoom.x
-			var target_position = middle_vagao.global_position + correction
-			
-			# The last parameter is the zoom level. 1.5 means 1.5x zoom.
-			await camera.tween_to(target_position, 1.0)
+		var cartas_da_mesma_cor = obterCartasMesmaCor(trilha.cores_map[trilha.cor_trilha], true)
+		var num_vagoes_necessarios = trilha.get_qtd_vagoes()
+		if cartas_da_mesma_cor.size() < num_vagoes_necessarios:
+			continue
 
-			var cena_carta = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
-			var carta_instance = cena_carta.instantiate()
-			carta_instance.card_index = 7
-			carta_instance.position =  Vector2(middle_vagao.global_position[0] - 450, 200) # Adjust position above the middle vagao
-			carta_instance.scale = Vector2(0.9, 0.9) # Adjust scale for visibility
-			carta_instance.z_index = 1000 # Ensure it appears above
+		# Se chegou aqui, o jogador tem cartas suficientes para capturar a trilha
 
-			# Add the card instance to the scene tree
-			gerenciadorDeFluxoRef.add_child(carta_instance)
+		var cartas_a_serem_usadas = cartas_da_mesma_cor.slice(0, num_vagoes_necessarios)
+		await gerenciador_trilhas_ref.animacaoCapturaTrilha(trilha, cartas_a_serem_usadas)
 
-			# animate the card going to the middle vagao, then, after the animation, reduce the card size to 0 and remove it
-			var tween = carta_instance.create_tween()
-			tween.set_ease(Tween.EASE_IN)
-			tween.set_parallel(true)
-			tween.tween_property(carta_instance, "position", middle_vagao.global_position + Vector2(0, -20), 0.5)
-			tween.tween_property(carta_instance, "scale", Vector2(0, 0), 0.75).finished.connect(func():
-				carta_instance.queue_free()
-			)
+		# Atualiza as cartas do jogador, removendo as usadas. Depois chamar a função de captura da trilha e subtrair os pontos
+		for carta_usada in cartas_a_serem_usadas:
+			removerCartaDaMao(carta_usada)
+			if is_instance_valid(carta_usada):
+				carta_usada.queue_free()
+		if trilha.cores_map[trilha.cor_trilha] == 7:
+			trilha.cor_trilha = trilha.cores_map_reverse[cartas_a_serem_usadas[0].card_index]
+		trilha.capturar_trilha()
+		pontos -= num_vagoes_necessarios
+		trens -= num_vagoes_necessarios
+		caminhosCapturados.append(trilha)
+		return true # Capturou uma rota com sucesso
+	return false # Não conseguiu capturar nenhuma rota

@@ -1,5 +1,6 @@
 class_name GerenciadorCartasJogador extends CanvasLayer
 
+var gerenciadorDeFluxoDeJogo: GerenciadorDeFluxo = null
 var jogador_principal: Jogador
 var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
@@ -10,6 +11,7 @@ const COLLISION_MASK = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	gerenciadorDeFluxoDeJogo = $"../GerenciadorDeFluxoJogo";
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	gerenciadorDeTrilhosRef = $"../GerenciadorDeTrilhas"
@@ -93,6 +95,8 @@ func disconnect_card_signals(card):
 	card.disconnect("hoveredOff", hovered_off_card)
 	
 func hovered_on_card(carta: GameCard):
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+		return;
 	if !isHoveringCard:
 		isHoveringCard = true
 		highlight_card(carta, true)
@@ -101,7 +105,7 @@ func hovered_off_card(carta: GameCard):
 	if !cardBeingDragged:
 		highlight_card(carta,false)
 		var newCardHovered = raycast_check(COLLISION_MASK)
-		if newCardHovered:
+		if newCardHovered and !gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
 			highlight_card(newCardHovered, true)
 		else:
 			isHoveringCard = false
@@ -128,6 +132,8 @@ func get_card_global_rect(card_node: GameCard) -> Rect2:
 	return Rect2(card_node.global_position, Vector2.ZERO)
 
 func start_drag(carta):
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+		return;
 	cardBeingDragged = carta
 	var tween = get_tree().create_tween()
 	tween.tween_property(carta, "scale", Vector2(0.5, 0.5), 0.1).set_ease(Tween.EASE_OUT)
@@ -333,6 +339,19 @@ func raycast_check(_collider: int):
 func _process(_delta: float) -> void: 
 	if not jogador_principal: return
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
+	
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+		for carta in jogador_principal.cartas:
+			# maake each carta a little bit darker
+			if is_instance_valid(carta):
+				carta.modulate = Color(0.5, 0.5, 0.5, 1.0)
+		return
+	else: 
+		for carta in jogador_principal.cartas:
+			if is_instance_valid(carta):
+				carta.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			
+	
 	if cardBeingDragged:
 		var mouse_pos = get_viewport().get_mouse_position()
 		if not cardBeingDragged.isBeingAdded:

@@ -20,13 +20,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	#card_manager.gerarCartaAleatoria()
-	
-	var trilhoSelecionado = $"../GerenciadorDeTrilhas/TrilhaVagao48"
-	var camera = $"../Camera2D"
-	var jogadorSelecionado = $"../GerenciadorDeFluxoJogo".lista_jogadores[2]
-	var gerenciadorDeFluxo = $"../GerenciadorDeFluxoJogo"
-	
-	jogadorSelecionado.capturarRotaBot(trilhoSelecionado, camera, gerenciadorDeFluxo)
+
+
 	store_manager.adicionarCartaAleatoriaNaLoja()
 	pass # Replace with function body.

@@ -13,7 +13,7 @@ func _ready() -> void:
 	textDialog = $"../GUI/TextDialog"
 	# Criar o jogador principal
 	jogador_principal = Jogador.new()
-	jogador_principal.nome = "Jogador Principal"
+	jogador_principal.nome = "Rafael A."
 	jogador_principal.isBot = false
 	lista_jogadores.append(jogador_principal)
 
@@ -72,7 +72,7 @@ func rodada_bot() -> void:
 		print("É a vez do bot: ", jogador_atual.nome)
 		await get_tree().create_timer(1.0).timeout
 		await textDialog.show_dialog_with_text("É a vez do jogador %s" % jogador_atual.nome)
-		await get_tree().create_timer(2.0).timeout  # Espera 1 segundo antes de continuar
+		await get_tree().create_timer(3.5).timeout  # Espera 3.5 segundos antes de continuar
 		await textDialog.hide_dialog()
 		await get_tree().create_timer(1.0).timeout
 		print("Bot está jogando...")
@@ -85,6 +85,7 @@ func rodada_bot() -> void:
 			await textDialog.show_dialog_with_text("%s capturou uma rota!" % jogador_atual.nome)
 		else:
 			print("%s não conseguiu capturar uma rota." % jogador_atual.nome)
+			await textDialog.show_dialog_with_text("%s não conseguiu capturar uma rota." % jogador_atual.nome)
 
 		proximoTurno()
 	return;

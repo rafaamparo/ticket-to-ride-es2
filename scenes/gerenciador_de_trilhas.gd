@@ -75,20 +75,31 @@ func animacaoCapturaTrilha(trilha_selecionada: TrilhaVagao, cartas_de_captura: A
 		await camera.tween_to(target_position, 1.0)
 
 		var cena_carta = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
-		var carta_instance = cena_carta.instantiate()
-		carta_instance.card_index = 7
-		carta_instance.position =  Vector2(middle_vagao.global_position[0] - 450, 200) # Adjust position above the middle vagao
-		carta_instance.scale = Vector2(0.9, 0.9) # Adjust scale for visibility
-		carta_instance.z_index = 1000 # Ensure it appears above
+		var cartas_para_animar = []
+
+		for carta in cartas_de_captura:
+			if is_instance_valid(carta):
+				var carta_instance = cena_carta.instantiate()
+				carta_instance.card_index = carta.card_index
+				var random_x_offset = randi() % 100 - 50 # Random offset for x position
+				var random_y_offset = randi() % 50 - 25 # Random offset for y position
+				carta_instance.position =  Vector2(middle_vagao.global_position[0] - 450 + random_x_offset, 200 + random_y_offset) # Adjust position above the middle vagao
+				carta_instance.scale = Vector2(0.9, 0.9) # Adjust scale for visibility
+				carta_instance.z_index = 1000 # Ensure it appears above
+
+				cartas_para_animar.append(carta_instance)
+				gerenciadorDeFluxoRef.add_child(carta_instance)
 
 		# Add the card instance to the scene tree
-		gerenciadorDeFluxoRef.add_child(carta_instance)
 
 		# animate the card going to the middle vagao, then, after the animation, reduce the card size to 0 and remove it
-		var tween = carta_instance.create_tween()
-		tween.set_ease(Tween.EASE_IN)
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.set_parallel(true)
-		tween.tween_property(carta_instance, "position", middle_vagao.global_position + Vector2(0, -20), 0.5)
-		tween.tween_property(carta_instance, "scale", Vector2(0, 0), 0.75).finished.connect(func():
-			carta_instance.queue_free())
+		for carta_a_ser_animada in cartas_para_animar:
+			var random_vector_offset = Vector2(randi() % 15, randi() % 10) # Random offset for x and y position
+			tween.tween_property(carta_a_ser_animada, "position", middle_vagao.global_position + random_vector_offset, 1.8)
+			tween.tween_property(carta_a_ser_animada, "modulate", Color(1, 1, 1, 0.75), 4.5).set_ease(Tween.EASE_IN)
+			tween.tween_property(carta_a_ser_animada, "scale", Vector2(0, 0), 2.2).set_ease(Tween.EASE_IN).finished.connect(func():
+				carta_a_ser_animada.queue_free())
 		await tween.finished

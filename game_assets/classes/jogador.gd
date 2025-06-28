@@ -66,6 +66,8 @@ func capturarRotaBot(gerenciador_trilhas_ref: GerenciadorDeTrilhas) -> bool:
 		return not trilha.capturado
 	)
 
+	trilhas_nao_capturadas.shuffle() # Embaralha as trilhas não capturadas para capturar aleatoriamente
+
 	for trilha in trilhas_nao_capturadas:
 		# percorre todas as trilhas não capturadas, para cada trilha, verifica se o jogador tem cartas da mesma cor ou coringas suficientes
 		print("Tentando capturar a trilha: ", trilha.name, " com cor: ", trilha.cor_trilha)

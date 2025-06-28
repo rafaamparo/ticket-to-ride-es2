@@ -113,42 +113,11 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if is_tweening:
-		return
+	# if is_tweening:
+	# 	return
+	current_zoom_scalar = self.zoom.x
+	self.global_position = _get_clamped_position_for_zoom(self.global_position, current_zoom_scalar)
 
-	# Clamp camera's global_position to stay within map boundaries
-	var viewport_size = get_viewport_rect().size
-	
-	# Ensure current_zoom_scalar is valid before calculations
-	if current_zoom_scalar <= 0.00001: # Effectively zero or negative
-		return # Avoid division by zero or invalid calculations
-
-	# Half of the camera's view size in world units
-	var view_half_size_world = (viewport_size / current_zoom_scalar) / 2.0
-
-	# Calculate allowed min/max effective camera center positions
-	# Assumes map origin is (0,0) and extends to MAP_SIZE
-	var min_cam_pos_x = view_half_size_world.x 
-	var max_cam_pos_x = MAP_SIZE.x - view_half_size_world.x
-	var min_cam_pos_y = view_half_size_world.y
-	var max_cam_pos_y = MAP_SIZE.y - view_half_size_world.y
-	
-	var current_correction_scaled = -SYSTEM_OFFSET / current_zoom_scalar if current_zoom_scalar != 0 else Vector2.ZERO
-	var current_true_logical_center = self.global_position - current_correction_scaled
-	
-	# Clamp the camera's position to stay within the map bounds
-	var new_clamped_true_logical_center = current_true_logical_center
-	if min_cam_pos_x > max_cam_pos_x:
-		new_clamped_true_logical_center.x = MAP_SIZE.x / 2.0
-	else:
-		new_clamped_true_logical_center.x = clamp(current_true_logical_center.x, min_cam_pos_x, max_cam_pos_x)
-		
-	if min_cam_pos_y > max_cam_pos_y:
-		new_clamped_true_logical_center.y = MAP_SIZE.y / 2.0
-	else:
-		new_clamped_true_logical_center.y = clamp(current_true_logical_center.y, min_cam_pos_y, max_cam_pos_y)
-		
-	self.global_position = new_clamped_true_logical_center + current_correction_scaled
 
 func _set_tweening(value: bool) -> void:
 	is_tweening = value
@@ -156,13 +125,58 @@ func _set_tweening(value: bool) -> void:
 	if value:
 		is_panning = false
 
+func _get_corrected_position(pos: Vector2, zm: float) -> Vector2:
+	if zm <= 0.00001:
+		return pos
+	var correction_scaled = -SYSTEM_OFFSET / zm
+	return pos - correction_scaled
+
+func _get_uncorrected_position(corrected_pos: Vector2, zm: float) -> Vector2:
+	if zm <= 0.00001:
+		return corrected_pos
+	var correction_scaled = -SYSTEM_OFFSET / zm
+	return corrected_pos + correction_scaled
+
+func _get_clamped_position_for_zoom(pos: Vector2, zm: float) -> Vector2:
+	if zm <= 0.00001:
+		return pos
+
+	var viewport_size = get_viewport_rect().size
+	var view_half_size_world = (viewport_size / zm) / 2.0
+
+	var min_cam_pos_x = view_half_size_world.x
+	var max_cam_pos_x = MAP_SIZE.x - view_half_size_world.x
+	var min_cam_pos_y = view_half_size_world.y
+	var max_cam_pos_y = MAP_SIZE.y - view_half_size_world.y
+
+	var true_logical_center = _get_corrected_position(pos, zm)
+
+	var clamped_true_logical_center = true_logical_center
+	if min_cam_pos_x > max_cam_pos_x:
+		clamped_true_logical_center.x = MAP_SIZE.x / 2.0
+	else:
+		clamped_true_logical_center.x = clamp(true_logical_center.x, min_cam_pos_x, max_cam_pos_x)
+
+	if min_cam_pos_y > max_cam_pos_y:
+		clamped_true_logical_center.y = MAP_SIZE.y / 2.0
+	else:
+		clamped_true_logical_center.y = clamp(true_logical_center.y, min_cam_pos_y, max_cam_pos_y)
+
+	return _get_uncorrected_position(clamped_true_logical_center, zm)
+
 func tween_to(target_position: Vector2, duration: float, target_zoom_level: float = -1.0):
+	var final_zoom = current_zoom_scalar
+	if target_zoom_level > 0:
+		final_zoom = clamp(target_zoom_level, min_zoom_scalar, max_zoom_scalar)
+
+	var clamped_target_position = _get_clamped_position_for_zoom(target_position, final_zoom)
+
 	var tween = create_tween()
 	# Make tweens parallel if we are changing zoom
 	if target_zoom_level > 0:
 		tween.set_parallel(true)
 
-	tween.tween_property(self, "global_position", target_position, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "global_position", clamped_target_position, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 	if target_zoom_level > 0:
 		var new_clamped_zoom = clamp(target_zoom_level, min_zoom_scalar, max_zoom_scalar)

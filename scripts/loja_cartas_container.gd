@@ -1,10 +1,11 @@
 class_name LojaCartasContainer extends VBoxContainer
 
 var isHoveringCard = false;
+var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	gerenciadorDeComprarCartas = get_node("../GerenciadorComprarCartas") as GerenciadorComprarCartas
 
 func connect_card_signals(card):
 	card.connect("hovered", hovered_on_card)
@@ -24,7 +25,7 @@ func hovered_off_card(carta: GameCard):
 		highlight_card(carta,false)
 
 func highlight_card(card, hovered):
-		if hovered:
+		if hovered and gerenciadorDeComprarCartas.verificarSePodeComprarCarta(card):
 			var tween1 = get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_IN)
 			tween1.tween_property(card, "scale", Vector2(0.6, 0.6), 0.05)
 			await tween1.finished

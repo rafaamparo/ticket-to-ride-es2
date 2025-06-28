@@ -2001,7 +2001,7 @@ theme_override_fonts/font = ExtResource("9_f5qeb")
 theme_override_font_sizes/font_size = 18
 text = "Bilhetes Feitos"
 
-[node name="bilhetes" type="Label" parent="GUI/Jogador Principal"]
+[node name="pontos" type="Label" parent="GUI/Jogador Principal"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 116.0
@@ -2013,7 +2013,7 @@ theme_override_font_sizes/font_size = 48
 text = "0
 "
 
-[node name="pontos" type="Label" parent="GUI/Jogador Principal"]
+[node name="trens" type="Label" parent="GUI/Jogador Principal"]
 layout_mode = 0
 offset_left = 190.0
 offset_top = 47.0

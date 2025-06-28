@@ -1,6 +1,7 @@
 class_name GerenciadorDeFluxo extends Node
 
 const qtd_jogadores_bot: int = 3
+var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
 var textDialog: TextDialog = null
 var lista_jogadores: Array[Jogador] = []
 var jogador_principal: Jogador
@@ -11,6 +12,7 @@ var contador_de_rodadas: int = -1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	textDialog = $"../GUI/TextDialog"
+	gerenciadorDeComprarCartas = $"../GUI/GerenciadorComprarCartas"
 	# Criar o jogador principal
 	jogador_principal = Jogador.new()
 	jogador_principal.nome = "Rafael A."
@@ -92,6 +94,7 @@ func rodada_bot() -> void:
 
 func proximoTurno() -> void:
 	jogador_do_turno += 1
+	gerenciadorDeComprarCartas.atualizarTurnoLoja()
 	if jogador_do_turno >= lista_jogadores.size():
 		jogador_do_turno = 0
 	gerenciadorDeTurno()

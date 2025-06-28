@@ -48,7 +48,7 @@ text = "BEATRIZ
 "
 metadata/_edit_group_ = true
 
-[node name="bilhetes" type="Label" parent="."]
+[node name="pontos" type="Label" parent="."]
 layout_mode = 2
 offset_left = 3.0
 offset_top = 31.0
@@ -61,7 +61,7 @@ text = "0
 "
 metadata/_edit_group_ = true
 
-[node name="pontos" type="Label" parent="."]
+[node name="trens" type="Label" parent="."]
 layout_mode = 2
 offset_left = 131.0
 offset_top = 19.0

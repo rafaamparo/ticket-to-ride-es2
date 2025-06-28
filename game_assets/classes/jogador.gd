@@ -91,7 +91,7 @@ func capturarRotaBot(gerenciador_trilhas_ref: GerenciadorDeTrilhas) -> bool:
 		if trilha.cores_map[trilha.cor_trilha] == 7:
 			trilha.cor_trilha = trilha.cores_map_reverse[cartas_a_serem_usadas[0].card_index]
 		trilha.capturar_trilha()
-		pontos -= num_vagoes_necessarios
+		pontos += num_vagoes_necessarios
 		trens -= num_vagoes_necessarios
 		caminhosCapturados.append(trilha)
 		return true # Capturou uma rota com sucesso

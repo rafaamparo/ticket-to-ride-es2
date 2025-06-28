@@ -33,8 +33,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	$Nome.text = jogadorSelecionado.nome;
-	$bilhetes.text = str(len(jogadorSelecionado.cartas_destino))
-	$pontos.text = str(jogadorSelecionado.trens)
+	#$bilhetes.text = str(len(jogadorSelecionado.cartas_destino))
+	$pontos.text = str(jogadorSelecionado.pontos)
+	$trens.text = str(jogadorSelecionado.trens)
+	
 	if $TexturaFundo:
 		$TexturaFundo.texture = load(cores_dict[jogadorSelecionado.cor]["textura_caixa"])
 	if $Personagem:

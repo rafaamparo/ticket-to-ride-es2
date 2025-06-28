@@ -215,7 +215,8 @@ func stop_drag():
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
-					jogador_principal.pontos -= num_vagoes_necessarios
+					jogador_principal.pontos += num_vagoes_necessarios
+					jogador_principal.trens -= num_vagoes_necessarios
 			
 					cardBeingDragged = null
 					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
@@ -339,6 +340,7 @@ func raycast_check(_collider: int):
 func _process(_delta: float) -> void: 
 	if not jogador_principal: return
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
+	$"../GUI/Jogador Principal/trens".text = str(jogador_principal.trens)
 	
 	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
 		for carta in jogador_principal.cartas:

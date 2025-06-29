@@ -36,7 +36,7 @@ func inicializar_cartas_jogador():
 		carta.z_index = i
 		$".".add_child(carta)
 		
-func gerarCartaAleatoria() -> void:
+func gerarCartaAleatoria() -> GameCard:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	var carta = carta_scene.instantiate()
@@ -52,6 +52,7 @@ func gerarCartaAleatoria() -> void:
 	carta.rotation = deg_to_rad(rotacao_graus)
 	carta.z_index = jogador_principal.cartas.size()
 	$".".add_child(carta)
+	return carta
 
 func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
 	if jogador_principal and cartaParaAdicionar != null:
@@ -215,7 +216,8 @@ func stop_drag():
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
-					jogador_principal.pontos -= num_vagoes_necessarios
+					jogador_principal.pontos += num_vagoes_necessarios
+					jogador_principal.trens -= num_vagoes_necessarios
 			
 					cardBeingDragged = null
 					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
@@ -339,6 +341,7 @@ func raycast_check(_collider: int):
 func _process(_delta: float) -> void: 
 	if not jogador_principal: return
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
+	$"../GUI/Jogador Principal/trens".text = str(jogador_principal.trens)
 	
 	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
 		for carta in jogador_principal.cartas:

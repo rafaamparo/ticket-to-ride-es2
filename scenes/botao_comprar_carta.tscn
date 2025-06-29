@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://l5chwiwvylhx"]
+
+[ext_resource type="Texture2D" uid="uid://cun384g2kxeu2" path="res://game_assets/game_scene/carta_virada.png" id="1_0gxpf"]
+[ext_resource type="Script" path="res://scripts/botao_comprar_carta.gd" id="1_ndhef"]
+
+[sub_resource type="Theme" id="Theme_0ylg1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6icok"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ono6c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjqt0"]
+
+[node name="BotaoComprarCarta" type="Button"]
+anchors_preset = -1
+anchor_right = 0.073
+anchor_bottom = 0.198
+offset_right = -0.0960083
+offset_bottom = -0.304016
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0ylg1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6icok")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ono6c")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sjqt0")
+script = ExtResource("1_ndhef")
+
+[node name="TexturaBotao" type="TextureRect" parent="."]
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 212.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("1_0gxpf")
+expand_mode = 1
+stretch_mode = 4

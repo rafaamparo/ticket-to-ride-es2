@@ -48,20 +48,21 @@ text = "BEATRIZ
 "
 metadata/_edit_group_ = true
 
-[node name="bilhetes" type="Label" parent="."]
+[node name="pontos" type="Label" parent="."]
 layout_mode = 2
-offset_left = 3.0
+offset_left = -6.0
 offset_top = 31.0
-offset_right = 24.0
-offset_bottom = 70.0
+offset_right = 30.0
+offset_bottom = 68.0
 theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
 theme_override_fonts/font = ExtResource("4_rhu3w")
 theme_override_font_sizes/font_size = 30
 text = "0
 "
+horizontal_alignment = 1
 metadata/_edit_group_ = true
 
-[node name="pontos" type="Label" parent="."]
+[node name="trens" type="Label" parent="."]
 layout_mode = 2
 offset_left = 131.0
 offset_top = 19.0

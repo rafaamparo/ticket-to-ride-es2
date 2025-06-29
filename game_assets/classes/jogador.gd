@@ -1,6 +1,6 @@
 class_name Jogador extends Node2D
 
-const QTD_CARTAS_BOT = 6
+const QTD_CARTAS_BOT = 0
 var nome: String = "Jogador BOT"
 var isBot: bool = false
 var trens: int = 45

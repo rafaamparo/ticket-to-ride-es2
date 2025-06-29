@@ -40,7 +40,7 @@ func gerarCartaAleatoria() -> GameCard:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	var carta = carta_scene.instantiate()
-	var cor_aleatoria = randi_range(6,7)
+	var cor_aleatoria = randi_range(0,7)
 	
 	carta.card_index = cor_aleatoria
 	adicionarCartaNaMao(carta)
@@ -215,7 +215,7 @@ func stop_drag():
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
-					jogador_principal.pontos += num_vagoes_necessarios
+					jogador_principal.pontos += trilha_detectada.pontos_da_trilha
 					jogador_principal.trens -= num_vagoes_necessarios
 			
 					cardBeingDragged = null

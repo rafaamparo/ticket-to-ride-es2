@@ -18,6 +18,7 @@ func before_each():
 	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
 
 	gerenciador_fluxo = GerenciadorDeFluxo.new()
+	add_child_autofree(gerenciador_fluxo) # Adiciona o nó à árvore de cena para que get_tree() funcione
 	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
 	gerenciador_fluxo.lista_jogadores.clear()
 	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
@@ -28,7 +29,7 @@ func after_each():
 	for jogador in gerenciador_fluxo.lista_jogadores:
 		if is_instance_valid(jogador):
 			jogador.free()
-	gerenciador_fluxo.free()
+	# gerenciador_fluxo é liberado pelo autofree
 	if mock_comprar_cartas:
 		mock_comprar_cartas.free()
 	if mock_text_dialog:
@@ -139,62 +140,40 @@ func test_verificar_se_jogador_venceu_false():
 	assert_false(resultado, "Should return false when no player has 2 or fewer trains")
 	print("Test passed: test_verificar_se_jogador_venceu_false")
 
-func test_bot_decide_compra_para_ao_comprar_coringa_da_loja():
-	print("Running test: test_bot_decide_compra_para_ao_comprar_coringa_da_loja")
-	var jogador = Jogador.new()
-	var coringa = GameCardScene.instantiate()
-	coringa.card_index = 7 # Coringa
 
-	stub(mock_comprar_cartas, "verificarSePodeComprarCarta").to_return(true)
-	stub(mock_comprar_cartas, "comprarCartaDaLoja").to_return_nothing()
-	
-	# Simula que a loja tem um coringa
-	mock_comprar_cartas.cartas_da_loja = [coringa]
-	# Simula que o coringa foi comprado
-	mock_comprar_cartas.cartas_compradas_turno_loja = [coringa]
+# Refatoração dos testes de compra do bot em um teste parametrizado
+func test_bot_decide_compra(scenario_name, card_index, can_buy, expected_calls):
+	print("Running test: test_bot_decide_compra - %s" % scenario_name)
+	var jogador = Jogador.new()
+	var carta = null
+	var cartas_loja = []
+	var cartas_compradas = []
+
+	if card_index != null:
+		carta = GameCardScene.instantiate()
+		carta.card_index = card_index
+		cartas_loja = [carta]
+		if can_buy:
+			cartas_compradas = [carta]
+
+	stub(mock_comprar_cartas, "verificarSePodeComprarCarta").to_return(can_buy)
+	stub(mock_comprar_cartas, "comprarCartaDaLoja").to_do_nothing()
+	stub(mock_comprar_cartas, "cartas_da_loja").to_return(cartas_loja)
+	stub(mock_comprar_cartas, "cartas_compradas_turno_loja").to_return(cartas_compradas)
+	stub(mock_comprar_cartas, "verificarSePodePegarDoBaralho").to_return(false) # Evita compra do baralho
 
 	await gerenciador_fluxo.bot_decide_compra(jogador)
 
-	# O bot deve comprar apenas uma carta (o coringa) e parar.
-	assert_call_count(mock_comprar_cartas, "comprarCartaDaLoja", 1, "Should have called comprarCartaDaLoja only once for the wildcard")
-	
+	assert_call_count(mock_comprar_cartas, "comprarCartaDaLoja", expected_calls, "Call count for comprarCartaDaLoja did not match expected value")
+
 	jogador.free()
-	coringa.free()
-	print("Test passed: test_bot_decide_compra_para_ao_comprar_coringa_da_loja")
+	if carta:
+		carta.free()
+	print("Test passed: test_bot_decide_compra - %s" % scenario_name)
 
-func test_bot_decide_compra_para_ao_comprar_carta_normal():
-    print("Running test: test_bot_decide_compra_para_ao_comprar_carta
-_normal")
-    var jogador = Jogador.new()
-    var carta_normal = GameCardScene.instantiate()
-    carta_normal.card_index = 1 # Not a joker
-    stub(mock_comprar_cartas, "verificarSePodeComprarCarta").to_return(true)
-    stub(mock_comprar_cartas, "comprarCartaDaLoja").to_return_nothing() 
-    # Simula que a loja tem uma carta normal
-    mock_comprar_cartas.cartas_da_loja = [carta_normal]
-    # Simula que a carta normal foi comprada
-    mock_comprar_cartas.cartas_compradas_turno_loja = [carta_normal]
-    await gerenciador_fluxo.bot_decide_compra(jogador)
-    # O bot deve comprar apenas uma carta (a normal) e parar.
-    assert_call_count(mock_comprar_cartas, "comprarCartaDaLoja",
-
-    1, "Should have called comprarCartaDaLoja only once for the normal card")
-    jogador.free()
-    carta_normal.free()
-    print("Test passed: test_bot_decide_compra_para_ao_comprar_carta_normal")
-
-func test_bot_decide_compra_para_ao_nao_comprar_carta():
-    print("Running test: test_bot_decide_compra_para_ao_nao_comprar_carta")
-    var jogador = Jogador.new()
-    stub(mock_comprar_cartas, "verificarSePodeComprarCarta").to_return(false)
-    stub(mock_comprar_cartas, "comprarCartaDaLoja").to_return_nothing()
-    # Simula que a loja não tem cartas disponíveis
-    mock_comprar_cartas.cartas_da_loja = []
-    mock_comprar_cartas.cartas_compradas_turno_loja = []
-    await gerenciador_fluxo.bot_decide_compra(jogador)
-    # O bot não deve tentar comprar nenhuma carta
-    assert_call_count(mock_comprar_cartas, "comprarCartaDaLoja",
-    0, "Should not have called comprarCartaDaLoja when no cards are available")
-    jogador.free()
-    print("Test passed: test_bot_decide_compra_para_ao_nao_comprar_carta")
-    
+func _suite_before_each():
+	use_parameters([
+		["compra_coringa_da_loja", 7, true, 1],
+		["compra_carta_normal", 1, true, 1],
+		["nao_compra_carta", null, false, 0]
+	])

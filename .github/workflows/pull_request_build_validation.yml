@@ -16,6 +16,7 @@ jobs:
           lfs: true
 
       - name: Setup Godot - Export Templates
+        id: setup_godot
         uses: chickensoft-games/setup-godot@v2
         with:
           version: '4.3.0'
@@ -30,14 +31,17 @@ jobs:
         run: mkdir -p build/windows
       
       - name: Import Godot Resources
-        run: godot --headless --import
+        run: ${{ steps.setup_godot.outputs.godot-path }} --headless --import
+
+      - name: Run Unit Tests and Calculate Coverage
+        run: ${{ steps.setup_godot.outputs.godot-path }} --headless -s addons/gut/gut_cmdln.gd -gdir=res://tests -gprefix=test_ -gcoverage=true -gcov_dir=res://scripts,res://game_assets/classes
 
       - name: Export Game (Windows Debug Build for PR)
         id: export_game
         run: |
           echo "Tentando exportar o jogo..."
           set +e
-          godot --headless --verbose --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe" 2>&1 | tee godot_export_log.txt
+          ${{ steps.setup_godot.outputs.godot-path }} --headless --verbose --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe" 2>&1 | tee godot_export_log.txt
           GODOT_EXIT_CODE=$?
           set -e
 

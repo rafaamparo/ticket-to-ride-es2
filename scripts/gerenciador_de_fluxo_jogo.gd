@@ -30,11 +30,12 @@ func _ready() -> void:
 		jogador.trens = 45
 		jogador.isBot = true
 		jogador.cor = i
-		lista_jogadores.append(jogador)
-		jogador.gerarCartasBot()
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")
 		var jogadorBox = jogadorBoxScene.instantiate()
 		jogadorBox.jogadorSelecionado = jogador
+		jogador.player_info_box = jogadorBox;
+		lista_jogadores.append(jogador)
+		jogador.gerarCartasBot()
 		$"../GUI/BoxJogadoresContainer".add_child(jogadorBox)
 	gerenciador_cartas.inicializar_cartas_jogador()
 
@@ -81,7 +82,7 @@ func rodada_bot() -> void:
 		# Estratégia do Bot:
 		# 1. Tenta capturar uma rota, que é a ação principal para vencer.
 		var resultado_captura = await bot_decide_capturar_rota(jogador_atual, gerenciadorDeTrilhas)
-		await get_tree().create_timer(1.45).timeout
+		await get_tree().create_timer(2.45).timeout
 
 		# 2. Se não conseguiu capturar, vai comprar cartas para melhorar a mão.
 		if not resultado_captura:

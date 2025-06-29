@@ -1,130 +1,112 @@
 extends "res://addons/gut/test.gd"
 
-# Preload scripts and scenes needed for the tests
-var Jogador = load("res://game_assets/classes/jogador.gd")
 var GerenciadorDeFluxo = load("res://scripts/gerenciador_de_fluxo_jogo.gd")
-var GerenciadorComprarCartas = load("res://scripts/gerenciador_comprar_cartas.gd")
-var GameCard = load("res://scripts/loja_cartas_container.gd") # Carregando a classe GameCard
+var Jogador = load("res://game_assets/classes/jogador.gd")
+var GameCard = load("res://scripts/game_card.gd")
 
-# --- Test proximoTurno ---
-# This test checks if the turn advances correctly.
-func test_proximo_turno_advances_and_wraps_around():
-	print("Running test: test_proximo_turno_advances_and_wraps_around")
-	# Setup
-	var gerenciador = GerenciadorDeFluxo.new()
+var gerenciador_fluxo
+var mock_comprar_cartas
+var mock_text_dialog
+
+func before_each():
+	mock_comprar_cartas = double("res://scripts/gerenciador_comprar_cartas.gd").new()
+	mock_text_dialog = double("res://scripts/text_dialog.gd").new()
+	stub(mock_text_dialog, "show_dialog_with_text").to_do_nothing()
+	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
+
+	gerenciador_fluxo = GerenciadorDeFluxo.new()
+	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
+	gerenciador_fluxo.lista_jogadores = [Jogador.new(), Jogador.new()]
+	gerenciador_fluxo.jogador_do_turno = 0
+
+func after_each():
+	gerenciador_fluxo.free()
+
+func test_proximo_turno_avanca_jogador():
+	print("Running test: test_proximo_turno_avanca_jogador")
+	assert_eq(gerenciador_fluxo.jogador_do_turno, 0, "Initial turn should be 0")
 	
-	# Create a mock for the dependency
-	var mock_comprar_cartas = double(GerenciadorComprarCartas).new()
-	stub(mock_comprar_cartas, "atualizarTurnoLoja").to_do_nothing()
+	gerenciador_fluxo.proximoTurno()
 	
-	# Configure the object for testing, injecting the mock
-	gerenciador.configurar_para_teste(mock_comprar_cartas, null)
+	assert_eq(gerenciador_fluxo.jogador_do_turno, 1, "Turn should advance to 1")
+	assert_called(mock_comprar_cartas, "atualizarTurnoLoja", [], "atualizarTurnoLoja should be called")
+	print("Test passed: test_proximo_turno_avanca_jogador")
+
+func test_proximo_turno_volta_para_o_inicio():
+	print("Running test: test_proximo_turno_volta_para_o_inicio")
+	gerenciador_fluxo.jogador_do_turno = 1
 	
-	# Create 4 dummy players
-	for i in 4:
-		var p = Jogador.new()
-		gerenciador.lista_jogadores.append(p)
+	gerenciador_fluxo.proximoTurno()
 	
-	# --- Test 1: Advance from 0 to 1 ---
-	gerenciador.jogador_do_turno = 0
-	gerenciador.proximoTurno()
-	assert_eq(gerenciador.jogador_do_turno, 1, "Turn should advance from 0 to 1")
+	assert_eq(gerenciador_fluxo.jogador_do_turno, 0, "Turn should wrap around to 0")
+	assert_called(mock_comprar_cartas, "atualizarTurnoLoja", [], "atualizarTurnoLoja should be called")
+	print("Test passed: test_proximo_turno_volta_para_o_inicio")
 
-	# --- Test 2: Advance from 3 to 0 (wrap around) ---
-	gerenciador.jogador_do_turno = 3
-	gerenciador.proximoTurno()
-	assert_eq(gerenciador.jogador_do_turno, 0, "Turn should wrap around from 3 to 0")
-
-	# Cleanup
-	for p in gerenciador.lista_jogadores:
-		p.free()
-	gerenciador.free()
-	print("Test passed: test_proximo_turno_advances_and_wraps_around")
-
-
-# --- Tests for encontrar_carta_util_na_loja ---
-func test_encontrar_carta_util_success():
-	print("Running test: test_encontrar_carta_util_success")
-	# Setup
-	var gerenciador = GerenciadorDeFluxo.new()
+func test_encontrar_carta_util_na_loja_encontra_carta():
+	print("Running test: test_encontrar_carta_util_na_loja_encontra_carta")
 	var jogador = Jogador.new()
-
-	# Give the player a blue card (index 2)
-	var player_card = GameCard.new()
-	player_card.card_index = 2
-	jogador.cartas.append(player_card)
+	var carta_jogador = GameCard.new()
+	carta_jogador.card_index = 3 # Blue
+	jogador.cartas.append(carta_jogador)
 	
-	# Create a shop with a red card and a blue card
-	var shop_cards = []
-	var red_card = GameCard.new()
-	red_card.card_index = 3
-	var blue_card = GameCard.new()
-	blue_card.card_index = 2
-	shop_cards.append(red_card)
-	shop_cards.append(blue_card)
+	var carta_loja_util = GameCard.new()
+	carta_loja_util.card_index = 3 # Blue
+	var carta_loja_inutil = GameCard.new()
+	carta_loja_inutil.card_index = 5 # Green
 	
-	# Execute
-	var found_card = gerenciador.encontrar_carta_util_na_loja(jogador, shop_cards)
+	var cartas_loja = [carta_loja_inutil, carta_loja_util]
 	
-	# Assert
-	assert_is(found_card, blue_card, "Should find the useful blue card")
+	var resultado = gerenciador_fluxo.encontrar_carta_util_na_loja(jogador, cartas_loja)
+	
+	assert_eq(resultado, carta_loja_util, "Should find the useful blue card")
 	
 	# Cleanup
 	jogador.free()
-	gerenciador.free()
-	print("Test passed: test_encontrar_carta_util_success")
+	carta_jogador.free()
+	carta_loja_util.free()
+	carta_loja_inutil.free()
+	print("Test passed: test_encontrar_carta_util_na_loja_encontra_carta")
 
-
-func test_encontrar_carta_util_fail_no_useful_card():
-	print("Running test: test_encontrar_carta_util_fail_no_useful_card")
-	# Setup
-	var gerenciador = GerenciadorDeFluxo.new()
+func test_encontrar_carta_util_na_loja_sem_correspondencia():
+	print("Running test: test_encontrar_carta_util_na_loja_sem_correspondencia")
 	var jogador = Jogador.new()
+	var carta_jogador = GameCard.new()
+	carta_jogador.card_index = 3 # Blue
+	jogador.cartas.append(carta_jogador)
+	
+	var carta_loja_inutil = GameCard.new()
+	carta_loja_inutil.card_index = 5 # Green
+	
+	var cartas_loja = [carta_loja_inutil]
+	
+	var resultado = gerenciador_fluxo.encontrar_carta_util_na_loja(jogador, cartas_loja)
+	
+	assert_null(resultado, "Should not find a useful card")
 
-	# Give the player a blue card (index 2)
-	var player_card = GameCard.new()
-	player_card.card_index = 2
-	jogador.cartas.append(player_card)
-	
-	# Create a shop with only a red card
-	var shop_cards = []
-	var red_card = GameCard.new()
-	red_card.card_index = 3
-	shop_cards.append(red_card)
-	
-	# Execute
-	var found_card = gerenciador.encontrar_carta_util_na_loja(jogador, shop_cards)
-	
-	# Assert
-	assert_null(found_card, "Should not find a useful card")
-	
 	# Cleanup
 	jogador.free()
-	gerenciador.free()
-	print("Test passed: test_encontrar_carta_util_fail_no_useful_card")
+	carta_jogador.free()
+	carta_loja_inutil.free()
+	print("Test passed: test_encontrar_carta_util_na_loja_sem_correspondencia")
 
+func test_bot_decide_capturar_rota_success():
+	print("Running test: test_bot_decide_capturar_rota_success")
+	var jogador_mock = double(Jogador).new()
+	stub(jogador_mock, "capturarRotaBot").to_return(true)
+	
+	var resultado = await gerenciador_fluxo.bot_decide_capturar_rota(jogador_mock, null)
+	
+	assert_true(resultado, "Should return true when bot captures a route")
+	assert_called(jogador_mock, "capturarRotaBot")
+	print("Test passed: test_bot_decide_capturar_rota_success")
 
-func test_encontrar_carta_util_fail_empty_shop():
-	print("Running test: test_encontrar_carta_util_fail_empty_shop")
-	# Setup
-	var gerenciador = GerenciadorDeFluxo.new()
-	var jogador = Jogador.new()
-
-	# Give the player a blue card
-	var player_card = GameCard.new()
-	player_card.card_index = 2
-	jogador.cartas.append(player_card)
+func test_bot_decide_capturar_rota_fail():
+	print("Running test: test_bot_decide_capturar_rota_fail")
+	var jogador_mock = double(Jogador).new()
+	stub(jogador_mock, "capturarRotaBot").to_return(false)
 	
-	# Shop is empty
-	var shop_cards = []
+	var resultado = await gerenciador_fluxo.bot_decide_capturar_rota(jogador_mock, null)
 	
-	# Execute
-	var found_card = gerenciador.encontrar_carta_util_na_loja(jogador, shop_cards)
-	
-	# Assert
-	assert_null(found_card, "Should return null for an empty shop")
-	
-	# Cleanup
-	jogador.free()
-	gerenciador.free()
-	print("Test passed: test_encontrar_carta_util_fail_empty_shop")
+	assert_false(resultado, "Should return false when bot fails to capture a route")
+	assert_called(jogador_mock, "capturarRotaBot")
+	print("Test passed: test_bot_decide_capturar_rota_fail")

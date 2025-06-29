@@ -187,10 +187,22 @@ func encontrar_carta_util_na_loja(jogador: Jogador, cartas_loja: Array[GameCard]
 
 func proximoTurno() -> void:
 	jogador_do_turno += 1
-	gerenciadorDeComprarCartas.atualizarTurnoLoja()
+	if gerenciadorDeComprarCartas:
+		gerenciadorDeComprarCartas.atualizarTurnoLoja()
 	if jogador_do_turno >= lista_jogadores.size():
 		jogador_do_turno = 0
-	gerenciadorDeTurno()
+	
+	# A chamada para gerenciadorDeTurno() é o que causa problemas nos testes.
+	# Em um teste de unidade para proximoTurno, não queremos chamar isso.
+	# A injeção de dependência abaixo nos ajuda a controlar isso.
+	if not _is_testing:
+		gerenciadorDeTurno()
+
+var _is_testing = false
+func configurar_para_teste(mock_comprar_cartas, mock_text_dialog):
+	_is_testing = true
+	gerenciadorDeComprarCartas = mock_comprar_cartas
+	textDialog = mock_text_dialog
 
 
 func rodadaJogadorPrincipal() -> void:

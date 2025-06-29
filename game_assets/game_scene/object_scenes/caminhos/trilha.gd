@@ -41,7 +41,8 @@ const cores_map_reverse = {
 			_update_vagoes_saturacao()
 
 var vagoes_array: Array[Vagao] = []
-
+@export var parada1: Parada = null
+@export var parada2: Parada = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

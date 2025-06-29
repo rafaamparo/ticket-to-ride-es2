@@ -215,6 +215,7 @@ func stop_drag():
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
+					jogador_principal.caminhosCapturados.append(trilha_detectada)
 					jogador_principal.pontos += trilha_detectada.pontos_da_trilha
 					jogador_principal.trens -= num_vagoes_necessarios
 			

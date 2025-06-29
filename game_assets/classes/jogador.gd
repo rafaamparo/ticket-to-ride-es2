@@ -8,7 +8,7 @@ var pontos: int = 0
 var cor: int = 0
 var cartas: Array[GameCard] = []
 var caminhosCapturados: Array[TrilhaVagao] = []
-var cartas_destino = []
+var cartas_destino: Array[GameCard] = []
 var cartas_coringa: int = 0
 var player_info_box: JogadorBotBox = null
 
@@ -92,6 +92,7 @@ func capturarRotaBot(gerenciador_trilhas_ref: GerenciadorDeTrilhas) -> bool:
 		if trilha.cores_map[trilha.cor_trilha] == 7:
 			trilha.cor_trilha = trilha.cores_map_reverse[cartas_a_serem_usadas[0].card_index]
 		trilha.capturar_trilha()
+		self.caminhosCapturados.append(trilha)
 		pontos += trilha.pontos_da_trilha
 		trens -= num_vagoes_necessarios
 		caminhosCapturados.append(trilha)

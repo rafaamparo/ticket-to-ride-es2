@@ -1,26 +1,38 @@
 extends "res://addons/gut/test.gd"
 
 var GerenciadorDeFluxo = load("res://scripts/gerenciador_de_fluxo_jogo.gd")
+var GerenciadorComprarCartas = load("res://scripts/gerenciador_comprar_cartas.gd")
+var TextDialog = load("res://scripts/text_dialog.gd")
 var Jogador = load("res://game_assets/classes/jogador.gd")
 var GameCardScene = load("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+var GameCard = load("res://scripts/game_card.gd")
 
 var gerenciador_fluxo
 var mock_comprar_cartas
 var mock_text_dialog
 
 func before_each():
-	mock_comprar_cartas = double("res://scripts/gerenciador_comprar_cartas.gd").new()
-	mock_text_dialog = double("res://scripts/text_dialog.gd").new()
+	mock_comprar_cartas = double(GerenciadorComprarCartas).new()
+	mock_text_dialog = double(TextDialog).new()
 	stub(mock_text_dialog, "show_dialog_with_text").to_do_nothing()
 	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
 
 	gerenciador_fluxo = GerenciadorDeFluxo.new()
 	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
-	gerenciador_fluxo.lista_jogadores = [Jogador.new(), Jogador.new()]
+	gerenciador_fluxo.lista_jogadores.clear()
+	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
+	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
 	gerenciador_fluxo.jogador_do_turno = 0
 
 func after_each():
+	for jogador in gerenciador_fluxo.lista_jogadores:
+		if is_instance_valid(jogador):
+			jogador.free()
 	gerenciador_fluxo.free()
+	if mock_comprar_cartas:
+		mock_comprar_cartas.free()
+	if mock_text_dialog:
+		mock_text_dialog.free()
 
 func test_proximo_turno_avanca_jogador():
 	print("Running test: test_proximo_turno_avanca_jogador")
@@ -53,8 +65,7 @@ func test_encontrar_carta_util_na_loja_encontra_carta():
 	carta_loja_util.card_index = 3 # Blue
 	var carta_loja_inutil = GameCardScene.instantiate()
 	carta_loja_inutil.card_index = 5 # Green
-	
-	var cartas_loja = [carta_loja_inutil, carta_loja_util]
+	var cartas_loja: Array[GameCard] = [carta_loja_inutil, carta_loja_util]
 	
 	var resultado = gerenciador_fluxo.encontrar_carta_util_na_loja(jogador, cartas_loja)
 	
@@ -77,7 +88,7 @@ func test_encontrar_carta_util_na_loja_sem_correspondencia():
 	var carta_loja_inutil = GameCardScene.instantiate()
 	carta_loja_inutil.card_index = 5 # Green
 	
-	var cartas_loja = [carta_loja_inutil]
+	var cartas_loja: Array[GameCard] = [carta_loja_inutil]
 	
 	var resultado = gerenciador_fluxo.encontrar_carta_util_na_loja(jogador, cartas_loja)
 	

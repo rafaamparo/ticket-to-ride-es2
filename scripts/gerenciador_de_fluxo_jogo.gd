@@ -62,8 +62,6 @@ func gerenciadorDeTurno() -> void:
 	else:
 		rodadaJogadorPrincipal()
 	
-	
-	
 func rodada_bot() -> void:
 	var gerenciadorDeTrilhas = $"../GerenciadorDeTrilhas"
 
@@ -94,15 +92,18 @@ func bot_decide_capturar_rota(jogador_atual: Jogador, gerenciadorDeTrilhas: Gere
 	var resultado = await jogador_atual.capturarRotaBot(gerenciadorDeTrilhas)
 	if resultado:
 		print("Bot capturou uma rota!")
-		await textDialog.show_dialog_with_text("%s capturou uma rota!" % jogador_atual.nome)
+		if textDialog:
+			await textDialog.show_dialog_with_text("%s capturou uma rota!" % jogador_atual.nome)
 		return true
 	else:
 		print("%s não conseguiu capturar uma rota." % jogador_atual.nome)
-		await textDialog.show_dialog_with_text("%s pensou em capturar rota mas não conseguiu." % jogador_atual.nome)
+		if textDialog:
+			await textDialog.show_dialog_with_text("%s pensou em capturar rota mas não conseguiu." % jogador_atual.nome)
 		return false
-
+		
 func bot_decide_compra(jogador_atual: Jogador) -> void:
-	await textDialog.show_dialog_with_text("%s vai comprar cartas." % jogador_atual.nome)
+	if textDialog:
+		await textDialog.show_dialog_with_text("%s vai comprar cartas." % jogador_atual.nome)
 	await get_tree().create_timer(2.0).timeout
 
 	var cartas_compradas = 0

@@ -8,7 +8,7 @@ func test_verificar_se_pode_comprar_carta_success():
 	var gerenciador = GerenciadorComprarCartas.new()
 	
 	var carta = load("res://game_assets/game_scene/object_scenes/game_card_scene.tscn").instantiate()
-	carta.card_index = 1 # Not a joker
+	carta.card_index = randi_range(0,6) # Não é um joker
 	
 	var result = gerenciador.verificarSePodeComprarCarta(carta)
 	
@@ -47,7 +47,7 @@ func test_verificar_se_pode_comprar_joker_fail():
 	var card_scene = load("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 
 	var carta_normal = card_scene.instantiate()
-	carta_normal.card_index = 1
+	carta_normal.card_index = randi_range(0,6)
 	gerenciador.cartas_compradas_turno_loja.append(carta_normal)
 
 	var joker_card = card_scene.instantiate()

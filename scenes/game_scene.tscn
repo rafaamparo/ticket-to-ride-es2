@@ -1930,6 +1930,8 @@ script = ExtResource("9_8t5w2")
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_mb7hx")
 
+[node name="GerenciadorCartasDestino" type="Node" parent="GUI"]
+
 [node name="GerenciadorComprarCartas" type="Node" parent="GUI"]
 script = ExtResource("11_s3pss")
 
@@ -2041,16 +2043,20 @@ script = ExtResource("16_sihrp")
 metadata/_edit_lock_ = true
 
 [node name="TextDialog" parent="GUI" instance=ExtResource("17_mc33u")]
+modulate = Color(1, 1, 1, 0)
 offset_left = 232.0
 offset_top = 24.0
 offset_right = -280.0
 offset_bottom = -544.0
+metadata/_edit_lock_ = true
 
 [node name="Winner-dialog" parent="GUI" instance=ExtResource("18_5dgpw")]
+modulate = Color(1, 1, 1, 0)
 offset_left = -25.0
 offset_top = -13.0
 offset_right = -25.0
 offset_bottom = -13.0
+metadata/_edit_lock_ = true
 
 [node name="BotaoComprarCarta" parent="GUI" instance=ExtResource("18_20m12")]
 offset_left = 1062.0

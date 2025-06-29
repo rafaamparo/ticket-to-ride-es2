@@ -29,7 +29,7 @@ func _ready() -> void:
 	for i in range(qtd_jogadores_bot):
 		var jogador: Jogador = Jogador.new()
 		jogador.nome = "Bot " + str(i + 1)
-		jogador.trens = 45
+		jogador.trens = 20
 		jogador.isBot = true
 		jogador.cor = i
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")

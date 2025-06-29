@@ -2,7 +2,7 @@ extends "res://addons/gut/test.gd"
 
 var GerenciadorDeFluxo = load("res://scripts/gerenciador_de_fluxo_jogo.gd")
 var Jogador = load("res://game_assets/classes/jogador.gd")
-var GameCard = load("res://scripts/game_card.gd")
+var GameCardScene = load("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 
 var gerenciador_fluxo
 var mock_comprar_cartas
@@ -29,7 +29,7 @@ func test_proximo_turno_avanca_jogador():
 	gerenciador_fluxo.proximoTurno()
 	
 	assert_eq(gerenciador_fluxo.jogador_do_turno, 1, "Turn should advance to 1")
-	assert_called(mock_comprar_cartas, "atualizarTurnoLoja", [], "atualizarTurnoLoja should be called")
+	assert_called(mock_comprar_cartas, "atualizarTurnoLoja")
 	print("Test passed: test_proximo_turno_avanca_jogador")
 
 func test_proximo_turno_volta_para_o_inicio():
@@ -39,19 +39,19 @@ func test_proximo_turno_volta_para_o_inicio():
 	gerenciador_fluxo.proximoTurno()
 	
 	assert_eq(gerenciador_fluxo.jogador_do_turno, 0, "Turn should wrap around to 0")
-	assert_called(mock_comprar_cartas, "atualizarTurnoLoja", [], "atualizarTurnoLoja should be called")
+	assert_called(mock_comprar_cartas, "atualizarTurnoLoja")
 	print("Test passed: test_proximo_turno_volta_para_o_inicio")
 
 func test_encontrar_carta_util_na_loja_encontra_carta():
 	print("Running test: test_encontrar_carta_util_na_loja_encontra_carta")
 	var jogador = Jogador.new()
-	var carta_jogador = GameCard.new()
+	var carta_jogador = GameCardScene.instantiate()
 	carta_jogador.card_index = 3 # Blue
 	jogador.cartas.append(carta_jogador)
 	
-	var carta_loja_util = GameCard.new()
+	var carta_loja_util = GameCardScene.instantiate()
 	carta_loja_util.card_index = 3 # Blue
-	var carta_loja_inutil = GameCard.new()
+	var carta_loja_inutil = GameCardScene.instantiate()
 	carta_loja_inutil.card_index = 5 # Green
 	
 	var cartas_loja = [carta_loja_inutil, carta_loja_util]
@@ -70,11 +70,11 @@ func test_encontrar_carta_util_na_loja_encontra_carta():
 func test_encontrar_carta_util_na_loja_sem_correspondencia():
 	print("Running test: test_encontrar_carta_util_na_loja_sem_correspondencia")
 	var jogador = Jogador.new()
-	var carta_jogador = GameCard.new()
+	var carta_jogador = GameCardScene.instantiate()
 	carta_jogador.card_index = 3 # Blue
 	jogador.cartas.append(carta_jogador)
 	
-	var carta_loja_inutil = GameCard.new()
+	var carta_loja_inutil = GameCardScene.instantiate()
 	carta_loja_inutil.card_index = 5 # Green
 	
 	var cartas_loja = [carta_loja_inutil]

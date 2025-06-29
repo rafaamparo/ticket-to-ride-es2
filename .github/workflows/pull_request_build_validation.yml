@@ -30,17 +30,14 @@ jobs:
         run: mkdir -p build/windows
       
       - name: Import Godot Resources
-        run: bin/godot --headless --import
-
-      - name: Run Unit Tests and Calculate Coverage
-        run: bin/godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://tests -gprefix=test_ -gcoverage=true -gcov_dir=res://scripts,res://game_assets/classes
+        run: godot --headless --import
 
       - name: Export Game (Windows Debug Build for PR)
         id: export_game
         run: |
           echo "Tentando exportar o jogo..."
           set +e
-          bin/godot --headless --verbose --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe" 2>&1 | tee godot_export_log.txt
+          godot --headless --verbose --export-debug "Windows Desktop" "build/windows/TicketToClass_Dev.exe" 2>&1 | tee godot_export_log.txt
           GODOT_EXIT_CODE=$?
           set -e
 

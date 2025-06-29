@@ -28,6 +28,9 @@ jobs:
           
       - name: Criar Diretório de Build
         run: mkdir -p build/windows
+      
+      - name: Import Godot Resources
+        run: godot --headless --import
 
       - name: Export Game (Windows Debug Build for PR)
         id: export_game

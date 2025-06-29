@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://nuc8cg4fmeht"]
+
+[ext_resource type="FontFile" uid="uid://cqbqjave1reac" path="res://game_assets/fonts/pixelifysans/PixelifySans-Medium.ttf" id="1_clf6d"]
+[ext_resource type="Script" path="res://scripts/player_winner_box.gd" id="1_u1pbm"]
+
+[node name="PlayerBox" type="HBoxContainer"]
+script = ExtResource("1_u1pbm")
+
+[node name="PlayerName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_clf6d")
+theme_override_font_sizes/font_size = 21
+text = "1. Rafael A."
+
+[node name="Points" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_clf6d")
+theme_override_font_sizes/font_size = 21
+text = "800 Pontos"

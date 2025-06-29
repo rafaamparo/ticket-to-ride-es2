@@ -1,11 +1,13 @@
 class_name GerenciadorDeFluxo extends Node
 
+signal acao_jogador_terminada
 const qtd_jogadores_bot: int = 3
 var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
 var textDialog: TextDialog = null
 var lista_jogadores: Array[Jogador] = []
 var jogador_principal: Jogador
 var pausar_jogador_principal: bool = false
+var pausar_cartas_mao_jogador_princial: bool = false
 var jogador_do_turno: int = 1
 var contador_de_rodadas: int = -1
 
@@ -30,11 +32,12 @@ func _ready() -> void:
 		jogador.trens = 45
 		jogador.isBot = true
 		jogador.cor = i
-		lista_jogadores.append(jogador)
-		jogador.gerarCartasBot()
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")
 		var jogadorBox = jogadorBoxScene.instantiate()
 		jogadorBox.jogadorSelecionado = jogador
+		jogador.player_info_box = jogadorBox;
+		lista_jogadores.append(jogador)
+		jogador.gerarCartasBot()
 		$"../GUI/BoxJogadoresContainer".add_child(jogadorBox)
 	gerenciador_cartas.inicializar_cartas_jogador()
 
@@ -55,6 +58,12 @@ func gerenciadorDeTurno() -> void:
 		await get_tree().create_timer(5.0).timeout
 	
 	await textDialog.hide_dialog()
+
+	
+	if verificarSeAlgumJogadorVenceu():
+		await fluxoDeFimDeJogo()
+		return
+
 	var jogador_atual_do_turno: Jogador = lista_jogadores[jogador_do_turno]
 	if jogador_atual_do_turno.isBot:
 
@@ -62,6 +71,37 @@ func gerenciadorDeTurno() -> void:
 	else:
 		rodadaJogadorPrincipal()
 	
+	
+func verificarSeAlgumJogadorVenceu() -> bool:
+	for jogador in lista_jogadores:
+		if jogador.trens <= 2: 
+			return true
+	return false
+	
+func fluxoDeFimDeJogo() -> void:
+	await get_tree().create_timer(1.0).timeout
+	await textDialog.show_dialog_with_text("Fim de jogo!")
+	await get_tree().create_timer(2.0).timeout
+	await textDialog.hide_dialog()
+	await textDialog.show_dialog_with_text("Aguarde enquanto calculamos os pontos...")
+	await get_tree().create_timer(6.0).timeout
+	await textDialog.hide_dialog()
+	
+
+	var ranking: Array[Jogador] = lista_jogadores.duplicate()
+	ranking.sort_custom(func(a, b): return a.pontos > b.pontos)
+	$"../GUI/Winner-dialog".player_ranking = ranking
+	$"../GUI/Winner-dialog".show_dialog_box()
+
+	await get_tree().create_timer(20.0).timeout
+
+	# go to the main menu
+	var main_menu_scene = preload("res://scenes/main_menu.tscn")
+	var main_menu_instance = main_menu_scene.instantiate()
+	get_tree().change_scene_to(main_menu_instance)
+	
+
+
 func rodada_bot() -> void:
 	var gerenciadorDeTrilhas = $"../GerenciadorDeTrilhas"
 
@@ -79,7 +119,7 @@ func rodada_bot() -> void:
 		# Estratégia do Bot:
 		# 1. Tenta capturar uma rota, que é a ação principal para vencer.
 		var resultado_captura = await bot_decide_capturar_rota(jogador_atual, gerenciadorDeTrilhas)
-		await get_tree().create_timer(1.45).timeout
+		await get_tree().create_timer(2.45).timeout
 
 		# 2. Se não conseguiu capturar, vai comprar cartas para melhorar a mão.
 		if not resultado_captura:
@@ -207,18 +247,17 @@ func configurar_para_teste(mock_comprar_cartas, mock_text_dialog):
 
 
 func rodadaJogadorPrincipal() -> void:
-	pausar_jogador_principal = false
 	print("É a vez do jogador principal: ", jogador_principal.nome)
 	await get_tree().create_timer(1.0).timeout
 	await textDialog.show_dialog_with_text("É a vez do jogador %s" % jogador_principal.nome)
-	await get_tree().create_timer(2.0).timeout  # Espera 1 segundo antes de continuar
+	await get_tree().create_timer(2.0).timeout
 	await textDialog.hide_dialog()
 	await get_tree().create_timer(1.0).timeout
 	await textDialog.show_dialog_with_text("É a sua vez de jogar! Capture uma rota ou compre cartas.")
-	await get_tree().create_timer(15.0).timeout
-
-	# Aqui você pode adicionar a lógica para o jogador principal jogar
-	# Por exemplo, permitir que ele escolha uma carta ou uma ação
+	pausar_jogador_principal = false
+	pausar_cartas_mao_jogador_princial = false
+	
+	await acao_jogador_terminada # Espera até que o jogador principal finalize sua ação
 
 	proximoTurno()
 

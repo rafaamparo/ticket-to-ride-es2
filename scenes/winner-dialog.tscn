@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://b83mimx0susfj"]
+
+[ext_resource type="Script" path="res://scripts/winner_dialog.gd" id="1_61ehc"]
+[ext_resource type="Texture2D" uid="uid://dm0y18w0dwtm6" path="res://game_assets/caixa_de_texto_grande.png" id="2_yigv7"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="3_gk38s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbron"]
+bg_color = Color(0.193575, 0.247086, 0.389311, 1)
+border_width_bottom = 3
+border_color = Color(0.143575, 0.188242, 0.303335, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 19
+expand_margin_top = 7.0
+expand_margin_bottom = 5.0
+
+[node name="Winner-dialog" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_61ehc")
+
+[node name="Imagem" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -40.0
+offset_right = 320.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_yigv7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Imagem"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Imagem/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Section_Title" type="Label" parent="Imagem/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.205757, 0.20567, 0.355018, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_gk38s")
+theme_override_font_sizes/font_size = 32
+text = "FIM DE JOGO!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="VencedoresContainer" type="VBoxContainer" parent="Imagem/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Vencedores_Text" type="Label" parent="Imagem/MarginContainer/VBoxContainer/VencedoresContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.205757, 0.20567, 0.355018, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_gk38s")
+theme_override_font_sizes/font_size = 25
+text = " Vencedores"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Lista de Vencedores" type="VBoxContainer" parent="Imagem/MarginContainer/VBoxContainer/VencedoresContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Imagem/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Imagem/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_gk38s")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_dbron")
+text = "Voltar para a tela de Início"

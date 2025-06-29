@@ -57,7 +57,7 @@ func gerenciadorDeTurno() -> void:
 	await textDialog.hide_dialog()
 	var jogador_atual_do_turno: Jogador = lista_jogadores[jogador_do_turno]
 	if jogador_atual_do_turno.isBot:
-		var chance_de_comprar_carta = randi_range(1,10) <= 2
+
 		rodada_bot()
 	else:
 		rodadaJogadorPrincipal()
@@ -79,18 +79,61 @@ func rodada_bot() -> void:
 		print("Bot está jogando...")
 		textDialog.show_dialog_with_text("%s está jogando..." % jogador_atual.nome)
 
-		var resultado = await jogador_atual.capturarRotaBot(gerenciadorDeTrilhas)
-		print("Resultado da captura: ", resultado)
-		if resultado:
-			print("Bot capturou uma rota!")
-			await textDialog.show_dialog_with_text("%s capturou uma rota!" % jogador_atual.nome)
+		var chance_de_comprar_carta = randi_range(1,10) <= 2
+
+	
+		if chance_de_comprar_carta:
+			await bot_compra_carta(jogador_atual)
 		else:
-			print("%s não conseguiu capturar uma rota." % jogador_atual.nome)
-			await textDialog.show_dialog_with_text("%s não conseguiu capturar uma rota." % jogador_atual.nome)
+			var resultado = await bot_decide_capturar_rota(jogador_atual, gerenciadorDeTrilhas)
+			if not resultado:
+				await get_tree().create_timer(1.0).timeout
+				await bot_compra_carta(jogador_atual)
 
 		proximoTurno()
 	return;
 
+func bot_decide_capturar_rota(jogador_atual: Jogador, gerenciadorDeTrilhas: GerenciadorDeTrilhas) -> bool:
+	var resultado = await jogador_atual.capturarRotaBot(gerenciadorDeTrilhas)
+	print("Resultado da captura: ", resultado)
+	if resultado:
+		print("Bot capturou uma rota!")
+		await textDialog.show_dialog_with_text("%s capturou uma rota!" % jogador_atual.nome)
+		return true
+	else:
+		print("%s não conseguiu capturar uma rota." % jogador_atual.nome)
+		await textDialog.show_dialog_with_text("%s pensou em capturar rota mas não conseguiu." % jogador_atual.nome)
+		return false
+
+func bot_compra_carta(jogador_atual: Jogador) -> void:
+	await textDialog.show_dialog_with_text("%s vai comprar cartas." % jogador_atual.nome)
+	await get_tree().create_timer(2.0).timeout
+
+	var cartas_compradas_neste_turno = 0
+	while cartas_compradas_neste_turno < gerenciadorDeComprarCartas.max_cartas_para_comprar:
+		var cartas_disponiveis = gerenciadorDeComprarCartas.cartas_da_loja
+		if cartas_disponiveis.is_empty():
+			break # Sai do loop se não há mais cartas na loja
+
+		var carta_escolhida = null
+		# Prioriza a carta coringa (card_index == 7)
+		var cartas_coringa = cartas_disponiveis.filter(func(c): return c.card_index == 7)
+		if not cartas_coringa.is_empty():
+			carta_escolhida = cartas_coringa[0]
+		else:
+			carta_escolhida = cartas_disponiveis.pick_random()
+
+		if carta_escolhida and gerenciadorDeComprarCartas.verificarSePodeComprarCarta(carta_escolhida):
+			await gerenciadorDeComprarCartas.comprarCartaDaLoja(jogador_atual, carta_escolhida)
+			await textDialog.show_dialog_with_text("%s comprou uma carta!" % jogador_atual.nome)
+			await get_tree().create_timer(1.5).timeout
+			cartas_compradas_neste_turno += 1
+			if carta_escolhida.card_index == 7: # Se comprou um coringa, não pode comprar mais
+				break
+		else:
+			# Se não pode comprar a carta (ex: já comprou o máximo, ou é coringa e já comprou uma),
+			# o bot não vai tentar comprar outra carta nesta rodada para simplificar.
+			break
 
 func proximoTurno() -> void:
 	jogador_do_turno += 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=22 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scripts/gerenciador_comprar_cartas.gd" id="11_s3pss"]
 [ext_resource type="Script" path="res://scripts/loja_cartas_container.gd" id="16_sihrp"]
 [ext_resource type="PackedScene" uid="uid://cjdsv5y8v0rrs" path="res://scenes/text_dialog.tscn" id="17_mc33u"]
-[ext_resource type="FontFile" uid="uid://wecse3ya2md0" path="res://game_assets/fonts/pixelifysans/PixelifySans-Regular.ttf" id="18_k5e63"]
+[ext_resource type="PackedScene" uid="uid://l5chwiwvylhx" path="res://scenes/botao_comprar_carta.tscn" id="18_20m12"]
 
 [sub_resource type="Environment" id="Environment_cns0p"]
 background_mode = 3
@@ -31,43 +31,7 @@ shader_parameter/vignette_intensity = 0.8
 shader_parameter/vignette_opacity = 0.379
 shader_parameter/vignette_rgb = Color(0.0800258, 0.00428085, 0.110509, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewgjx"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svajh"]
-bg_color = Color(0.399489, 0.378342, 0.389853, 0.760784)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 14
-expand_margin_left = 10.0
-expand_margin_top = 4.0
-expand_margin_right = 10.0
-expand_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s772"]
-bg_color = Color(0.403922, 0.384314, 0.392157, 0.85098)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 14
-expand_margin_left = 8.0
-expand_margin_top = 2.0
-expand_margin_right = 8.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm1ti"]
-bg_color = Color(0.147776, 0.137486, 0.143095, 0.760784)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 14
-expand_margin_left = 10.0
-expand_margin_top = 4.0
-expand_margin_right = 10.0
-expand_margin_bottom = 4.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_65upi"]
 
 [node name="GameScene" type="Control"]
 layout_mode = 3
@@ -79,6 +43,7 @@ offset_bottom = 1577.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+metadata/_edit_lock_ = true
 
 [node name="Ajustes de Cor" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cns0p")
@@ -2003,15 +1968,16 @@ text = "Bilhetes Feitos"
 
 [node name="pontos" type="Label" parent="GUI/Jogador Principal"]
 layout_mode = 0
-offset_left = 21.0
+offset_left = 3.0
 offset_top = 116.0
-offset_right = 50.0
+offset_right = 66.0
 offset_bottom = 175.0
 theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
 theme_override_fonts/font = ExtResource("8_nj13c")
 theme_override_font_sizes/font_size = 48
 text = "0
 "
+horizontal_alignment = 1
 
 [node name="trens" type="Label" parent="GUI/Jogador Principal"]
 layout_mode = 0
@@ -2065,16 +2031,11 @@ offset_top = 24.0
 offset_right = -280.0
 offset_bottom = -544.0
 
-[node name="BotaoDePegarCartas" type="Button" parent="GUI"]
-offset_left = 977.0
-offset_top = 12.0
-offset_right = 1134.0
-offset_bottom = 43.0
-theme_override_fonts/font = ExtResource("18_k5e63")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ewgjx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_svajh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_1s772")
-theme_override_styles/normal = SubResource("StyleBoxFlat_jm1ti")
-text = "Debug: Pegar Carta"
+[node name="BotaoComprarCarta" parent="GUI" instance=ExtResource("18_20m12")]
+offset_left = 1062.0
+offset_top = -60.0
+offset_right = 1061.9
+offset_bottom = -60.304
+theme_override_styles/focus = SubResource("StyleBoxEmpty_65upi")
 
-[connection signal="pressed" from="GUI/BotaoDePegarCartas" to="GUI" method="_on_button_pressed"]
+[connection signal="pressed" from="GUI/BotaoComprarCarta" to="GUI" method="_on_botao_comprar_carta_pressed"]

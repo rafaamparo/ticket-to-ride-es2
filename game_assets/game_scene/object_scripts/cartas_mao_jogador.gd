@@ -36,7 +36,7 @@ func inicializar_cartas_jogador():
 		carta.z_index = i
 		$".".add_child(carta)
 		
-func gerarCartaAleatoria() -> void:
+func gerarCartaAleatoria() -> GameCard:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	var carta = carta_scene.instantiate()
@@ -52,6 +52,7 @@ func gerarCartaAleatoria() -> void:
 	carta.rotation = deg_to_rad(rotacao_graus)
 	carta.z_index = jogador_principal.cartas.size()
 	$".".add_child(carta)
+	return carta
 
 func adicionarCartaNaMao(cartaParaAdicionar: GameCard):
 	if jogador_principal and cartaParaAdicionar != null:

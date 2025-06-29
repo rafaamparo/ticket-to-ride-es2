@@ -61,7 +61,7 @@ func comprarCartaDaLoja(jogadorSelecionado: Jogador, cartaSelecionada: GameCard)
 		cartaSelecionada.desconectarDetectoresDeMovimento()
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN_OUT)
-		tween.tween_property(cartaSelecionada, "position", Vector2(-100, 0), 0.4)
+		tween.tween_property(cartaSelecionada, "position", Vector2(-100, 100), 0.4)
 		await tween.finished
 		$"../LojaCartasContainer".remove_child(cartaSelecionada)
 		jogadorSelecionado.adicionarCartaNaMao(cartaSelecionada)
@@ -71,7 +71,33 @@ func comprarCartaDaLoja(jogadorSelecionado: Jogador, cartaSelecionada: GameCard)
 	else:
 		print("Carta selecionada não está na loja")
 	
+
+func comprarCartaDoBaralho(jogadorSelecionado: Jogador, cartaGerada: GameCard = null) -> void:
+	if not verificarSePodePegarDoBaralho():
+		print("Não pode comprar mais cartas do baralho neste turno")
+		return
 	
+	var carta = null
+	if (!cartaGerada):
+		var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
+		carta = carta_scene.instantiate()
+		var cor_aleatoria = randi_range(0,7)
+		carta.card_index = cor_aleatoria
+		jogadorSelecionado.adicionarCartaNaMao(carta)
+		cartas_compradas_turno_baralho.append(carta)
+	else:
+		cartas_compradas_turno_baralho.append(cartaGerada)
+		carta = cartaGerada
+	
+
+	if jogadorSelecionado.isBot:
+		carta.rotation_degrees = 90
+		carta.scale = Vector2(0.5, 0.5)
+		var viewport_width = get_viewport().size.x
+		var viewport_height = get_viewport().size.y
+		carta.position = Vector2(viewport_width-35, viewport_height)
+		$"../../GerenciadorCartasJogador".add_child(carta)
+		await calcularPosicaoDasCartas()
 
 
 
@@ -106,7 +132,7 @@ func calcularPosicaoDasCartas():
 		var cartaParaAtualizar = cartas_da_loja[i]
 		
 		var viewport_width = get_viewport().size.x
-		var nova_posicao =Vector2(viewport_width-35, i*82+100)
+		var nova_posicao =Vector2(viewport_width-35, i*82+125)
 		
 		var tween = get_tree().create_tween().set_parallel(true)
 		tweens_list.append(tween)
@@ -138,6 +164,26 @@ func verificarSePodeComprarCarta(carta: GameCard) -> bool:
 	# Se carta.card_index == 7 e a soma de (cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size()) >= 1, não pode comprar
 	if carta.card_index == 7 and (cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size()) >= 1:
 		print("Não é possível comprar mais de uma carta de coringa por turno")
+		return false
+	
+	# Se o jogador já comprou uma carta de coringa neste turno, não pode comprar outra
+	var cartas_coringa_no_baralho_loja = cartas_compradas_turno_loja.filter(func(carta_do_baralho):
+
+		if not is_instance_valid(carta_do_baralho):
+			return false
+
+		return carta_do_baralho.card_index == 7
+	)
+
+	if cartas_coringa_no_baralho_loja.size() > 0:
+		print("Já comprou uma carta de coringa neste turno")
+		return false
+
+	return true
+
+func verificarSePodePegarDoBaralho() -> bool:
+	if (cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size()) >= max_cartas_para_comprar:
+		print("Já comprou o máximo de cartas do baralho neste turno")
 		return false
 	
 	# Se o jogador já comprou uma carta de coringa neste turno, não pode comprar outra

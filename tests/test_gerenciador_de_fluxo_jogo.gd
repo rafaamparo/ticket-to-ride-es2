@@ -71,7 +71,6 @@ func test_encontrar_carta_util_na_loja_encontra_carta():
 	
 	assert_eq(resultado, carta_loja_util, "Should find the useful blue card")
 	
-	# Cleanup
 	jogador.free()
 	carta_jogador.free()
 	carta_loja_util.free()

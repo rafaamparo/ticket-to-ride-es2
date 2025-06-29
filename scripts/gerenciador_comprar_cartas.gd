@@ -18,6 +18,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+
+	if verificarSeJogadorFinalizouAcao():
+		print("Jogador finalizou a ação de compra de cartas")
+		gerenciadorFluxoDeJogo.acao_jogador_terminada.emit()
+		return
+		
+	if gerenciadorFluxoDeJogo.pausar_jogador_principal == false and cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size() >= 1:
+		gerenciadorFluxoDeJogo.pausar_cartas_mao_jogador_princial = true;
+	elif gerenciadorFluxoDeJogo.pausar_jogador_principal == false:
+		gerenciadorFluxoDeJogo.pausar_cartas_mao_jogador_princial = false;
+
 	for carta in cartas_da_loja:
 		if not verificarSePodeComprarCarta(carta, false) or gerenciadorFluxoDeJogo.pausar_jogador_principal:
 			# deixe a carta escura
@@ -158,8 +169,6 @@ func calcularPosicaoDasCartas():
 func atualizarTurnoLoja() -> void:
 	cartas_compradas_turno_loja.clear()
 	cartas_compradas_turno_baralho.clear()
-	
-
 
 func verificarSePodeComprarCarta(carta: GameCard, logs = true) -> bool:
 	if not is_instance_valid(carta):
@@ -188,6 +197,26 @@ func verificarSePodeComprarCarta(carta: GameCard, logs = true) -> bool:
 		return false
 
 	return true
+
+func verificarSeJogadorFinalizouAcao() -> bool:
+	if gerenciadorFluxoDeJogo.pausar_jogador_principal == true:
+		return false
+
+	if cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size() >= max_cartas_para_comprar:
+		return true
+
+	var cartas_coringa_no_baralho_loja = cartas_compradas_turno_loja.filter(func(carta_do_baralho):
+
+		if not is_instance_valid(carta_do_baralho):
+			return false
+
+		return carta_do_baralho.card_index == 7
+	)
+
+	if cartas_coringa_no_baralho_loja.size() > 0:
+		return true
+	
+	return false
 
 func verificarSePodePegarDoBaralho() -> bool:
 	if (cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size()) >= max_cartas_para_comprar:

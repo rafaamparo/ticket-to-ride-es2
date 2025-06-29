@@ -1,11 +1,13 @@
 class_name GerenciadorDeFluxo extends Node
 
+signal acao_jogador_terminada
 const qtd_jogadores_bot: int = 3
 var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
 var textDialog: TextDialog = null
 var lista_jogadores: Array[Jogador] = []
 var jogador_principal: Jogador
 var pausar_jogador_principal: bool = false
+var pausar_cartas_mao_jogador_princial: bool = false
 var jogador_do_turno: int = 1
 var contador_de_rodadas: int = -1
 
@@ -195,18 +197,17 @@ func proximoTurno() -> void:
 
 
 func rodadaJogadorPrincipal() -> void:
-	pausar_jogador_principal = false
 	print("É a vez do jogador principal: ", jogador_principal.nome)
 	await get_tree().create_timer(1.0).timeout
 	await textDialog.show_dialog_with_text("É a vez do jogador %s" % jogador_principal.nome)
-	await get_tree().create_timer(2.0).timeout  # Espera 1 segundo antes de continuar
+	await get_tree().create_timer(2.0).timeout
 	await textDialog.hide_dialog()
 	await get_tree().create_timer(1.0).timeout
 	await textDialog.show_dialog_with_text("É a sua vez de jogar! Capture uma rota ou compre cartas.")
-	await get_tree().create_timer(15.0).timeout
-
-	# Aqui você pode adicionar a lógica para o jogador principal jogar
-	# Por exemplo, permitir que ele escolha uma carta ou uma ação
+	pausar_jogador_principal = false
+	pausar_cartas_mao_jogador_princial = false
+	
+	await acao_jogador_terminada # Espera até que o jogador principal finalize sua ação
 
 	proximoTurno()
 

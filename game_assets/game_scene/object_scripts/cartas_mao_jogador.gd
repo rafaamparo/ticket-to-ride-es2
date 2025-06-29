@@ -96,7 +96,7 @@ func disconnect_card_signals(card):
 	card.disconnect("hoveredOff", hovered_off_card)
 	
 func hovered_on_card(carta: GameCard):
-	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or gerenciadorDeFluxoDeJogo.pausar_cartas_mao_jogador_princial:
 		return;
 	if !isHoveringCard:
 		isHoveringCard = true
@@ -106,7 +106,7 @@ func hovered_off_card(carta: GameCard):
 	if !cardBeingDragged:
 		highlight_card(carta,false)
 		var newCardHovered = raycast_check(COLLISION_MASK)
-		if newCardHovered and !gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+		if newCardHovered and !gerenciadorDeFluxoDeJogo.pausar_jogador_principal and !gerenciadorDeFluxoDeJogo.pausar_cartas_mao_jogador_princial:
 			highlight_card(newCardHovered, true)
 		else:
 			isHoveringCard = false
@@ -133,7 +133,7 @@ func get_card_global_rect(card_node: GameCard) -> Rect2:
 	return Rect2(card_node.global_position, Vector2.ZERO)
 
 func start_drag(carta):
-	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or gerenciadorDeFluxoDeJogo.pausar_cartas_mao_jogador_princial:
 		return;
 	cardBeingDragged = carta
 	var tween = get_tree().create_tween()
@@ -162,6 +162,7 @@ func stop_drag():
 					print("Número de vagões na trilha é maior do que o número de cartas na mão.")
 				else:
 					print("Carta jogada na trilha com sucesso!")
+					gerenciadorDeFluxoDeJogo.acao_jogador_terminada.emit()
 					actual_card_being_dragged.isBeingAdded = true
 					var freeze_position = actual_card_being_dragged.position
 					var num_vagoes_necessarios = trilha_detectada.get_qtd_vagoes()
@@ -223,6 +224,7 @@ func stop_drag():
 					gerenciadorDeTrilhosRef.unhighlight_all_trilhas() 
 					await unhighlight_deck_cards()
 					calcularPosicaoDasCartas()
+					gerenciadorDeFluxoDeJogo.acao_jogador_terminada.emit()
 
 					return
 
@@ -343,7 +345,7 @@ func _process(_delta: float) -> void:
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
 	$"../GUI/Jogador Principal/trens".text = str(jogador_principal.trens)
 	
-	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal:
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or gerenciadorDeFluxoDeJogo.pausar_cartas_mao_jogador_princial:
 		for carta in jogador_principal.cartas:
 			# maake each carta a little bit darker
 			if is_instance_valid(carta):

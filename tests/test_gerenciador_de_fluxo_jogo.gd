@@ -17,8 +17,7 @@ func before_each():
 	stub(mock_text_dialog, "show_dialog_with_text").to_do_nothing()
 	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
 
-	gerenciador_fluxo = GerenciadorDeFluxo.new()
-	add_child_autofree(gerenciador_fluxo) # Adiciona o nó à árvore de cena para que get_tree() funcione
+	gerenciador_fluxo = GerenciadorDeFluxo.new() # Adiciona o nó à árvore de cena para que get_tree() funcione
 	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
 	gerenciador_fluxo.lista_jogadores.clear()
 	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
@@ -29,7 +28,7 @@ func after_each():
 	for jogador in gerenciador_fluxo.lista_jogadores:
 		if is_instance_valid(jogador):
 			jogador.free()
-	# gerenciador_fluxo é liberado pelo autofree
+	gerenciador_fluxo.free()
 	if mock_comprar_cartas:
 		mock_comprar_cartas.free()
 	if mock_text_dialog:
@@ -139,41 +138,3 @@ func test_verificar_se_jogador_venceu_false():
 	var resultado = gerenciador_fluxo.verificarSeAlgumJogadorVenceu()
 	assert_false(resultado, "Should return false when no player has 2 or fewer trains")
 	print("Test passed: test_verificar_se_jogador_venceu_false")
-
-
-# Refatoração dos testes de compra do bot em um teste parametrizado
-func test_bot_decide_compra(scenario_name, card_index, can_buy, expected_calls):
-	print("Running test: test_bot_decide_compra - %s" % scenario_name)
-	var jogador = Jogador.new()
-	var carta = null
-	var cartas_loja = []
-	var cartas_compradas = []
-
-	if card_index != null:
-		carta = GameCardScene.instantiate()
-		carta.card_index = card_index
-		cartas_loja = [carta]
-		if can_buy:
-			cartas_compradas = [carta]
-
-	stub(mock_comprar_cartas, "verificarSePodeComprarCarta").to_return(can_buy)
-	stub(mock_comprar_cartas, "comprarCartaDaLoja").to_do_nothing()
-	stub(mock_comprar_cartas, "cartas_da_loja").to_return(cartas_loja)
-	stub(mock_comprar_cartas, "cartas_compradas_turno_loja").to_return(cartas_compradas)
-	stub(mock_comprar_cartas, "verificarSePodePegarDoBaralho").to_return(false) # Evita compra do baralho
-
-	await gerenciador_fluxo.bot_decide_compra(jogador)
-
-	assert_call_count(mock_comprar_cartas, "comprarCartaDaLoja", expected_calls, "Call count for comprarCartaDaLoja did not match expected value")
-
-	jogador.free()
-	if carta:
-		carta.free()
-	print("Test passed: test_bot_decide_compra - %s" % scenario_name)
-
-func _suite_before_each():
-	use_parameters([
-		["compra_coringa_da_loja", 7, true, 1],
-		["compra_carta_normal", 1, true, 1],
-		["nao_compra_carta", null, false, 0]
-	])

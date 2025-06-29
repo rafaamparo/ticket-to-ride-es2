@@ -40,9 +40,7 @@ func gerarCartaAleatoria() -> GameCard:
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
 	var carta = carta_scene.instantiate()
-	var cor_aleatoria = randi_range(0,7)
-	if cor_aleatoria == 7 and jogador_principal.cartas_brancas >= 2:
-		cor_aleatoria = randi_range(0,6)
+	var cor_aleatoria = randi_range(6,7)
 	
 	carta.card_index = cor_aleatoria
 	adicionarCartaNaMao(carta)

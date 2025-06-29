@@ -98,6 +98,7 @@ func comprarCartaDoBaralho(jogadorSelecionado: Jogador, cartaGerada: GameCard = 
 		jogadorSelecionado.adicionarCartaNaMao(carta)
 		cartas_compradas_turno_baralho.append(carta)
 	else:
+		print("Comprando carta do baralho já gerada")
 		cartas_compradas_turno_baralho.append(cartaGerada)
 		carta = cartaGerada
 	
@@ -179,7 +180,7 @@ func verificarSePodeComprarCarta(carta: GameCard, logs = true) -> bool:
 		return false
 	
 	# Se carta.card_index == 7 e a soma de (cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size()) >= 1, não pode comprar
-	if carta.card_index == 7 and (cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size()) >= 1:
+	if carta.card_index == 7 and (cartas_compradas_turno_loja.size()) >= 1:
 		if logs: print("Não é possível comprar mais de uma carta de coringa por turno")
 		return false
 	

@@ -13,6 +13,7 @@ anchors_preset = 0
 offset_right = 172.0
 offset_bottom = 106.0
 script = ExtResource("1_i67cw")
+metadata/_edit_vertical_guides_ = [151.0]
 
 [node name="TexturaFundo" type="TextureRect" parent="."]
 layout_mode = 2
@@ -64,13 +65,14 @@ metadata/_edit_group_ = true
 
 [node name="trens" type="Label" parent="."]
 layout_mode = 2
-offset_left = 131.0
+offset_left = 128.0
 offset_top = 19.0
-offset_right = 157.0
+offset_right = 153.0
 offset_bottom = 39.0
 theme_override_colors/font_color = Color(0.247059, 0.14902, 0.14902, 1)
 theme_override_fonts/font = ExtResource("5_mxkfn")
 theme_override_font_sizes/font_size = 20
 text = "45
 "
+horizontal_alignment = 2
 metadata/_edit_group_ = true

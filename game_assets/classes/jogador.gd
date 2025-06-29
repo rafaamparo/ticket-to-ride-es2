@@ -3,7 +3,7 @@ class_name Jogador extends Node2D
 const QTD_CARTAS_BOT = 6
 var nome: String = "Jogador BOT"
 var isBot: bool = false
-var trens: int = 10
+var trens: int = 45
 var pontos: int = 0
 var cor: int = 0
 var cartas: Array[GameCard] = []

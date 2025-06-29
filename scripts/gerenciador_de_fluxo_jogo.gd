@@ -58,6 +58,12 @@ func gerenciadorDeTurno() -> void:
 		await get_tree().create_timer(5.0).timeout
 	
 	await textDialog.hide_dialog()
+
+	
+	if verificarSeAlgumJogadorVenceu():
+		await fluxoDeFimDeJogo()
+		return
+
 	var jogador_atual_do_turno: Jogador = lista_jogadores[jogador_do_turno]
 	if jogador_atual_do_turno.isBot:
 
@@ -66,7 +72,36 @@ func gerenciadorDeTurno() -> void:
 		rodadaJogadorPrincipal()
 	
 	
+func verificarSeAlgumJogadorVenceu() -> bool:
+	for jogador in lista_jogadores:
+		if jogador.trens <= 2: 
+			return true
+	return false
 	
+func fluxoDeFimDeJogo() -> void:
+	await get_tree().create_timer(1.0).timeout
+	await textDialog.show_dialog_with_text("Fim de jogo!")
+	await get_tree().create_timer(2.0).timeout
+	await textDialog.hide_dialog()
+	await textDialog.show_dialog_with_text("Aguarde enquanto calculamos os pontos...")
+	await get_tree().create_timer(6.0).timeout
+	await textDialog.hide_dialog()
+	
+
+	var ranking: Array[Jogador] = lista_jogadores.duplicate()
+	ranking.sort_custom(func(a, b): return a.pontos > b.pontos)
+	$"../GUI/Winner-dialog".player_ranking = ranking
+	$"../GUI/Winner-dialog".show_dialog_box()
+
+	await get_tree().create_timer(20.0).timeout
+
+	# go to the main menu
+	var main_menu_scene = preload("res://scenes/main_menu.tscn")
+	var main_menu_instance = main_menu_scene.instantiate()
+	get_tree().change_scene_to(main_menu_instance)
+	
+
+
 func rodada_bot() -> void:
 	var gerenciadorDeTrilhas = $"../GerenciadorDeTrilhas"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=23 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/gerenciador_comprar_cartas.gd" id="11_s3pss"]
 [ext_resource type="Script" path="res://scripts/loja_cartas_container.gd" id="16_sihrp"]
 [ext_resource type="PackedScene" uid="uid://cjdsv5y8v0rrs" path="res://scenes/text_dialog.tscn" id="17_mc33u"]
+[ext_resource type="PackedScene" uid="uid://b83mimx0susfj" path="res://scenes/winner-dialog.tscn" id="18_5dgpw"]
 [ext_resource type="PackedScene" uid="uid://l5chwiwvylhx" path="res://scenes/botao_comprar_carta.tscn" id="18_20m12"]
 
 [sub_resource type="Environment" id="Environment_cns0p"]
@@ -2024,12 +2025,19 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_sihrp")
+metadata/_edit_lock_ = true
 
 [node name="TextDialog" parent="GUI" instance=ExtResource("17_mc33u")]
 offset_left = 232.0
 offset_top = 24.0
 offset_right = -280.0
 offset_bottom = -544.0
+
+[node name="Winner-dialog" parent="GUI" instance=ExtResource("18_5dgpw")]
+offset_left = -25.0
+offset_top = -13.0
+offset_right = -25.0
+offset_bottom = -13.0
 
 [node name="BotaoComprarCarta" parent="GUI" instance=ExtResource("18_20m12")]
 offset_left = 1062.0

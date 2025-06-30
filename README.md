@@ -10,25 +10,28 @@ Ao iniciar uma partida, cada jogador recebe:
 
 2. O seu Turno
 Na sua vez, você deve realizar uma das três ações a seguir:
-A. Comprar Cartas de Vagão
+- Comprar Cartas de Vagão
 Você pode comprar até duas cartas de vagão. As opções são:
  * Pegar qualquer uma das cartas com a face para cima;
  * Pegar uma carta "às cegas" do topo do monte de compras.
  * Atenção: A carta multicolorida (Coringa) é especial e pode substituir qualquer cor. Se você pegá-la entre as cartas viradas para cima, ela conta como sua única compra daquele turno.
-B. Conectar Disciplinas
+- Conectar Disciplinas
 Para conectar duas disciplinas adjacentes no mapa, você deve jogar um conjunto de Cartas de Vagão correspondente à cor e ao número de espaços da rota. Por exemplo, para uma rota azul de 3 espaços, você deve baixar 3 cartas de crédito azuis.
  * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
  * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
-| Tamanho da Rota | Pontos |
-|---|---|
+| Comprimento da Rota | Pontos |
+| :---: | :---: |
 | 1 | 1 |
 | 2 | 2 |
 | 3 | 4 |
 | 4 | 7 |
 | 5 | 10 |
 | 6 | 15 |
+| 7 | 21 |
+| 8 | 28 |
 
-C. Pegar Novas Cartas de Objetivo
+
+- Pegar Novas Cartas de Objetivo
 Você pode comprar mais 3 Cartas de Objetivo para tentar aumentar sua pontuação final. Você deve obrigatoriamente ficar com pelo menos uma das três novas cartas.
 
 3. Fim de Jogo

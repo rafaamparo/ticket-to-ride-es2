@@ -24,6 +24,7 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
     * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
     * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
 
+<p align="center">
 **Comprimento da Rota** | **Pontos** |
 :---------------------: | :--------: |
 1 | 1 |
@@ -34,7 +35,7 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
 6 | 15 |
 7 | 21 |
 8 | 28 |
-
+</p>
 
 3. ***Fim de Jogo***
 <br>O final do jogo é acionado quando um jogador fica com 2 ou menos peças de conexão. 

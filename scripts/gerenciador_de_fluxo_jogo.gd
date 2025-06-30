@@ -3,6 +3,7 @@ class_name GerenciadorDeFluxo extends Node
 signal acao_jogador_terminada
 const qtd_jogadores_bot: int = 3
 var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
+var gerenciadorDeCartasDestino: GerenciadorCartasDestino = null
 var textDialog: TextDialog = null
 var lista_jogadores: Array[Jogador] = []
 var jogador_principal: Jogador
@@ -15,6 +16,7 @@ var contador_de_rodadas: int = -1
 func _ready() -> void:
 	textDialog = $"../GUI/TextDialog"
 	gerenciadorDeComprarCartas = $"../GUI/GerenciadorComprarCartas"
+	gerenciadorDeCartasDestino = $"../GUI/GerenciadorCartasDestino";
 	# Criar o jogador principal
 	jogador_principal = Jogador.new()
 	jogador_principal.nome = "Rafael A."
@@ -29,7 +31,7 @@ func _ready() -> void:
 	for i in range(qtd_jogadores_bot):
 		var jogador: Jogador = Jogador.new()
 		jogador.nome = "Bot " + str(i + 1)
-		jogador.trens = 45
+		jogador.trens = 30
 		jogador.isBot = true
 		jogador.cor = i
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")
@@ -78,6 +80,25 @@ func verificarSeAlgumJogadorVenceu() -> bool:
 			return true
 	return false
 	
+func verificarSeAlgumJogadorCompletouAlgumaRota() -> void:
+	for jogador in lista_jogadores:
+		var lista_de_cartas_destino = jogador.cartas_destino.duplicate()
+		var lista_destino_nao_concluida = lista_de_cartas_destino.filter(
+			func(carta: CartaDestino) -> bool: return not carta.concluida
+		)
+
+		for carta in lista_destino_nao_concluida:
+			if gerenciadorDeCartasDestino.verificarSeJogadorFezCaminho (jogador, carta.pontoInicio, carta.pontoFinal):
+				carta.concluida = true
+				jogador.pontos += carta.pontuacao
+				print("Jogador %s completou a rota de %s a %s e ganhou %d pontos!" % 
+					[jogador.nome, carta.pontoInicio.nomeDaParada, carta.pontoFinal.nomeDaParada, carta.pontuacao])
+				await textDialog.show_dialog_with_text("%s completou a rota de %s a %s e ganhou %d pontos!" % 
+					[jogador.nome, carta.pontoInicio.nomeDaParada, carta.pontoFinal.nomeDaParada, carta.pontuacao])
+				await get_tree().create_timer(3.5).timeout
+				await textDialog.hide_dialog()
+		#verificarSeJogadorFezCaminho
+
 func fluxoDeFimDeJogo() -> void:
 	await get_tree().create_timer(1.0).timeout
 	await textDialog.show_dialog_with_text("Fim de jogo!")
@@ -86,6 +107,7 @@ func fluxoDeFimDeJogo() -> void:
 	await textDialog.show_dialog_with_text("Aguarde enquanto calculamos os pontos...")
 	await get_tree().create_timer(6.0).timeout
 	await textDialog.hide_dialog()
+	await verificarSeAlgumJogadorCompletouAlgumaRota()
 	
 
 	var ranking: Array[Jogador] = lista_jogadores.duplicate()
@@ -93,12 +115,10 @@ func fluxoDeFimDeJogo() -> void:
 	$"../GUI/Winner-dialog".player_ranking = ranking
 	$"../GUI/Winner-dialog".show_dialog_box()
 
-	await get_tree().create_timer(20.0).timeout
+	await $"../GUI/Winner-dialog".wait_for_response()
 
 	# go to the main menu
-	var main_menu_scene = preload("res://scenes/main_menu.tscn")
-	var main_menu_instance = main_menu_scene.instantiate()
-	get_tree().change_scene_to(main_menu_instance)
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
 
 
@@ -121,9 +141,17 @@ func rodada_bot() -> void:
 		var resultado_captura = await bot_decide_capturar_rota(jogador_atual, gerenciadorDeTrilhas)
 		await get_tree().create_timer(2.45).timeout
 
+		var chance_de_comprar_destino = randi() % 100 <= 20 # 20% de chance de comprar carta de destino
+
 		# 2. Se não conseguiu capturar, vai comprar cartas para melhorar a mão.
 		if not resultado_captura:
-			await bot_decide_compra(jogador_atual)
+			if chance_de_comprar_destino:
+				await gerenciadorDeCartasDestino.pegarCartaDestinoBaralho(jogador_atual)
+				await textDialog.show_dialog_with_text("%s comprou uma carta de destino." % jogador_atual.nome)
+				await get_tree().create_timer(2.0).timeout
+			else:
+				print("%s não comprou carta de destino." % jogador_atual.nome)
+				await bot_decide_compra(jogador_atual)
 
 		proximoTurno()
 	return
@@ -228,8 +256,8 @@ func encontrar_carta_util_na_loja(jogador: Jogador, cartas_loja: Array[GameCard]
 
 func proximoTurno() -> void:
 	jogador_do_turno += 1
-	if gerenciadorDeComprarCartas:
-		gerenciadorDeComprarCartas.atualizarTurnoLoja()
+	gerenciadorDeComprarCartas.atualizarTurnoLoja()
+	gerenciadorDeCartasDestino.atualizarTurnoDestino()
 	if jogador_do_turno >= lista_jogadores.size():
 		jogador_do_turno = 0
 	

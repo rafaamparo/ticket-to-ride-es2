@@ -45,4 +45,4 @@ func toggle_dialog() -> void:
 func set_dialog_text(text: String) -> void:
 	dialog_text = text
 	if show_dialog:
-		$Label.text = dialog_text
+		$MarginContainer/VBoxContainer/Label.text = dialog_text

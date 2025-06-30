@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="TicketToClass"
+config/name="Ticket To Class"
+config/description="Ticket to Ride para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.105882, 0.141176, 0.235294, 1)
+boot_splash/image="res://game_assets/main_menu/logo3.png"
+boot_splash/fullsize=false
+config/icon="res://game_assets/main_menu/logo2.png"
 
 [autoload]
 
@@ -25,6 +29,7 @@ window/size/resizable=false
 
 [editor_plugins]
 
+eenabled=PackedStringArray("res://addons/gut/plugin.cfg")
 enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
 
 [input]

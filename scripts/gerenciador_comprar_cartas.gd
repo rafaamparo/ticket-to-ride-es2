@@ -120,9 +120,6 @@ func comprarCartaDoBaralho(jogadorSelecionado: Jogador, cartaGerada: GameCard = 
 		$"../LojaCartasContainer".remove_child(carta)
 		
 
-
-
-
 func adicionarCartaAleatoriaNaLoja(inFor: bool = false) -> void:
 		var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 		var carta = carta_scene.instantiate()
@@ -137,7 +134,6 @@ func adicionarCartaAleatoriaNaLoja(inFor: bool = false) -> void:
 		$"../LojaCartasContainer".add_child(carta)
 		if (!inFor):
 			calcularPosicaoDasCartas()
-
 
 func instanciarCartasLoja() -> void:
 	for i in range(max_num_cartas_loja-len(cartas_da_loja)):

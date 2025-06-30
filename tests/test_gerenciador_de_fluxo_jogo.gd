@@ -6,22 +6,27 @@ var TextDialog = load("res://scripts/text_dialog.gd")
 var Jogador = load("res://game_assets/classes/jogador.gd")
 var GameCardScene = load("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 var GameCard = load("res://scripts/game_card.gd")
+var GerenciadorDeCartasDestino = load("res://scripts/gerenciador_cartas_destino.gd")
 
 var gerenciador_fluxo
 var mock_comprar_cartas
 var mock_text_dialog
+var mock_cartas_destino
 
 func before_each():
 	mock_comprar_cartas = double(GerenciadorComprarCartas).new()
+	mock_cartas_destino = double(GerenciadorDeCartasDestino).new()
 	mock_text_dialog = double(TextDialog).new()
 	stub(mock_text_dialog, "show_dialog_with_text").to_do_nothing()
 	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
+	stub(mock_cartas_destino, "atualizarTurnoDestino").to_do_nothing()
 
 	gerenciador_fluxo = GerenciadorDeFluxo.new() # Adiciona o nó à árvore de cena para que get_tree() funcione
 	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
 	gerenciador_fluxo.lista_jogadores.clear()
 	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
 	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
+	gerenciador_fluxo.gerenciadorDeCartasDestino = mock_cartas_destino
 	gerenciador_fluxo.jogador_do_turno = 0
 
 func after_each():
@@ -31,6 +36,8 @@ func after_each():
 	gerenciador_fluxo.free()
 	if mock_comprar_cartas:
 		mock_comprar_cartas.free()
+	if is_instance_valid(mock_cartas_destino):
+		mock_cartas_destino.free()
 	if mock_text_dialog:
 		mock_text_dialog.free()
 
@@ -42,6 +49,7 @@ func test_proximo_turno_avanca_jogador():
 	
 	assert_eq(gerenciador_fluxo.jogador_do_turno, 1, "Turn should advance to 1")
 	assert_called(mock_comprar_cartas, "atualizarTurnoLoja")
+	assert_called(mock_cartas_destino, "atualizarTurnoDestino")
 	print("Test passed: test_proximo_turno_avanca_jogador")
 
 func test_proximo_turno_volta_para_o_inicio():
@@ -52,6 +60,7 @@ func test_proximo_turno_volta_para_o_inicio():
 	
 	assert_eq(gerenciador_fluxo.jogador_do_turno, 0, "Turn should wrap around to 0")
 	assert_called(mock_comprar_cartas, "atualizarTurnoLoja")
+	assert_called(mock_cartas_destino, "atualizarTurnoDestino")
 	print("Test passed: test_proximo_turno_volta_para_o_inicio")
 
 func test_encontrar_carta_util_na_loja_encontra_carta():

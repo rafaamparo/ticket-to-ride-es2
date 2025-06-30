@@ -31,7 +31,7 @@ func _ready() -> void:
 	for i in range(qtd_jogadores_bot):
 		var jogador: Jogador = Jogador.new()
 		jogador.nome = "Bot " + str(i + 1)
-		jogador.trens = 10
+		jogador.trens = 30
 		jogador.isBot = true
 		jogador.cor = i
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")
@@ -118,8 +118,7 @@ func fluxoDeFimDeJogo() -> void:
 	await $"../GUI/Winner-dialog".wait_for_response()
 
 	# go to the main menu
-	var main_menu_scene = preload("res://scenes/main_menu.tscn")
-	get_tree().change_scene(main_menu_scene)
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
 
 

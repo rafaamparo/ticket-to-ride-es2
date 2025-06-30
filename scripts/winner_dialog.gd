@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 # function to show dialog, sets the dialog text and makes it visible using tween animation with fade in and scale effect
 func show_dialog_box() -> void:
 	show_dialog = true
+	self.visible = true
 	
 	var winner_player_scene = preload("res://scenes/player_winner_box.tscn")
 	
@@ -45,6 +46,7 @@ func hide_dialog() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
+	self.visible = false
 	
 # function to toggle dialog visibility
 func toggle_dialog() -> void:

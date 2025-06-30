@@ -68,7 +68,7 @@ func removerCartaDaMao(cartaParaRemover: GameCard, should_call_calculate: bool =
 func calcularPosicaoDasCartas():
 	if not jogador_principal: return
 	var centro_tela_x = get_viewport().size.x / 2
-	ajustarEscalaDasCartasDinamicamente()
+	await ajustarEscalaDasCartasDinamicamente()
 	var area_mao_y = get_viewport().size.y - 50 + (1-escala_dinamica)*14
 	
 	for i in range(jogador_principal.cartas.size()):
@@ -355,6 +355,8 @@ func ajustarEscalaDasCartasDinamicamente() -> void:
 		escala_dinamica = 0.50
 	elif jogador_principal.cartas.size() > 8:
 		escala_dinamica = 0.60
+	elif jogador_principal.cartas.size() > 6:
+		escala_dinamica = 0.70
 	else:	
 		escala_dinamica = 0.85
 	

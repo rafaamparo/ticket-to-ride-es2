@@ -1,6 +1,16 @@
 # :mortar_board::ticket: Ticket to Class :mortar_board::ticket: 
 O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride*** para desktop em que, ao invés de conectar estações, o jogador deverá conectar diferentes disciplinas do curso de Ciência da Computação da UFF enquanto compete com bots. O jogo será desenvolvido a partir da engine ***Godot*** e a equipe será dividida em times de desenvolvimento e planejamento para maior eficiência e integração durante a implementação do projeto.
 
+# :train: Modo de uso 
+
+## :busts_in_silhouette: Equipe
+* :bar_chart: Rafael - Gestor de projeto 
+* :gear: Júlia - Gerente de planejamento
+* :gear: João Gabriel - Gerente de desenvolvimento
+* :chart_with_upwards_trend: Beatriz - Analista de projeto
+* :computer: Carina - Desenvolvedora
+* :computer: Thales - Desenvolvedor
+
 ## Progresso
 
 #### Iteração I
@@ -12,14 +22,6 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
 #### Iteração III 
   ![](https://geps.dev/progress/100?dangerColor=800000&warningColor=ff9900&successColor=006600)
 
-## :busts_in_silhouette: Equipe
-* :bar_chart: Rafael - Gestor de projeto 
-* :gear: Júlia - Gerente de planejamento
-* :gear: João Gabriel - Gerente de desenvolvimento
-* :chart_with_upwards_trend: Beatriz - Analista de projeto
-* :computer: Carina - Desenvolvedora
-* :computer: Thales - Desenvolvedor
-  
 ## :calendar: Cronograma
 ### Iteração I (11/04 - 05/05)
 - [X] Estudo do Produto Original
@@ -58,7 +60,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
 - [x] Testes Unitários
 - [x] Testes de Integração
 - [x] Testes de Usabilidade
-- [x] Testes Alfa e Beta
+- [x] Testes de Aceitação
 - [x] Relatório de Testes
 - [x] Validação Final - Produto
 - [x] Empacotamento da Aplicação

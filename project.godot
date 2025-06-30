@@ -19,9 +19,10 @@ config/icon="res://icon.svg"
 
 window/size/resizable=false
 
+
 [editor_plugins]
 
-eenabled=PackedStringArray("res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
 
 [input]
 

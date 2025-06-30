@@ -17,7 +17,7 @@ func before_each():
 	stub(mock_text_dialog, "show_dialog_with_text").to_do_nothing()
 	stub(mock_text_dialog, "hide_dialog").to_do_nothing()
 
-	gerenciador_fluxo = GerenciadorDeFluxo.new()
+	gerenciador_fluxo = GerenciadorDeFluxo.new() # Adiciona o nó à árvore de cena para que get_tree() funcione
 	gerenciador_fluxo.configurar_para_teste(mock_comprar_cartas, mock_text_dialog)
 	gerenciador_fluxo.lista_jogadores.clear()
 	gerenciador_fluxo.lista_jogadores.append(Jogador.new())
@@ -109,6 +109,7 @@ func test_bot_decide_capturar_rota_success():
 	
 	assert_true(resultado, "Should return true when bot captures a route")
 	assert_called(jogador_mock, "capturarRotaBot")
+	jogador_mock.free()
 	print("Test passed: test_bot_decide_capturar_rota_success")
 
 func test_bot_decide_capturar_rota_fail():
@@ -120,4 +121,20 @@ func test_bot_decide_capturar_rota_fail():
 	
 	assert_false(resultado, "Should return false when bot fails to capture a route")
 	assert_called(jogador_mock, "capturarRotaBot")
+	jogador_mock.free()
 	print("Test passed: test_bot_decide_capturar_rota_fail")
+
+func test_verificar_se_jogador_venceu_true():
+	print("Running test: test_verificar_se_jogador_venceu_true")
+	gerenciador_fluxo.lista_jogadores[0].trens = 2
+	var resultado = gerenciador_fluxo.verificarSeAlgumJogadorVenceu()
+	assert_true(resultado, "Should return true when a player has 2 trains")
+	print("Test passed: test_verificar_se_jogador_venceu_true")
+
+func test_verificar_se_jogador_venceu_false():
+	print("Running test: test_verificar_se_jogador_venceu_false")
+	gerenciador_fluxo.lista_jogadores[0].trens = 3
+	gerenciador_fluxo.lista_jogadores[1].trens = 5
+	var resultado = gerenciador_fluxo.verificarSeAlgumJogadorVenceu()
+	assert_false(resultado, "Should return false when no player has 2 or fewer trains")
+	print("Test passed: test_verificar_se_jogador_venceu_false")

@@ -355,7 +355,7 @@ func ajustarEscalaDasCartasDinamicamente() -> void:
 		escala_dinamica = 0.50
 	elif jogador_principal.cartas.size() > 8:
 		escala_dinamica = 0.60
-	elif jogador_principal.cartas.size() > 6:
+	elif jogador_principal.cartas.size() > 7:
 		escala_dinamica = 0.70
 	else:	
 		escala_dinamica = 0.85

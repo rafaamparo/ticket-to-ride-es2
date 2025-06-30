@@ -3,6 +3,7 @@ class_name BotaoCartaDestino extends Button
 var texturaBotao: TextureRect = null
 var original_position_x: float
 var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
+var gerenciadorDeCartasDeDestino: GerenciadorCartasDestino = null
 var gerenciadorDeFluxoDeJogo: GerenciadorDeFluxo = null
 var desativado : bool = false
 
@@ -10,6 +11,7 @@ var desativado : bool = false
 func _ready() -> void:
 	# Obtém a referência do gerenciador de compras de cartas
 	gerenciadorDeComprarCartas = $"../GerenciadorComprarCartas";
+	gerenciadorDeCartasDeDestino = $"../GerenciadorCartasDestino";
 	gerenciadorDeFluxoDeJogo = $"../../GerenciadorDeFluxoJogo";
 	texturaBotao = $TexturaBotao
 	original_position_x = texturaBotao.position.x
@@ -46,15 +48,17 @@ func _on_button_pressed() -> void:
 	tween.tween_property(self, "scale", Vector2(0.9, 0.9), 0.2)
 	# Anima o scale de volta ao normal
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.3)
+	
+	await gerenciadorDeCartasDeDestino.pegarCartaDestinoBaralho(gerenciadorDeFluxoDeJogo.jogador_principal)
 
 
 func verificaSePodeApertarBotao() -> bool:
-	return gerenciadorDeComprarCartas.verificarSePodePegarDoBaralho()
+	return gerenciadorDeComprarCartas.verificarSePodePegarDoBaralhoDestino()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or not verificaSePodeApertarBotao():
+	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or not verificaSePodeApertarBotao() or gerenciadorDeCartasDeDestino.mostrandoBox:
 		texturaBotao.modulate = Color(0.5, 0.5, 0.5, 1)  # Deixa o botão escuro
 		desativado = true
 	else:

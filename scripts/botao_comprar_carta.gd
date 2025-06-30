@@ -40,7 +40,7 @@ func _on_button_pressed() -> void:
 	if desativado: return;
 	
 	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_ELASTIC)
+	tween.set_trans(Tween.TRANS_SPRING)
 	tween.set_ease(Tween.EASE_OUT)
 	# Anima o scale para um valor menor
 	tween.tween_property(self, "scale", Vector2(0.9, 0.9), 0.2)

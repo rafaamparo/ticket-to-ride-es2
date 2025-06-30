@@ -7,10 +7,12 @@ var gerenciadorFluxoDeJogo: GerenciadorDeFluxo = null
 var cartas_da_loja: Array[GameCard] = []
 var cartas_compradas_turno_loja: Array[GameCard] = []
 var cartas_compradas_turno_baralho: Array[GameCard] = []
+var gerenciador_de_cartas_destino: GerenciadorCartasDestino
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gerenciadorFluxoDeJogo = $"../../GerenciadorDeFluxoJogo";
+	gerenciador_de_cartas_destino = $"../GerenciadorCartasDestino";
 	atualizarTurnoLoja()
 	instanciarCartasLoja()
 	pass # Replace with function body.
@@ -24,7 +26,7 @@ func _process(_delta: float) -> void:
 		gerenciadorFluxoDeJogo.acao_jogador_terminada.emit()
 		return
 		
-	if gerenciadorFluxoDeJogo.pausar_jogador_principal == false and cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size() >= 1:
+	if gerenciadorFluxoDeJogo.pausar_jogador_principal == false and (cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size() >= 1 or (gerenciador_de_cartas_destino.cartas_destino_turno.size() + gerenciador_de_cartas_destino.cartas_recusadas_turno.size()) >= 1):
 		gerenciadorFluxoDeJogo.pausar_cartas_mao_jogador_princial = true;
 	elif gerenciadorFluxoDeJogo.pausar_jogador_principal == false:
 		gerenciadorFluxoDeJogo.pausar_cartas_mao_jogador_princial = false;
@@ -174,6 +176,9 @@ func atualizarTurnoLoja() -> void:
 func verificarSePodeComprarCarta(carta: GameCard, logs = true) -> bool:
 	if not is_instance_valid(carta):
 		return false
+		
+	if ((gerenciador_de_cartas_destino.cartas_destino_turno.size()+ gerenciador_de_cartas_destino.cartas_recusadas_turno.size()) >= 1):
+		return false
 	
 	if (cartas_compradas_turno_loja.size() + cartas_compradas_turno_baralho.size()) >= max_cartas_para_comprar:
 		if logs: print("Já comprou o máximo de cartas da loja neste turno")
@@ -219,7 +224,17 @@ func verificarSeJogadorFinalizouAcao() -> bool:
 	
 	return false
 
+
+func verificarSePodePegarDoBaralhoDestino() -> bool:
+	if (cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size() >= 1):
+		return false
+	return true;
+
+
 func verificarSePodePegarDoBaralho() -> bool:
+	if ((gerenciador_de_cartas_destino.cartas_destino_turno.size()+ gerenciador_de_cartas_destino.cartas_recusadas_turno.size()) >= 1):
+		return false
+	
 	if (cartas_compradas_turno_baralho.size() + cartas_compradas_turno_loja.size()) >= max_cartas_para_comprar:
 		print("Já comprou o máximo de cartas do baralho neste turno")
 		return false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0xgcunk0e4i5"]
+[gd_scene load_steps=28 format=3 uid="uid://0xgcunk0e4i5"]
 
 [ext_resource type="PackedScene" uid="uid://bthoe4tuk1l8u" path="res://game_assets/game_scene/object_scenes/player_camera.tscn" id="1_gpu2n"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="1_othft"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b83mimx0susfj" path="res://scenes/winner-dialog.tscn" id="18_5dgpw"]
 [ext_resource type="PackedScene" uid="uid://l5chwiwvylhx" path="res://scenes/botao_comprar_carta.tscn" id="18_20m12"]
 [ext_resource type="PackedScene" uid="uid://cxjp1834yumu" path="res://scenes/botao_carta_destino.tscn" id="20_s43fj"]
+[ext_resource type="PackedScene" uid="uid://dqm76vegus215" path="res://scenes/player_destino_box.tscn" id="22_3q0wk"]
 
 [sub_resource type="Environment" id="Environment_cns0p"]
 background_mode = 3
@@ -480,8 +481,8 @@ scale = Vector2(0.8, 0.8)
 [node name="LabJogos_ProgI" type="Node2D" parent="GerenciadorDeTrilhas" node_paths=PackedStringArray("parada1", "parada2")]
 script = ExtResource("4_5jc4f")
 cor_trilha = "roxo"
-parada1 = NodePath("../../GerenciadordeParadas/LabMoveis")
-parada2 = NodePath("../../GerenciadordeParadas/LabJogos")
+parada1 = NodePath("../../GerenciadordeParadas/LabJogos")
+parada2 = NodePath("../../GerenciadordeParadas/ProgI")
 
 [node name="Vagoes" parent="GerenciadorDeTrilhas/LabJogos_ProgI" instance=ExtResource("5_k8cfs")]
 position = Vector2(350, 1145)
@@ -2237,6 +2238,14 @@ offset_left = -25.0
 offset_top = -13.0
 offset_right = -25.0
 offset_bottom = -13.0
+metadata/_edit_lock_ = true
+
+[node name="Destino-dialog" parent="GUI" instance=ExtResource("22_3q0wk")]
+modulate = Color(1, 1, 1, 0)
+offset_left = -23.0
+offset_top = -21.0
+offset_right = -23.0
+offset_bottom = -21.0
 metadata/_edit_lock_ = true
 
 [node name="BotaoComprarCarta" parent="GUI" instance=ExtResource("18_20m12")]

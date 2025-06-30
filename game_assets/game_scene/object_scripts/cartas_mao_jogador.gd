@@ -5,7 +5,9 @@ var jogador_principal: Jogador
 var isHoveringCard: bool = false
 var cardBeingDragged: GameCard = null
 var gerenciadorDeTrilhosRef: GerenciadorDeTrilhas = null
-const LARGURA_CARTA: float = 125*0.85
+var escala_dinamica: float = 0.85
+var escala_highlight_dinamica: float = escala_dinamica+0.1
+var LARGURA_CARTA: float = 125*escala_dinamica
 const QTD_CARTAS: int = 6
 const COLLISION_MASK = 1
 
@@ -66,14 +68,15 @@ func removerCartaDaMao(cartaParaRemover: GameCard, should_call_calculate: bool =
 func calcularPosicaoDasCartas():
 	if not jogador_principal: return
 	var centro_tela_x = get_viewport().size.x / 2
-	var area_mao_y = get_viewport().size.y - 50
+	ajustarEscalaDasCartasDinamicamente()
+	var area_mao_y = get_viewport().size.y - 50 + (1-escala_dinamica)*14
 	
 	for i in range(jogador_principal.cartas.size()):
 		var cartaParaAtualizar = jogador_principal.cartas[i]
 		
 		var larguraTotalDasCartas = (jogador_principal.cartas.size()-1)*LARGURA_CARTA
 		var x_novo_da_carta = centro_tela_x + i*LARGURA_CARTA - larguraTotalDasCartas/2;
-		var rotacao_graus = -1.2*(i+1)
+		var rotacao_graus = -1.2*((i%4)+1)
 		var nova_posicao = Vector2(x_novo_da_carta, area_mao_y + jogador_principal.cartas[i].y_offset)
 		
 		cartaParaAtualizar.previous_rotation = deg_to_rad(rotacao_graus)
@@ -82,7 +85,7 @@ func calcularPosicaoDasCartas():
 		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(cartaParaAtualizar, "position", nova_posicao, 0.4)
 		tween.tween_property(cartaParaAtualizar, "rotation", deg_to_rad(rotacao_graus), 0.4)
-		tween.tween_property(cartaParaAtualizar, "scale", Vector2(0.85,0.85), 0.4)
+		tween.tween_property(cartaParaAtualizar, "scale", Vector2(escala_dinamica,escala_dinamica), 0.4)
 
 # Sistema de Movimentação da Carta
 func connect_card_signals(card):
@@ -113,13 +116,13 @@ func highlight_card(card, hovered):
 	if jogador_principal and jogador_principal.cartas.has(card):
 		if hovered:
 			var tween1 = get_tree().create_tween().set_parallel(true)
-			tween1.tween_property(card, "scale", Vector2(0.9, 0.9), 0.05)
+			tween1.tween_property(card, "scale", Vector2(escala_highlight_dinamica, escala_highlight_dinamica), 0.05)
 			await tween1.finished
-			card.scale =  Vector2(0.9, 0.9)
+			card.scale =  Vector2(escala_highlight_dinamica, escala_highlight_dinamica)
 			card.z_index = 100
 		else:
 			var tween2 = get_tree().create_tween().set_parallel(true)
-			tween2.tween_property(card, "scale", Vector2(0.85, 0.85), 0.05)
+			tween2.tween_property(card, "scale", Vector2(escala_dinamica, escala_dinamica), 0.05)
 			card.z_index = 1
 			
 
@@ -211,7 +214,7 @@ func stop_drag():
 						if is_instance_valid(carta_usada):
 							carta_usada.queue_free() 
 					
-					print(jogador_principal.cartas)
+					# print(jogador_principal.cartas)
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
 					trilha_detectada.capturar_trilha() 
@@ -263,7 +266,7 @@ func highlight_deck_cards(color_index: int):
 			if card == cardBeingDragged:
 				continue
 
-			print("Highlighting card: ", card.name, " with index: ", card.card_index)
+			# print("Highlighting card: ", card.name, " with index: ", card.card_index)
 			if card.card_index != 7 and card.card_index != color_index:
 				continue
 
@@ -339,11 +342,40 @@ func raycast_check(_collider: int):
 			return highest_z_card
 	return null
 
+func ajustarEscalaDasCartasDinamicamente() -> void:
+	if jogador_principal.cartas.size() > 35:
+		escala_dinamica = 0.15
+	elif jogador_principal.cartas.size() > 30:
+		escala_dinamica = 0.25
+	elif jogador_principal.cartas.size() > 20:
+		escala_dinamica = 0.30
+	elif jogador_principal.cartas.size() > 15:
+		escala_dinamica = 0.35
+	elif jogador_principal.cartas.size() > 10:
+		escala_dinamica = 0.50
+	elif jogador_principal.cartas.size() > 8:
+		escala_dinamica = 0.60
+	else:	
+		escala_dinamica = 0.85
+	
+	LARGURA_CARTA = 125*escala_dinamica
+	escala_highlight_dinamica = escala_dinamica+0.1
+	
+
 func _process(_delta: float) -> void: 
+	
+
+	
+	
 	if not jogador_principal: return
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
 	$"../GUI/Jogador Principal/trens".text = str(jogador_principal.trens)
-	
+	var cartas_destino_completas = jogador_principal.cartas_destino.duplicate(true)
+	# filter cartas com completado 
+	cartas_destino_completas = cartas_destino_completas.filter(func(carta: CartaDestino) -> bool:
+		return carta.concluida
+	)
+	$"../GUI/Jogador Principal/bilhetes_relacao".text = str(cartas_destino_completas.size()) + "/" + str(jogador_principal.cartas_destino.size())
 	if gerenciadorDeFluxoDeJogo.pausar_jogador_principal or gerenciadorDeFluxoDeJogo.pausar_cartas_mao_jogador_princial:
 		for carta in jogador_principal.cartas:
 			# maake each carta a little bit darker
@@ -365,7 +397,7 @@ func _process(_delta: float) -> void:
 			var trilha_sob_carta: TrilhaVagao = gerenciadorDeTrilhosRef.get_trilha_sob_retangulo(card_rect)
 			if trilha_sob_carta:
 				gerenciadorDeTrilhosRef.unhighlight_all_trilhas()
-				print(cardBeingDragged.card_index == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index)
+				# print(cardBeingDragged.card_index == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index)
 				if (not trilha_sob_carta.capturado and (cardBeingDragged.card_index == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == 7 or trilha_sob_carta.cores_map[trilha_sob_carta.cor_trilha] == cardBeingDragged.card_index) ):
 					trilha_sob_carta.highlight_all_vagoes()
 					highlight_deck_cards(cardBeingDragged.card_index) 

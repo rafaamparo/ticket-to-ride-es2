@@ -1,0 +1,192 @@
+[gd_scene load_steps=8 format=3 uid="uid://dx87h4slqn62j"]
+
+[ext_resource type="Texture2D" uid="uid://bf80viq1m04u6" path="res://game_assets/main_menu/background.jpg" id="1_pvixp"]
+[ext_resource type="Texture2D" uid="uid://ix0m1t83ahoc" path="res://game_assets/main_menu/logo.png" id="2_bqomf"]
+[ext_resource type="Texture2D" uid="uid://dm0y18w0dwtm6" path="res://game_assets/caixa_de_texto_grande.png" id="4_dkc18"]
+[ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="4_pktd1"]
+[ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="5_snntj"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="5_xblau"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlu8w"]
+texture = ExtResource("1_pvixp")
+
+[node name="NewGameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rlu8w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 350
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_bqomf")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[b]CRIANDO NOVO JOGO[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+texture = ExtResource("4_dkc18")
+expand_mode = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 337.0
+offset_top = 19.5
+offset_right = 801.0
+offset_bottom = 68.5
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 35
+bbcode_enabled = true
+text = "[b]CONFIGURAÇÕES DE PARTIDA[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 67.5
+offset_right = 504.0
+offset_bottom = 116.5
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Quantidade de Bots:[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 115.5
+offset_right = 505.0
+offset_bottom = 164.5
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Dificuldade:[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 173.5
+offset_right = 888.0
+offset_bottom = 222.5
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Seletor de Mapa[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 220.5
+offset_right = 643.0
+offset_bottom = 407.5
+texture = ExtResource("5_snntj")
+expand_mode = 5
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 478.0
+offset_top = 412.5
+offset_right = 942.0
+offset_bottom = 461.5
+size_flags_horizontal = 2
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/normal_font_size = 0
+bbcode_enabled = true
+text = "[b]Mapa Computação"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Versão 0.1.0[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/normal_font = ExtResource("5_xblau")
+theme_override_font_sizes/normal_font_size = 19
+theme_override_font_sizes/bold_font_size = 22
+bbcode_enabled = true
+text = "© 2025 GRUPO BCJJRT"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

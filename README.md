@@ -3,24 +3,23 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
 
 ## :train: Modo de uso :train:
 
-1. Início do Jogo
+1. ***Início do Jogo***
 <br>Ao iniciar uma partida, cada jogador recebe:
  * 6 Cartas de Vagão: Estas cartas representam as diferentes cores de vagão usadas para conectar as disciplinas no mapa.
  * 0 Cartas de Objetivo: Essas cartas mostram duas disciplinas que você deve conectar. Você deve escolher manter pelo menos duas delas. Objetivos concluídos rendem muitos pontos no final!
 
-2. O seu Turno
+2. ***O seu Turno***
 <br>Na sua vez, você deve realizar uma das três ações a seguir:
-a. Comprar Cartas de Vagão
+<br>a. Comprar Cartas de Vagão
 Você pode comprar até duas cartas de vagão. As opções são:
  * Pegar qualquer uma das cartas com a face para cima;
  * Pegar uma carta "às cegas" do topo do monte de compras.
  * Atenção: A carta multicolorida (Coringa) é especial e pode substituir qualquer cor. Se você pegá-la entre as cartas viradas para cima, ela conta como sua única compra daquele turno.
-b. Conectar Disciplinas
+<br>b. Conectar Disciplinas
 <br>Para conectar duas disciplinas adjacentes no mapa, você deve jogar um conjunto de Cartas de Vagão correspondente à cor e ao número de espaços da rota. Por exemplo, para uma rota azul de 3 espaços, você deve baixar 3 cartas de crédito azuis.
  * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
  * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
 
-<div align="center">
 **Comprimento da Rota** | **Pontos** |
 :---------------------: | :--------: |
 1 | 1 |
@@ -31,15 +30,14 @@ b. Conectar Disciplinas
 6 | 15 |
 7 | 21 |
 8 | 28 |
-</div>
 
-c. Pegar Novas Cartas de Objetivo
+<br>c. Pegar Novas Cartas de Objetivo
 <br>Você pode comprar mais 3 Cartas de Objetivo para tentar aumentar sua pontuação final. Você deve obrigatoriamente ficar com pelo menos uma das três novas cartas.
 
-3. Fim de Jogo
+3. ***Fim de Jogo***
 <br>O final do jogo é acionado quando um jogador fica com 2 ou menos peças de conexão. 
 
-4. Pontuação Final
+4. ***Pontuação Final***
 <br>Após a última rodada, a pontuação final é calculada:
  * Pontos das Rotas: Soma de todos os pontos obtidos ao conectar disciplinas durante o jogo.
  * Bônus dos Objetivos: Adiciona-se o valor de cada Carta de Objetivo que foi completada com sucesso.

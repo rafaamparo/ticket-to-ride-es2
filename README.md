@@ -13,7 +13,7 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
  * a. Comprar Cartas de Vagão
 <br>Você pode comprar até duas cartas de vagão. As opções são:
  
- * * Pegar qualquer uma das cartas com a face para cima;
+ ** Pegar qualquer uma das cartas com a face para cima;
  * Pegar uma carta "às cegas" do topo do monte de compras.
  * Atenção: A carta multicolorida (Coringa) é especial e pode substituir qualquer cor. Se você pegá-la entre as cartas viradas para cima, ela conta como sua única compra daquele turno.
 

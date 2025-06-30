@@ -27,4 +27,11 @@ func _on_mouse_exited() -> void:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		get_tree().change_scene_to_file("res://scenes/game_scene.tscn")
+		
+		if (href == "0"):
+			get_tree().change_scene_to_file("res://scenes/new_game.tscn")
+			
+		if (href == "3"):
+			# quit game
+			get_tree().quit()
+			

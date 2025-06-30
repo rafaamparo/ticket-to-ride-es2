@@ -1,7 +1,7 @@
 class_name GerenciadorDeFluxo extends Node
 
 signal acao_jogador_terminada
-const qtd_jogadores_bot: int = 3
+var qtd_jogadores_bot: int = Globals.qtd_bots
 var gerenciadorDeComprarCartas: GerenciadorComprarCartas = null
 var gerenciadorDeCartasDestino: GerenciadorCartasDestino = null
 var textDialog: TextDialog = null
@@ -19,7 +19,7 @@ func _ready() -> void:
 	gerenciadorDeCartasDestino = $"../GUI/GerenciadorCartasDestino";
 	# Criar o jogador principal
 	jogador_principal = Jogador.new()
-	jogador_principal.nome = "Rafael A."
+	jogador_principal.nome = "Troy"
 	jogador_principal.isBot = false
 	lista_jogadores.append(jogador_principal)
 
@@ -28,10 +28,10 @@ func _ready() -> void:
 	if gerenciador_cartas:
 		gerenciador_cartas.jogador_principal = jogador_principal
 
-	for i in range(qtd_jogadores_bot):
+	for i in range(Globals.qtd_bots):
 		var jogador: Jogador = Jogador.new()
 		jogador.nome = "Bot " + str(i + 1)
-		jogador.trens = 30
+		jogador.trens = Globals.qtd_trens_inicio
 		jogador.isBot = true
 		jogador.cor = i
 		var jogadorBoxScene = preload("res://game_assets/game_scene/object_scenes/jogador_bot_box.tscn")

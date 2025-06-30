@@ -40,6 +40,7 @@ const cores_map_reverse = {
 		if is_node_ready():
 			_update_vagoes_saturacao()
 
+var jogadorQueCapturou: Jogador = null
 var vagoes_array: Array[Vagao] = []
 @export var parada1: Parada = null
 @export var parada2: Parada = null
@@ -61,9 +62,10 @@ func get_qtd_vagoes() -> int:
 	return vagoes_array.size()
 
 
-func capturar_trilha() -> void:
+func capturar_trilha(jogador: Jogador) -> void:
 	if not capturado:
 		capturado = true
+		jogadorQueCapturou = jogador
 		_update_vagoes_cor()
 		_update_vagoes_saturacao()
 		

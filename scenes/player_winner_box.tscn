@@ -11,7 +11,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_clf6d")
 theme_override_font_sizes/font_size = 21
-text = "1. Rafael A."
+text = "1. Troy"
 
 [node name="Points" type="Label" parent="."]
 layout_mode = 2

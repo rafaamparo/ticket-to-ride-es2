@@ -11,8 +11,30 @@ func _ready() -> void:
 	pass # Parent TrilhaVagao will call update_saturation if needed.
 
 
+func getParentPlayerOwner() -> Jogador:
+	# Get the parent node, which should be a TrilhaVagao
+	var parent_node = get_parent()
+	if parent_node is TrilhaVagao:
+		return parent_node.jogadorQueCapturou
+	return null # Return null if the parent is not a TrilhaVagao
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	var jogador = getParentPlayerOwner()
+	if (jogador):
+		$Label.visible = true
+		if (!jogador.isBot):
+			$Label.text = "T"
+		else:
+			var player_name = jogador.nome
+			if player_name.length() > 0:
+				$Label.text = player_name[0].to_upper() + player_name[player_name.length() - 1].to_upper()
+			else:
+				$Label.text = "N" # Default to "N" if name is empty
+
+	else:
+		$Label.visible = false
+	
 	pass
 
 func update_saturation(is_captured: bool) -> void:

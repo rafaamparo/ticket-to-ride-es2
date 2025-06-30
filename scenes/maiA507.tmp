@@ -75,7 +75,6 @@ href = "1"
 button_name = "Configurações"
 
 [node name="Conquistas" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_3k0gc")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1

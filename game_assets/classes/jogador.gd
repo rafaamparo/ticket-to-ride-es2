@@ -3,7 +3,7 @@ class_name Jogador extends Node2D
 const QTD_CARTAS_BOT = 6
 var nome: String = "Jogador BOT"
 var isBot: bool = false
-var trens: int = 30
+var trens: int = Globals.qtd_trens_inicio
 var pontos: int = 0
 var cor: int = 0
 var cartas: Array[GameCard] = []
@@ -16,13 +16,14 @@ var player_info_box: JogadorBotBox = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	trens = Globals.qtd_trens_inicio
 	pass
 
 
 func gerarCartasBot() -> void:
 	if (!isBot): return;
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
-	for i in range(QTD_CARTAS_BOT):
+	for i in range(Globals.qtd_cartas_inicio):
 		var carta = carta_scene.instantiate()
 		var cor_aleatoria = randi_range(0,7)
 		if cor_aleatoria == 7 and self.cartas_coringa >= 2:
@@ -91,7 +92,7 @@ func capturarRotaBot(gerenciador_trilhas_ref: GerenciadorDeTrilhas) -> bool:
 				carta_usada.queue_free()
 		if trilha.cores_map[trilha.cor_trilha] == 7:
 			trilha.cor_trilha = trilha.cores_map_reverse[cartas_a_serem_usadas[0].card_index]
-		trilha.capturar_trilha()
+		trilha.capturar_trilha(self)
 		self.caminhosCapturados.append(trilha)
 		pontos += trilha.pontos_da_trilha
 		trens -= num_vagoes_necessarios

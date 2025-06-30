@@ -1,14 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://dx87h4slqn62j"]
+[gd_scene load_steps=16 format=3 uid="uid://dx87h4slqn62j"]
 
-[ext_resource type="Texture2D" uid="uid://bf80viq1m04u6" path="res://game_assets/main_menu/background.jpg" id="1_pvixp"]
+[ext_resource type="Texture2D" uid="uid://btd1n64yre0bb" path="res://game_assets/main_menu/background2.png" id="1_54b8n"]
+[ext_resource type="Script" path="res://scripts/new_game_scene.gd" id="1_w2f82"]
 [ext_resource type="Texture2D" uid="uid://ix0m1t83ahoc" path="res://game_assets/main_menu/logo.png" id="2_bqomf"]
 [ext_resource type="Texture2D" uid="uid://dm0y18w0dwtm6" path="res://game_assets/caixa_de_texto_grande.png" id="4_dkc18"]
 [ext_resource type="FontFile" uid="uid://eekays4jqcx1" path="res://game_assets/fonts/pixelifysans/PixelifySans-Bold.ttf" id="4_pktd1"]
 [ext_resource type="Texture2D" uid="uid://cy1copphy32uc" path="res://game_assets/game_scene/mapa.png" id="5_snntj"]
 [ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="5_xblau"]
+[ext_resource type="FontFile" uid="uid://cqbqjave1reac" path="res://game_assets/fonts/pixelifysans/PixelifySans-Medium.ttf" id="7_71csj"]
+[ext_resource type="Texture2D" uid="uid://bphdq42khfb2g" path="res://game_assets/main_menu/container.png" id="8_gxocg"]
+[ext_resource type="Texture2D" uid="uid://8lmcadh3vgd8" path="res://game_assets/main_menu/mapas/linha.png" id="9_cag37"]
+[ext_resource type="Texture2D" uid="uid://c8e0x41v5v3j4" path="res://game_assets/main_menu/mapas/mapa1.png" id="9_uvykj"]
+[ext_resource type="Texture2D" uid="uid://c7qd2i37faup2" path="res://game_assets/main_menu/mapas/mapa_bloqueado.png" id="10_a1etp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlu8w"]
-texture = ExtResource("1_pvixp")
+texture = ExtResource("1_54b8n")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vr2g5"]
+texture = ExtResource("8_gxocg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gt08"]
+bg_color = Color(0.193575, 0.247086, 0.389311, 1)
+border_width_bottom = 3
+border_color = Color(0.143575, 0.188242, 0.303335, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 19
+expand_margin_top = 4.0
+expand_margin_bottom = 3.0
 
 [node name="NewGameMenu" type="Control"]
 layout_mode = 3
@@ -17,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_w2f82")
 
 [node name="background" type="Panel" parent="."]
 layout_mode = 1
@@ -40,6 +62,7 @@ theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -190,3 +213,207 @@ text = "© 2025 GRUPO BCJJRT"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+texture = ExtResource("2_bqomf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.454902)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.105882, 0.219608, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 14
+theme_override_constants/shadow_outline_size = 14
+theme_override_fonts/font = ExtResource("7_71csj")
+theme_override_font_sizes/font_size = 30
+text = "CRIANDO NOVO JOGO"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_vr2g5")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_71csj")
+theme_override_font_sizes/font_size = 24
+text = "Configuração de Partida"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_71csj")
+theme_override_font_sizes/font_size = 22
+text = "Quantidade de Bots:"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 3
+popup/item_0/text = "1"
+popup/item_0/id = 1
+popup/item_1/text = "2"
+popup/item_1/id = 2
+popup/item_2/text = "3"
+popup/item_2/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_71csj")
+theme_override_font_sizes/font_size = 22
+text = "Dificuldade:"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 3
+popup/item_0/text = "Fácil"
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Difícil"
+popup/item_2/id = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12.38)
+layout_mode = 2
+texture = ExtResource("9_cag37")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_71csj")
+theme_override_font_sizes/font_size = 22
+text = "Seletor de Mapa"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_uvykj")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_a1etp")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_a1etp")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("5_xblau")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_0gt08")
+text = "Começar o Jogo"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_top = 15
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/bold_font = ExtResource("4_pktd1")
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Versão 1.0.0[/b]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/normal_font = ExtResource("5_xblau")
+theme_override_font_sizes/normal_font_size = 19
+theme_override_font_sizes/bold_font_size = 22
+bbcode_enabled = true
+text = "© 2025 GRUPO BCJJRT"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]

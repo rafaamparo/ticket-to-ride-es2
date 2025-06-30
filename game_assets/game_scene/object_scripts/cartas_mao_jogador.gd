@@ -24,7 +24,7 @@ func _ready() -> void:
 func inicializar_cartas_jogador():
 	var carta_scene = preload("res://game_assets/game_scene/object_scenes/game_card_scene.tscn")
 	var centro_tela_x = get_viewport().size.x / 2
-	for i in range(QTD_CARTAS):
+	for i in range(Globals.qtd_cartas_inicio):
 		var carta = carta_scene.instantiate()
 		var cor_aleatoria = randi_range(0,7)
 		if cor_aleatoria == 7 and jogador_principal.cartas_coringa >= 2:
@@ -217,7 +217,7 @@ func stop_drag():
 					# print(jogador_principal.cartas)
 					if trilha_detectada.cores_map[trilha_detectada.cor_trilha] == 7:
 						trilha_detectada.cor_trilha = trilha_detectada.cores_map_reverse[actual_card_being_dragged.card_index]
-					trilha_detectada.capturar_trilha() 
+					trilha_detectada.capturar_trilha(self.jogador_principal) 
 					jogador_principal.caminhosCapturados.append(trilha_detectada)
 					jogador_principal.pontos += trilha_detectada.pontos_da_trilha
 					jogador_principal.trens -= num_vagoes_necessarios
@@ -372,6 +372,7 @@ func _process(_delta: float) -> void:
 	if not jogador_principal: return
 	$"../GUI/Jogador Principal/pontos".text = str(jogador_principal.pontos)
 	$"../GUI/Jogador Principal/trens".text = str(jogador_principal.trens)
+	$"../GUI/Jogador Principal/Nome".text = jogador_principal.nome
 	var cartas_destino_completas = jogador_principal.cartas_destino.duplicate(true)
 	# filter cartas com completado 
 	cartas_destino_completas = cartas_destino_completas.filter(func(carta: CartaDestino) -> bool:

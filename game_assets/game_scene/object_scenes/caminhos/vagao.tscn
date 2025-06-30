@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://j2ecbyo8q7o7"]
+[gd_scene load_steps=5 format=3 uid="uid://j2ecbyo8q7o7"]
 
 [ext_resource type="Script" path="res://game_assets/game_scene/object_scenes/caminhos/vagoes.gd" id="1_apm3g"]
 [ext_resource type="Texture2D" uid="uid://dsox2ylom26c3" path="res://game_assets/game_scene/vagao_full_spreadsheet.png" id="2_p60vx"]
+[ext_resource type="FontFile" uid="uid://c8fybhkuxj3li" path="res://game_assets/fonts/pixellari/Pixellari.ttf" id="3_q2gp8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qt8xo"]
 size = Vector2(46, 70)
@@ -15,8 +16,23 @@ texture = ExtResource("2_p60vx")
 hframes = 2
 vframes = 4
 frame = 7
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 12.0
+offset_bottom = 15.0
+theme_override_colors/font_outline_color = Color(0.216684, 0.216684, 0.216684, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_q2gp8")
+theme_override_font_sizes/font_size = 18
+text = "B1"
+horizontal_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qt8xo")
+metadata/_edit_lock_ = true

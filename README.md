@@ -3,7 +3,7 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
 
 ## :train: Modo de uso :train:
 
-1 - Início do Jogo
+1. Início do Jogo
 Ao iniciar uma partida, cada jogador recebe:
  * 6 Cartas de Vagão: Estas cartas representam as diferentes cores de vagão usadas para conectar as disciplinas no mapa.
  * 0 Cartas de Objetivo: Essas cartas mostram duas disciplinas que você deve conectar. Você deve escolher manter pelo menos duas delas. Objetivos concluídos rendem muitos pontos no final!
@@ -20,16 +20,16 @@ Para conectar duas disciplinas adjacentes no mapa, você deve jogar um conjunto 
  * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
  * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
 <br>
-| Comprimento da Rota | Pontos |
-| :---: | :---: |
-| 1 | 1 |
-| 2 | 2 |
-| 3 | 4 |
-| 4 | 7 |
-| 5 | 10 |
-| 6 | 15 |
-| 7 | 21 |
-| 8 | 28 |
+**Comprimento da Rota** | **Pontos** |
+:---: | :---: |
+1 | 1 |
+2 | 2 |
+3 | 4 |
+4 | 7 |
+5 | 10 |
+6 | 15 |
+7 | 21 |
+8 | 28 |
 
 
 - Pegar Novas Cartas de Objetivo

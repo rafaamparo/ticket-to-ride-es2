@@ -12,18 +12,17 @@ Bem-vindo ao ***Ticket to Class***! O nosso trabalho consiste em desenvolver uma
 <br>Na sua vez, você deve realizar uma das três ações a seguir:
  * a. Comprar Cartas de Vagão
 <br>Você pode comprar até duas cartas de vagão. As opções são:
- 
- ** Pegar qualquer uma das cartas com a face para cima;
- * Pegar uma carta "às cegas" do topo do monte de compras.
- * Atenção: A carta multicolorida (Coringa) é especial e pode substituir qualquer cor. Se você pegá-la entre as cartas viradas para cima, ela conta como sua única compra daquele turno.
+  * Pegar qualquer uma das cartas com a face para cima;
+  * Pegar uma carta "às cegas" do topo do monte de compras.
+  * Atenção: A carta multicolorida (Coringa) é especial e pode substituir qualquer cor. Se você pegá-la entre as cartas viradas para cima, ela conta como sua única compra daquele turno.
 
  * b. Pegar Novas Cartas de Objetivo
 <br>Você pode comprar mais 3 Cartas de Objetivo para tentar aumentar sua pontuação final. Você deve obrigatoriamente ficar com pelo menos uma das três novas cartas.
 
  * c. Conectar Disciplinas
 <br>Para conectar duas disciplinas adjacentes no mapa, você deve jogar um conjunto de Cartas de Vagão correspondente à cor e ao número de espaços da rota. Por exemplo, para uma rota azul de 3 espaços, você deve baixar 3 cartas de crédito azuis.
- * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
- * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
+  * Rotas cinzas podem ser reivindicadas com cartas de qualquer cor, desde que todas sejam da mesma cor.
+  * Ao conectar disciplinas, você ganha pontos imediatamente, baseados no tamanho da rota.
 
 **Comprimento da Rota** | **Pontos** |
 :---------------------: | :--------: |

@@ -113,7 +113,7 @@ func fluxoDeFimDeJogo() -> void:
 	var ranking: Array[Jogador] = lista_jogadores.duplicate()
 	ranking.sort_custom(func(a, b): return a.pontos > b.pontos)
 	$"../GUI/Winner-dialog".player_ranking = ranking
-	$"../GUI/Winner-dialog".show_dialog_box()
+	await $"../GUI/Winner-dialog".show_dialog_box()
 
 	await $"../GUI/Winner-dialog".wait_for_response()
 
@@ -134,7 +134,7 @@ func rodada_bot() -> void:
 		await get_tree().create_timer(3.5).timeout
 		await textDialog.hide_dialog()
 		await get_tree().create_timer(1.0).timeout
-		textDialog.show_dialog_with_text("%s está jogando..." % jogador_atual.nome)
+		await textDialog.show_dialog_with_text("%s está jogando..." % jogador_atual.nome)
 
 		# Estratégia do Bot:
 		# 1. Tenta capturar uma rota, que é a ação principal para vencer.

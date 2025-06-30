@@ -22,6 +22,9 @@ const cores_map_reverse = {
 	7: "cinza"
 }
 
+
+@export var pontos_da_trilha = 0
+
 # export a dropdown to select the color of the trail
 @export var cor_trilha: String = "vermelho":
 	set(value):
@@ -38,7 +41,8 @@ const cores_map_reverse = {
 			_update_vagoes_saturacao()
 
 var vagoes_array: Array[Vagao] = []
-
+@export var parada1: Parada = null
+@export var parada2: Parada = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +52,10 @@ func _ready() -> void:
 	
 	_update_vagoes_cor()
 	_update_vagoes_saturacao()
+	pontos_da_trilha = calcular_pontos_trilha()
+
+
+
 func get_qtd_vagoes() -> int:
 	# Returns the number of Vagao nodes in the array
 	return vagoes_array.size()
@@ -83,6 +91,26 @@ func _update_vagoes_saturacao() -> void:
 	for vagao_node in vagoes_array:
 		if vagao_node and vagao_node.has_method("update_saturation"):
 			vagao_node.update_saturation(capturado)
+			
+			
+func calcular_pontos_trilha() -> int:
+	match vagoes_array.size():
+		1: return 1;
+		2: return 2;
+		3: return 4;
+		4: return 7;
+		5: return 10;
+		6: return 15;
+		7: return 21;
+		8: return 28;
+		9: return 36;
+		10: return 45;
+		11, 12, 13, 14, 15: return 60;
+		16, 17, 18, 19, 20, 21, 22: return 75;
+		23, 24, 25, 26, 27, 28, 29, 30: return 85;
+		31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45: return 100;
+		_: return 0;
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

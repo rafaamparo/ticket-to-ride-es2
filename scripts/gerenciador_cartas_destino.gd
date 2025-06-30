@@ -299,10 +299,10 @@ func pegarCartaDestinoBaralho(jogador: Jogador) -> void:
 		jogador.cartas_destino.append(carta_gerada)
 	else:
 		if cartas_recusadas_turno.size() >= 2:
-			destino_text_dialog.show_dialog_box(carta_gerada, true);
+			await destino_text_dialog.show_dialog_box(carta_gerada, true);
 			mostrandoBox = true
 		else:
-			destino_text_dialog.show_dialog_box(carta_gerada);
+			await destino_text_dialog.show_dialog_box(carta_gerada);
 			mostrandoBox = true
 		var acao_do_jogador = await destino_text_dialog.response_received
 		

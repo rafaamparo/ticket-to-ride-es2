@@ -49,7 +49,7 @@ O nosso trabalho consiste em desenvolver uma releitura do jogo ***Ticket to Ride
 - [ ] Criação de Testes das funcionalidades básicas
 - [x] Análise da Sprint
 
-### Iteração III (03/06 - 28/06)
+### Iteração III (03/06 - 30/06)
 - [x] Sistema de compra de cartas
 - [x] Sistema de turnos
 - [x] Menu Principal e Configurações
